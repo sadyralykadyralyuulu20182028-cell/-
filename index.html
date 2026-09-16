@@ -3,361 +3,716 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Кыз узатуу — Шайырбунун тою</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  background: #f7e9ed;
-  color: #642d43;
-  overflow: hidden;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-#cover {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: linear-gradient(135deg, #f8dce5, #fff8fa);
-  text-align: center;
+body{
+    background:#f8f1ed;
+    color:#5a3038;
 }
 
-#cover h1 {
-  font-size: 36px;
-  margin-bottom: 30px;
-  color: #8d3155;
+/* ================= КОНВЕРТ ================= */
+
+#cover{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center, #fffaf7 0%, #f4e4df 100%);
+    transition:opacity 1s ease, visibility 1s;
 }
 
-.envelope {
-  width: 250px;
-  height: 170px;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s;
+#cover.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
 }
 
-.envelope:hover {
-  transform: scale(1.05);
+.envelope{
+    width:310px;
+    height:210px;
+    position:relative;
+    cursor:pointer;
+    filter:drop-shadow(0 15px 25px rgba(70,30,30,.2));
 }
 
-.envelope-body {
-  width: 100%;
-  height: 100%;
-  background: #c75b7d;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px #9c536655;
-  position: absolute;
+.envelope-back{
+    position:absolute;
+    inset:0;
+    background:#e9c7c8;
+    border-radius:8px;
 }
 
-.envelope-body::before,
-.envelope-body::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
+.envelope-left{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:0;
+    border-left:155px solid #dcaeb3;
+    border-top:105px solid transparent;
+    border-bottom:105px solid transparent;
+    z-index:2;
 }
 
-.envelope-body::before {
-  left: 0;
-  border-width: 85px 125px 0 0;
-  border-color: #e994ad transparent transparent transparent;
+.envelope-right{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:0;
+    height:0;
+    border-right:155px solid #dcaeb3;
+    border-top:105px solid transparent;
+    border-bottom:105px solid transparent;
+    z-index:2;
 }
 
-.envelope-body::after {
-  right: 0;
-  border-width: 0 125px 85px 0;
-  border-color: transparent #e994ad transparent transparent;
+.envelope-bottom{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:155px solid transparent;
+    border-right:155px solid transparent;
+    border-bottom:115px solid #c9919b;
+    z-index:3;
 }
 
-.envelope-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 125px solid transparent;
-  border-right: 125px solid transparent;
-  border-top: 95px solid #b84d70;
-  z-index: 2;
+.envelope-top{
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:155px solid transparent;
+    border-right:155px solid transparent;
+    border-top:115px solid #d9aab1;
+    transform-origin:top;
+    transition:1s ease;
+    z-index:5;
 }
 
-.open-text {
-  margin-top: 25px;
-  font-size: 18px;
-  color: #8d3155;
+.envelope.open .envelope-top{
+    transform:rotateX(180deg);
 }
 
-#site {
-  display: none;
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+.cover-text{
+    position:absolute;
+    z-index:10;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    width:250px;
+    pointer-events:none;
 }
 
-.page {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  animation: appear 0.7s ease;
+.cover-text h1{
+    font-size:31px;
+    color:#7b3d4a;
+    margin-bottom:10px;
 }
 
-.page.active {
-  display: block;
+.cover-text p{
+    font-size:15px;
+    color:#8c5a61;
 }
 
-.page img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.click-text{
+    position:absolute;
+    bottom:-75px;
+    width:100%;
+    text-align:center;
+    color:#75434c;
+    font-size:15px;
+    animation:pulse 1.5s infinite;
 }
 
-.overlay {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 88%;
-  max-width: 650px;
-  padding: 25px;
-  text-align: center;
-  color: #702b49;
-  background: rgba(255, 248, 250, 0.84);
-  border: 2px solid rgba(164, 75, 108, 0.55);
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(90, 30, 50, 0.2);
+@keyframes pulse{
+    50%{opacity:.45;}
 }
 
-.overlay h1 {
-  margin: 0 0 18px;
-  font-size: clamp(28px, 5vw, 48px);
-  color: #a52f60;
+/* ================= САЙТ ================= */
+
+#site{
+    width:100%;
+    height:100%;
+    position:relative;
+    display:none;
 }
 
-.overlay h2 {
-  margin: 8px 0;
-  font-size: clamp(22px, 4vw, 34px);
+#site.show{
+    display:block;
 }
 
-.overlay p {
-  font-size: clamp(17px, 2.5vw, 23px);
-  line-height: 1.6;
-  margin: 10px 0;
+.page{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:
+        radial-gradient(circle at top,#fff 0%,#f9eeea 65%,#f1dfda 100%);
 }
 
-.date {
-  font-size: clamp(27px, 5vw, 44px);
-  font-weight: bold;
-  color: #a52f60;
-  margin: 15px 0;
+.page.active{
+    display:flex;
+    animation:pageIn .7s ease;
 }
 
-.buttons {
-  position: fixed;
-  bottom: 25px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  z-index: 5;
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateX(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
 }
 
-button {
-  border: none;
-  padding: 12px 23px;
-  border-radius: 30px;
-  background: #a52f60;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px #00000030;
+/* ================= СҮРӨТ ================= */
+
+.image-box{
+    width:min(92vw,720px);
+    height:min(82vh,780px);
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 45px rgba(70,35,35,.25);
+    border:5px solid rgba(255,255,255,.85);
 }
 
-button:hover {
-  background: #7d2348;
+.image-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
-.counter {
-  position: fixed;
-  top: 18px;
-  right: 20px;
-  z-index: 5;
-  padding: 8px 15px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.8);
-  color: #8d3155;
-  font-size: 14px;
+/* СҮРӨТТҮН ҮСТҮНДӨГҮ ЖАЗУУ */
+
+.image-caption{
+    position:absolute;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    width:88%;
+    padding:17px 20px;
+    text-align:center;
+
+    background:rgba(255,250,248,.88);
+    border:1px solid rgba(130,70,75,.25);
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(50,20,20,.18);
+    backdrop-filter:blur(5px);
 }
 
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: scale(1.03);
-  }
+.image-caption h2{
+    font-size:28px;
+    color:#713844;
+    margin-bottom:6px;
+}
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.image-caption p{
+    font-size:16px;
+    color:#704a50;
+}
+
+/* ================= ТЕКСТ БАРАК ================= */
+
+.text-page{
+    text-align:center;
+}
+
+.text-card{
+    width:min(90vw,700px);
+    padding:45px 30px;
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(135,80,85,.2);
+    border-radius:28px;
+    box-shadow:0 15px 40px rgba(70,35,35,.12);
+}
+
+.ornament{
+    font-size:30px;
+    color:#a96c74;
+    margin-bottom:20px;
+}
+
+.text-card h1{
+    font-size:31px;
+    color:#733945;
+    margin-bottom:25px;
+}
+
+.text-card p{
+    font-size:19px;
+    line-height:1.8;
+    color:#65464b;
+}
+
+.date{
+    margin-top:25px;
+    font-size:27px !important;
+    font-weight:bold;
+    color:#743b46 !important;
+}
+
+.location{
+    margin-top:10px;
+    font-size:21px !important;
+}
+
+.owner{
+    margin-top:25px;
+    font-size:22px !important;
+    line-height:1.7 !important;
+}
+
+/* ================= БАСКЫЧТАР ================= */
+
+.nav{
+    position:fixed;
+    z-index:50;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.nav button{
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    background:rgba(112,57,68,.88);
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(50,20,20,.2);
+}
+
+.counter{
+    background:rgba(255,255,255,.9);
+    padding:9px 15px;
+    border-radius:20px;
+    color:#733945;
+    font-size:14px;
+}
+
+/* ================= МОБИЛЬНЫЙ ================= */
+
+@media(max-width:600px){
+
+    .envelope{
+        width:280px;
+        height:190px;
+    }
+
+    .envelope-left{
+        border-left-width:140px;
+        border-top-width:95px;
+        border-bottom-width:95px;
+    }
+
+    .envelope-right{
+        border-right-width:140px;
+        border-top-width:95px;
+        border-bottom-width:95px;
+    }
+
+    .envelope-bottom{
+        border-left-width:140px;
+        border-right-width:140px;
+        border-bottom-width:105px;
+    }
+
+    .envelope-top{
+        border-left-width:140px;
+        border-right-width:140px;
+        border-top-width:105px;
+    }
+
+    .cover-text h1{
+        font-size:27px;
+    }
+
+    .image-box{
+        width:94vw;
+        height:76vh;
+        border-radius:15px;
+    }
+
+    .image-caption{
+        bottom:20px;
+        padding:13px 12px;
+    }
+
+    .image-caption h2{
+        font-size:22px;
+    }
+
+    .image-caption p{
+        font-size:14px;
+    }
+
+    .text-card{
+        padding:35px 20px;
+    }
+
+    .text-card h1{
+        font-size:26px;
+    }
+
+    .text-card p{
+        font-size:17px;
+        line-height:1.7;
+    }
+
+    .date{
+        font-size:23px !important;
+    }
+
+    .location{
+        font-size:18px !important;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= КОНВЕРТ ================= -->
+
 <div id="cover">
-  <h1>КЫЗ УЗАТУУ</h1>
 
-  <div class="envelope" onclick="openInvitation()">
-    <div class="envelope-body"></div>
-    <div class="envelope-flap"></div>
-  </div>
+    <div class="envelope" id="envelope">
 
-  <div class="open-text">
-    Чакыруу катын ачуу үчүн конвертти басыңыз
-  </div>
+        <div class="envelope-back"></div>
+        <div class="envelope-left"></div>
+        <div class="envelope-right"></div>
+        <div class="envelope-bottom"></div>
+        <div class="envelope-top"></div>
+
+        <div class="cover-text">
+            <h1>КЫЗ УЗАТУУ</h1>
+            <p>Шайырбунун кыз узатуу тою</p>
+        </div>
+
+        <div class="click-text">
+            Конвертти басыңыз 💌
+        </div>
+
+    </div>
+
 </div>
 
+<!-- ================= МУЗЫКА ================= -->
+
 <audio id="music" loop>
-  <source src="a_176625.mp3" type="audio/mpeg">
+    <source src="a_176625.mp3" type="audio/mpeg">
 </audio>
+
+<!-- ================= НЕГИЗГИ САЙТ ================= -->
 
 <div id="site">
 
-  <div class="page active">
-    <img src="изображения%20(1).jpeg" alt="Кыз узатуу сүрөтү">
+    <!-- 1-БАРАК — СҮРӨТ -->
 
-    <div class="overlay">
-      <h1>КЫЗ УЗАТУУ</h1>
-      <h2>Шайырбунун кыз узатуу тою</h2>
-      <p>Сиздерди салтанаттуу кечебизге чакырабыз!</p>
+    <section class="page active">
+
+        <div class="image-box">
+
+            <img src="изображения (1).jpeg">
+
+            <div class="image-caption">
+                <h2>КЫЗ УЗАТУУ</h2>
+                <p>Шайырбунун кыз узатуу тоюна</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 2-БАРАК — ЧАКЫРУУ -->
+
+    <section class="page text-page">
+
+        <div class="text-card">
+
+            <div class="ornament">❦ ❦ ❦</div>
+
+            <h1>УРМАТТУУ КОНОКТОР!</h1>
+
+            <p>
+                Сиздерди кызыбыз <b>Шайырбунун</b>
+                кыз узатуу тоюна арналган салтанаттуу
+                кечеге келип, ак дасторкондун үстүндө
+                ак баталарыңызды берип, кадырлуу
+                коногубуз болуп кетүүгө чын жүрөктөн чакырабыз!
+            </p>
+
+            <div class="ornament">❦</div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 3-БАРАК — СҮРӨТ -->
+
+    <section class="page">
+
+        <div class="image-box">
+
+            <img src="изображения (2).jpeg">
+
+            <div class="image-caption">
+                <h2>КЫЗЫБЫЗДЫН КУБАНЫЧЫ</h2>
+                <p>Кубанычыбызга ортоктош болуңуздар</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 4-БАРАК — ДАТА -->
+
+    <section class="page text-page">
+
+        <div class="text-card">
+
+            <div class="ornament">❦ ❦ ❦</div>
+
+            <h1>ТОЙ КҮНҮ</h1>
+
+            <p class="date">
+                25.10.2026
+            </p>
+
+            <p class="date">
+                Саат 17:00
+            </p>
+
+            <p class="location">
+                📍 Шамалды-Сай шаары<br>
+                «Айкол» рестораны
+            </p>
+
+            <br>
+
+            <p>
+                Ак жол тилеп, ак баталарыңыздарды берип,
+                кубанычыбызга ортоктош болуп кетиңиздер!
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- 5-БАРАК — СҮРӨТ -->
+
+    <section class="page">
+
+        <div class="image-box">
+
+            <img src="изображения (3).jpeg">
+
+            <div class="image-caption">
+                <h2>АК БАТАҢЫЗДАРДЫ КҮТӨБҮЗ</h2>
+                <p>Келип, кубанычыбызды бөлүшүңүздөр</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 6-БАРАК — ТОЙ ЭЭСИ -->
+
+    <section class="page text-page">
+
+        <div class="text-card">
+
+            <div class="ornament">❦ ❦ ❦</div>
+
+            <h1>КҮТӨБҮЗ!</h1>
+
+            <p>
+                Келип, кызыбыздын ак жолуна
+                ак баталарыңызды берип,
+                кубанычыбызга ортоктош болуп
+                кетишиңиздерди каалайбыз.
+            </p>
+
+            <p class="owner">
+                Сиздерди урматтоо менен,<br><br>
+
+                <b>Той ээси</b><br>
+                <b>Кадыралы Бурулсун</b>
+            </p>
+
+            <div class="ornament">❦ ❦ ❦</div>
+
+        </div>
+
+    </section>
+
+
+    <!-- БАСКЫЧТАР -->
+
+    <div class="nav">
+
+        <button id="prev">‹</button>
+
+        <div class="counter">
+            <span id="current">1</span> / 6
+        </div>
+
+        <button id="next">›</button>
+
     </div>
-  </div>
-
-  <div class="page">
-    <img src="изображения%20(2).jpeg" alt="Кыз узатуу сүрөтү">
-
-    <div class="overlay">
-      <h1>УРМАТТУУ КОНОКТОР!</h1>
-
-      <p>
-        Сиздерди кызыбыз Шайырбунун кыз узатуу тоюна арналган
-        салтанаттуу кечеге келип, ак дасторкондун үстүндө
-        ак баталарыңызды берип, кадырлуу коногубуз болуп
-        кетүүгө чын жүрөктөн чакырабыз!
-      </p>
-    </div>
-  </div>
-
-  <div class="page">
-    <img src="изображения%20(3).jpeg" alt="Кыз узатуу сүрөтү">
-
-    <div class="overlay">
-      <h1>ТОЙГО КҮТӨБҮЗ!</h1>
-
-      <div class="date">25.10.2026</div>
-
-      <p><b>Саат 17:00</b></p>
-
-      <p>
-        Шамалды-Сай шаары,<br>
-        «Айкол» рестораны
-      </p>
-
-      <p>
-        Ак жол тилеп, ак баталарыңыздарды берип,
-        кубанычыбызга ортоктош болуп кетиңиздер!
-      </p>
-
-      <p>
-        Сиздерди урматтоо менен,<br>
-        <b>Той ээси Кадыралы Бурулсун</b>
-      </p>
-    </div>
-  </div>
-
-  <div class="counter" id="counter">1 / 3</div>
-
-  <div class="buttons">
-    <button onclick="previousPage()">← Артка</button>
-    <button onclick="nextPage()">Кийинки →</button>
-  </div>
 
 </div>
 
+
 <script>
-let currentPage = 0;
-const pages = document.querySelectorAll(".page");
-const counter = document.getElementById("counter");
+
+const cover = document.getElementById("cover");
+const envelope = document.getElementById("envelope");
+const site = document.getElementById("site");
 const music = document.getElementById("music");
 
-function openInvitation() {
-  document.getElementById("cover").style.display = "none";
-  document.getElementById("site").style.display = "block";
+const pages = document.querySelectorAll(".page");
 
-  music.play().catch(function() {
-    console.log("Музыканы баштоо үчүн экранды басыңыз");
-  });
-}
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+const current = document.getElementById("current");
 
-function showPage(number) {
-  pages.forEach(function(page, index) {
-    page.classList.toggle("active", index === number);
-  });
+let page = 0;
 
-  counter.textContent = (number + 1) + " / " + pages.length;
-}
 
-function nextPage() {
-  currentPage++;
+/* КОНВЕРТТИ АЧУУ */
 
-  if (currentPage >= pages.length) {
-    currentPage = 0;
-  }
+envelope.addEventListener("click", function(){
 
-  showPage(currentPage);
-}
+    envelope.classList.add("open");
 
-function previousPage() {
-  currentPage--;
+    music.play().catch(function(){});
 
-  if (currentPage < 0) {
-    currentPage = pages.length - 1;
-  }
+    setTimeout(function(){
 
-  showPage(currentPage);
-}
+        cover.classList.add("hide");
+        site.classList.add("show");
 
-let startX = 0;
+    },700);
 
-document.addEventListener("touchstart", function(event) {
-  startX = event.touches[0].clientX;
 });
 
-document.addEventListener("touchend", function(event) {
-  const endX = event.changedTouches[0].clientX;
-  const difference = startX - endX;
 
-  if (Math.abs(difference) > 50) {
-    if (difference > 0) {
-      nextPage();
-    } else {
-      previousPage();
+/* БАРАК АЛМАШТЫРУУ */
+
+function showPage(number){
+
+    if(number < 0){
+        number = pages.length - 1;
     }
-  }
+
+    if(number >= pages.length){
+        number = 0;
+    }
+
+    pages.forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    pages[number].classList.add("active");
+
+    page = number;
+
+    current.textContent = page + 1;
+}
+
+
+/* КИЙИНКИ */
+
+nextBtn.addEventListener("click", function(){
+    showPage(page + 1);
 });
+
+
+/* АЛДЫҢКЫ */
+
+prevBtn.addEventListener("click", function(){
+    showPage(page - 1);
+});
+
+
+/* ТЕЛЕФОНДО СҮРҮП ӨТКӨРҮҮ */
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener("touchstart", function(e){
+
+    touchStartX = e.changedTouches[0].screenX;
+
+});
+
+document.addEventListener("touchend", function(e){
+
+    touchEndX = e.changedTouches[0].screenX;
+
+    if(touchEndX < touchStartX - 50){
+        showPage(page + 1);
+    }
+
+    if(touchEndX > touchStartX + 50){
+        showPage(page - 1);
+    }
+
+});
+
+
+/* КЛАВИАТУРА */
+
+document.addEventListener("keydown", function(e){
+
+    if(e.key === "ArrowRight"){
+        showPage(page + 1);
+    }
+
+    if(e.key === "ArrowLeft"){
+        showPage(page - 1);
+    }
+
+});
+
 </script>
 
 </body>

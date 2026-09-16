@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Кыз узатуу</title>
 
 <style>
@@ -11,22 +10,13 @@
     box-sizing: border-box;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-}
-
 body {
-    font-family: Georgia, "Times New Roman", serif;
+    margin: 0;
     background: #f8eeee;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-/* =========================
-   БАШКЫ БЕТ
-========================= */
-
+/* БАШКЫ ЭКРАН */
 #cover {
     position: fixed;
     inset: 0;
@@ -37,107 +27,67 @@ body {
     justify-content: center;
     align-items: center;
 
-    background:
-        radial-gradient(circle at center, #fffafa 0%, #f9eeee 55%, #eedddd 100%);
+    background: linear-gradient(135deg, #fffafa, #f3e0e4);
 
-    transition: opacity 1s ease, visibility 1s ease;
+    transition: 1s;
 }
 
 #cover.hide {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none;
 }
 
 .title {
     color: #9b5966;
     font-size: 38px;
     margin-bottom: 35px;
-    text-align: center;
     letter-spacing: 2px;
 }
 
-.subtitle {
-    color: #9b5966;
-    font-size: 16px;
-    margin-top: 28px;
-    text-align: center;
-}
-
-/* Конверт */
-
+/* КОНВЕРТ */
 .envelope {
-    position: relative;
     width: 310px;
     height: 210px;
+    position: relative;
     cursor: pointer;
-    filter: drop-shadow(0 12px 20px rgba(100, 50, 60, 0.18));
-
-    transition: transform 0.3s ease;
-}
-
-.envelope:hover {
-    transform: scale(1.04);
+    filter: drop-shadow(0 10px 18px rgba(80,40,50,.2));
 }
 
 .envelope-body {
     position: absolute;
-    left: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: #fff8f5;
-    border: 1px solid #d9aeb6;
+    inset: 0;
+    background: #fff7f5;
+    border: 1px solid #d8adb5;
     border-radius: 8px;
-
     overflow: hidden;
 }
 
-/* Төмөнкү үч бурчтук */
-
-.envelope-body::before {
+.envelope-body:before {
     content: "";
-
     position: absolute;
-    left: 0;
     bottom: 0;
-
-    width: 0;
-    height: 0;
+    left: 0;
 
     border-left: 155px solid transparent;
     border-right: 155px solid transparent;
     border-bottom: 105px solid #f0d9dc;
 }
 
-/* Сол жана оң капталдар */
-
-.envelope-body::after {
+.envelope-body:after {
     content: "";
-
     position: absolute;
-    left: 0;
     bottom: 0;
-
-    width: 0;
-    height: 0;
+    left: 0;
 
     border-top: 105px solid transparent;
     border-bottom: 105px solid transparent;
     border-left: 155px solid #f8e8e9;
 }
 
-/* Үстүңкү капкак */
-
 .flap {
     position: absolute;
     top: 0;
     left: 0;
-
-    width: 0;
-    height: 0;
 
     border-left: 155px solid transparent;
     border-right: 155px solid transparent;
@@ -145,16 +95,13 @@ body {
 
     z-index: 3;
 
-    transform-origin: top center;
-
-    transition: transform 0.8s ease;
+    transition: transform .8s;
+    transform-origin: top;
 }
 
 .envelope.open .flap {
     transform: rotateX(180deg);
 }
-
-/* Ортоңку гүл */
 
 .heart {
     position: absolute;
@@ -168,75 +115,59 @@ body {
     width: 55px;
     height: 55px;
 
-    background: #fffafa;
     border-radius: 50%;
+    background: white;
+    border: 1px solid #d5a8b1;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    color: #b46b78;
-    font-size: 25px;
-
-    border: 1px solid #d7aab3;
+    color: #ad6674;
+    font-size: 27px;
 }
 
-/* =========================
-   ЧАКЫРУУ
-========================= */
+.subtitle {
+    color: #9b5966;
+    font-size: 16px;
+    margin-top: 28px;
+}
 
+/* ЧАКЫРУУ */
 #invitation {
     min-height: 100vh;
-
     display: none;
 
     justify-content: center;
     align-items: flex-start;
 
-    padding: 25px 12px 60px;
+    padding: 20px 10px 60px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f9eeee,
-            #fffafa,
-            #f3e3e6
-        );
+    background: linear-gradient(135deg, #f9eeee, #fffafa);
 }
 
 #invitation.show {
     display: flex;
 }
 
-.invitation-card {
+.card {
     width: 100%;
     max-width: 700px;
-
-    text-align: center;
 }
 
-.invitation-card img {
-    display: block;
-
+.card img {
     width: 100%;
-    max-width: 700px;
     height: auto;
-
-    margin: 0 auto;
+    display: block;
 
     border-radius: 12px;
 
-    box-shadow:
-        0 10px 35px rgba(80, 40, 50, 0.20);
-
-    background: white;
+    box-shadow: 0 10px 35px rgba(70,40,50,.2);
 }
 
-/* Музыка кнопка */
-
-.music-button {
+/* МУЗЫКА */
+#musicButton {
     position: fixed;
-
     right: 18px;
     bottom: 18px;
 
@@ -244,29 +175,20 @@ body {
     height: 55px;
 
     border-radius: 50%;
+    border: 1px solid #d1a3ad;
 
-    border: 1px solid #d2a3ad;
-
-    background: #fff8f8;
-
+    background: white;
     color: #9b5966;
 
-    font-size: 23px;
-
+    font-size: 22px;
     cursor: pointer;
 
-    box-shadow: 0 5px 18px rgba(80, 40, 50, 0.18);
-
     z-index: 30;
+
+    box-shadow: 0 5px 15px rgba(70,40,50,.2);
 }
 
-.music-button:hover {
-    transform: scale(1.05);
-}
-
-/* Телефон */
-
-@media (max-width: 500px) {
+@media(max-width:500px) {
 
     .title {
         font-size: 31px;
@@ -277,30 +199,22 @@ body {
         height: 190px;
     }
 
-    .envelope-body::before {
-        border-left-width: 140px;
-        border-right-width: 140px;
-    }
-
-    .envelope-body::after {
-        border-left-width: 140px;
-    }
-
     .flap {
         border-left-width: 140px;
         border-right-width: 140px;
     }
 
-    .subtitle {
-        font-size: 14px;
+    .envelope-body:before {
+        border-left-width: 140px;
+        border-right-width: 140px;
+    }
+
+    .envelope-body:after {
+        border-left-width: 140px;
     }
 
     #invitation {
-        padding: 12px 6px 50px;
-    }
-
-    .invitation-card img {
-        border-radius: 8px;
+        padding: 10px 5px 50px;
     }
 }
 </style>
@@ -308,10 +222,7 @@ body {
 
 <body>
 
-<!-- =========================
-     БАШКЫ ЭКРАН
-========================= -->
-
+<!-- БАШКЫ БЕТ -->
 <div id="cover">
 
     <div class="title">
@@ -337,16 +248,13 @@ body {
 </div>
 
 
-<!-- =========================
-     ЧАКЫРУУ СҮРӨТҮ
-========================= -->
-
+<!-- ЧАКЫРУУ СҮРӨТҮ -->
 <div id="invitation">
 
-    <div class="invitation-card">
+    <div class="card">
 
         <img
-            src="./5ee7730803e19739bd5eb61a4e78a235.jpg"
+            src="./invitation.jpg"
             alt="Кыз узатуу чакыруусу"
         >
 
@@ -355,19 +263,18 @@ body {
 </div>
 
 
-<!-- =========================
-     МУЗЫКА
-========================= -->
-
+<!-- МУЗЫКА -->
 <audio id="music" loop preload="auto">
-    <source src="./a_176625.mp3" type="audio/mpeg">
+
+    <source
+        src="./a_176625.mp3"
+        type="audio/mpeg"
+    >
+
 </audio>
 
-<button
-    id="musicButton"
-    class="music-button"
-    style="display:none;"
->
+
+<button id="musicButton" style="display:none;">
     🔊
 </button>
 
@@ -380,12 +287,12 @@ const invitation = document.getElementById("invitation");
 const music = document.getElementById("music");
 const musicButton = document.getElementById("musicButton");
 
-let musicPlaying = false;
+let playing = false;
 
 
-/* Конвертти ачуу */
+/* КОНВЕРТТИ АЧУУ */
 
-envelope.addEventListener("click", function() {
+envelope.onclick = function() {
 
     envelope.classList.add("open");
 
@@ -398,46 +305,46 @@ envelope.addEventListener("click", function() {
         musicButton.style.display = "block";
 
         music.play()
-            .then(function() {
-                musicPlaying = true;
-                musicButton.textContent = "🔊";
-            })
-            .catch(function() {
-                musicPlaying = false;
-                musicButton.textContent = "🔇";
-            });
+        .then(function() {
 
-    }, 900);
+            playing = true;
+            musicButton.innerHTML = "🔊";
 
-});
+        })
+        .catch(function() {
+
+            musicButton.innerHTML = "🔇";
+
+        });
+
+    }, 800);
+
+};
 
 
-/* Музыканы күйгүзүү / өчүрүү */
+/* МУЗЫКА */
 
-musicButton.addEventListener("click", function() {
+musicButton.onclick = function() {
 
-    if (musicPlaying) {
+    if (playing) {
 
         music.pause();
 
-        musicPlaying = false;
+        playing = false;
 
-        musicButton.textContent = "🔇";
+        musicButton.innerHTML = "🔇";
 
     } else {
 
-        music.play()
-            .then(function() {
+        music.play();
 
-                musicPlaying = true;
+        playing = true;
 
-                musicButton.textContent = "🔊";
-
-            });
+        musicButton.innerHTML = "🔊";
 
     }
 
-});
+};
 
 </script>
 

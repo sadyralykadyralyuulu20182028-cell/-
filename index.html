@@ -3,311 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Кыз узатуу</title>
+<title>Кыз узатуу — Шайырбунун</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    background: #f7eeee;
-    font-family: Georgia, "Times New Roman", serif;
+body{
+    margin:0;
+    background:#f7e8e8;
+    font-family:Georgia,"Times New Roman",serif;
+    color:#5b3038;
 }
 
 /* =========================
-   БАШКЫ БЕТ
+   КОНВЕРТ
 ========================= */
 
-#cover {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background: linear-gradient(135deg, #fffafa, #f2dfe3);
-
-    transition: 1s;
+#cover{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#fff9f7,#efd7da);
+    transition:1s;
 }
 
-#cover.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+#cover.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
 }
 
-.title {
-    color: #9b5966;
-    font-size: 38px;
-    margin-bottom: 35px;
-    letter-spacing: 2px;
+.cover-title{
+    font-size:42px;
+    color:#9a4655;
+    margin-bottom:35px;
+    font-style:italic;
 }
 
-/* КОНВЕРТ */
-
-.envelope {
-    width: 310px;
-    height: 210px;
-    position: relative;
-    cursor: pointer;
-
-    filter: drop-shadow(0 10px 18px rgba(80,40,50,.2));
+.cover-text{
+    margin-top:28px;
+    color:#8c5961;
+    font-size:16px;
 }
 
-.envelope-body {
-    position: absolute;
-    inset: 0;
-
-    background: #fff7f5;
-    border: 1px solid #d8adb5;
-    border-radius: 8px;
-
-    overflow: hidden;
+.envelope{
+    position:relative;
+    width:310px;
+    height:210px;
+    cursor:pointer;
+    filter:drop-shadow(0 12px 20px rgba(80,30,40,.2));
 }
 
-.envelope-body:before {
-    content: "";
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    border-left: 155px solid transparent;
-    border-right: 155px solid transparent;
-    border-bottom: 105px solid #f0d9dc;
+.env-body{
+    position:absolute;
+    inset:0;
+    background:#fff8f5;
+    border:1px solid #d4a4ad;
+    border-radius:8px;
+    overflow:hidden;
 }
 
-.envelope-body:after {
-    content: "";
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    border-top: 105px solid transparent;
-    border-bottom: 105px solid transparent;
-    border-left: 155px solid #f8e8e9;
+.env-body:before{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    border-left:155px solid transparent;
+    border-right:155px solid transparent;
+    border-bottom:110px solid #efd5d9;
 }
 
-.flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    border-left: 155px solid transparent;
-    border-right: 155px solid transparent;
-    border-top: 115px solid #e8c3ca;
-
-    z-index: 3;
-
-    transition: transform .8s;
-    transform-origin: top;
+.flap{
+    position:absolute;
+    left:0;
+    top:0;
+    width:0;
+    height:0;
+    border-left:155px solid transparent;
+    border-right:155px solid transparent;
+    border-top:120px solid #e6bec6;
+    z-index:5;
+    transform-origin:top;
+    transition:.8s;
 }
 
-.envelope.open .flap {
-    transform: rotateX(180deg);
+.envelope.open .flap{
+    transform:rotateX(180deg);
 }
 
-.heart {
-    position: absolute;
-    z-index: 5;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-    background: white;
-    border: 1px solid #d5a8b1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: #ad6674;
-    font-size: 27px;
-}
-
-.subtitle {
-    color: #9b5966;
-    font-size: 16px;
-    margin-top: 28px;
+.heart{
+    position:absolute;
+    z-index:10;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:white;
+    border:1px solid #d2a0aa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    color:#a04e5d;
 }
 
 
 /* =========================
-   ЧАКЫРУУ
+   САЙТ
 ========================= */
 
-#invitation {
-    display: none;
-
-    min-height: 100vh;
-
-    justify-content: center;
-    align-items: flex-start;
-
-    padding: 20px 10px 50px;
-
-    background: linear-gradient(
-        135deg,
-        #f9eeee,
-        #fffafa
-    );
+#site{
+    display:none;
+    min-height:100vh;
+    padding:15px 8px 80px;
 }
 
-#invitation.show {
-    display: flex;
+#site.show{
+    display:block;
 }
 
-
-/* ЧАКЫРУУНУН КАРТОЧКАСЫ */
-
-.invitation-card {
-    position: relative;
-
-    width: 100%;
-    max-width: 600px;
-
-    overflow: hidden;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 10px 35px rgba(80,40,50,.20);
+.slider{
+    width:100%;
+    max-width:650px;
+    margin:auto;
 }
 
-
-/* ФОН СҮРӨТ */
-
-.invitation-card .background {
-    display: block;
-
-    width: 100%;
-    height: auto;
+.page{
+    display:none;
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(70,30,40,.25);
 }
 
-
-/* ЖАЗУУЛАР */
-
-.invitation-text {
-    position: absolute;
-
-    top: 25%;
-    left: 7%;
-
-    width: 56%;
-
-    text-align: center;
-
-    color: #65715f;
-
-    padding: 10px;
+.page.active{
+    display:block;
 }
 
-
-/* Башкы сөз */
-
-.invitation-text .hello {
-    font-size: 25px;
-    font-weight: bold;
-
-    margin-bottom: 15px;
-
-    color: #65715f;
-}
-
-
-/* Негизги текст */
-
-.invitation-text .main-text {
-    font-size: 15px;
-    line-height: 1.45;
-
-    margin: 0 auto 18px;
-}
-
-
-/* Дата */
-
-.invitation-text .date {
-    font-size: 24px;
-    font-weight: bold;
-
-    margin: 12px 0 5px;
-
-    color: #596753;
-}
-
-
-/* Убакыт */
-
-.invitation-text .time {
-    font-size: 18px;
-    font-weight: bold;
-
-    margin-bottom: 10px;
-}
-
-
-/* Ресторан */
-
-.invitation-text .place {
-    font-size: 15px;
-    line-height: 1.4;
-
-    margin-bottom: 18px;
-}
-
-
-/* Ак жол */
-
-.invitation-text .closing {
-    font-size: 14px;
-    line-height: 1.45;
-
-    font-style: italic;
+.page img{
+    width:100%;
+    height:auto;
+    display:block;
 }
 
 
 /* =========================
-   МУЗЫКА
+   ЖАЗУУЛАР
 ========================= */
 
-#musicButton {
-    position: fixed;
+.text{
+    position:absolute;
+    top:8%;
+    left:8%;
+    width:55%;
+    text-align:center;
+    color:#63323a;
+}
 
-    right: 18px;
-    bottom: 18px;
+.title{
+    font-size:30px;
+    font-style:italic;
+    font-weight:bold;
+    color:#a13f4f;
+    margin-bottom:18px;
+}
 
-    width: 55px;
-    height: 55px;
+.subtitle{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
 
-    border-radius: 50%;
+.name{
+    font-size:31px;
+    color:#a03c4d;
+    font-style:italic;
+    font-weight:bold;
+    margin:8px 0 15px;
+}
 
-    border: 1px solid #d1a3ad;
+.description{
+    font-size:15px;
+    line-height:1.5;
+    font-weight:bold;
+}
 
-    background: white;
+.date{
+    margin-top:18px;
+    font-size:23px;
+    font-weight:bold;
+    color:#963d4b;
+}
 
-    color: #9b5966;
+.info{
+    margin-top:7px;
+    font-size:16px;
+    line-height:1.6;
+    font-weight:bold;
+}
 
-    font-size: 22px;
+.closing{
+    margin-top:18px;
+    font-size:15px;
+    line-height:1.5;
+    font-style:italic;
+}
 
-    cursor: pointer;
+.owner{
+    margin-top:10px;
+    font-size:18px;
+    color:#a03d4e;
+    font-style:italic;
+    font-weight:bold;
+}
 
-    z-index: 30;
 
-    box-shadow: 0 5px 15px rgba(70,40,50,.2);
+/* =========================
+   БЕТ 3
+========================= */
+
+.page3 .text{
+    top:7%;
+    left:43%;
+    width:52%;
+}
+
+
+/* =========================
+   БЕТ 4
+========================= */
+
+.page4 .text{
+    top:9%;
+    left:5%;
+    width:90%;
+}
+
+.page4 .description{
+    font-size:17px;
+}
+
+
+/* =========================
+   БЕТ 5
+========================= */
+
+.page5 .text{
+    top:8%;
+    left:42%;
+    width:54%;
+}
+
+.page5 .title{
+    font-size:34px;
+}
+
+
+/* =========================
+   БАСЫП ӨТҮҮ
+========================= */
+
+.controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:18px;
+}
+
+.controls button{
+    width:50px;
+    height:50px;
+    border:1px solid #c98f9b;
+    border-radius:50%;
+    background:white;
+    color:#913d4d;
+    font-size:25px;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(80,30,40,.15);
+}
+
+.page-number{
+    color:#8c4c58;
+    font-size:16px;
+}
+
+.music{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    color:#963d4d;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(70,30,40,.25);
+    z-index:200;
 }
 
 
@@ -315,71 +318,92 @@ body {
    ТЕЛЕФОН
 ========================= */
 
-@media(max-width:600px) {
+@media(max-width:600px){
 
-    .title {
-        font-size: 31px;
+    .cover-title{
+        font-size:34px;
     }
 
-    .envelope {
-        width: 280px;
-        height: 190px;
+    .envelope{
+        width:280px;
+        height:190px;
     }
 
-    .flap {
-        border-left-width: 140px;
-        border-right-width: 140px;
+    .flap{
+        border-left-width:140px;
+        border-right-width:140px;
     }
 
-    .envelope-body:before {
-        border-left-width: 140px;
-        border-right-width: 140px;
+    .env-body:before{
+        border-left-width:140px;
+        border-right-width:140px;
     }
 
-    .envelope-body:after {
-        border-left-width: 140px;
+    .text{
+        top:7%;
+        left:7%;
+        width:57%;
     }
 
-    #invitation {
-        padding: 8px 5px 50px;
+    .title{
+        font-size:20px;
+        margin-bottom:8px;
     }
 
-    .invitation-text {
-        top: 23%;
-        left: 5%;
-
-        width: 59%;
-
-        padding: 5px;
+    .subtitle{
+        font-size:13px;
     }
 
-    .invitation-text .hello {
-        font-size: 19px;
-        margin-bottom: 8px;
+    .name{
+        font-size:22px;
+        margin:5px 0 8px;
     }
 
-    .invitation-text .main-text {
-        font-size: 10px;
-        line-height: 1.35;
-        margin-bottom: 10px;
+    .description{
+        font-size:9px;
+        line-height:1.35;
     }
 
-    .invitation-text .date {
-        font-size: 18px;
-        margin: 8px 0 3px;
+    .date{
+        font-size:16px;
+        margin-top:10px;
     }
 
-    .invitation-text .time {
-        font-size: 14px;
+    .info{
+        font-size:10px;
+        line-height:1.4;
     }
 
-    .invitation-text .place {
-        font-size: 10px;
-        margin-bottom: 10px;
+    .closing{
+        font-size:9px;
+        margin-top:8px;
     }
 
-    .invitation-text .closing {
-        font-size: 9px;
+    .owner{
+        font-size:12px;
+    }
+
+    .page3 .text{
+        left:42%;
+        width:53%;
+    }
+
+    .page4 .text{
+        left:6%;
+        width:88%;
+    }
+
+    .page4 .description{
+        font-size:11px;
+    }
+
+    .page5 .text{
+        left:40%;
+        width:56%;
+    }
+
+    .page5 .title{
+        font-size:22px;
     }
 }
 </style>
@@ -390,30 +414,26 @@ body {
 
 
 <!-- =========================
-     БАШКЫ ЭКРАН
+     КОНВЕРТ
 ========================= -->
 
 <div id="cover">
 
-    <div class="title">
+    <div class="cover-title">
         Кыз узатуу
     </div>
 
-
     <div class="envelope" id="envelope">
 
-        <div class="envelope-body"></div>
+        <div class="env-body"></div>
 
         <div class="flap"></div>
 
-        <div class="heart">
-            ♡
-        </div>
+        <div class="heart">♡</div>
 
     </div>
 
-
-    <div class="subtitle">
+    <div class="cover-text">
         Конвертти ачуу үчүн басыңыз
     </div>
 
@@ -422,81 +442,302 @@ body {
 
 
 <!-- =========================
-     ЧАКЫРУУ
+     5 БЕТ
 ========================= -->
 
-<div id="invitation">
+<div id="site">
 
-    <div class="invitation-card">
-
-
-        <!-- ФОН СҮРӨТҮ -->
-
-        <img
-            class="background"
-            src="https://sadyralykadyralyuulu20182028-cell.github.io/-/invitation.jpg"
-            alt=""
-        >
+<div class="slider">
 
 
-        <!-- ЖАЗУУЛАР -->
+<!-- ===== 1 БЕТ ===== -->
 
-        <div class="invitation-text">
+<div class="page page1 active">
+
+<img src="images%20%283%29%20%281%29.jpeg">
+
+<div class="text">
+
+<div class="title">
+    Кыз узатуу
+</div>
+
+<div class="subtitle">
+    УРМАТТУУ КОНОКТОР!
+</div>
+
+<div>
+    Сиздерди кызыбыз
+</div>
+
+<div class="name">
+    Шайырбунун
+</div>
+
+<div class="description">
+    кыз узатуу тоюна арналган
+    салтанаттуу кечеге келип,
+    ак дасторкондун үстүндө
+    ак баталарыңызды берип,
+    кадырлуу коногубуз болуп
+    кетүүгө чын жүрөктөн
+    чакырабыз!
+</div>
+
+<div class="date">
+    25.10.2026
+</div>
+
+<div class="info">
+    🕔 саат 17:00<br>
+    📍 Шамалды-Сай шаары<br>
+    «Айкол» рестораны
+</div>
+
+<div class="closing">
+    Сиздерди урматтоо менен,
+</div>
+
+<div class="owner">
+    Кадыралы Бурулсун
+</div>
+
+</div>
+</div>
 
 
-            <div class="hello">
-                УРМАТТУУ<br>
-                КОНОКТОР!
-            </div>
+
+<!-- ===== 2 БЕТ ===== -->
+
+<div class="page page2">
+
+<img src="images%20%282%29%20%282%29.jpeg">
+
+<div class="text">
+
+<div class="title">
+    УРМАТТУУ<br>КОНОКТОР!
+</div>
+
+<div>
+    Сиздерди кызыбыз
+</div>
+
+<div class="name">
+    Шайырбунун
+</div>
+
+<div class="description">
+    кыз узатуу тоюна арналган
+    салтанаттуу кечеге келип,
+    ак дасторкондун үстүндө
+    ак баталарыңызды берип,
+    кадырлуу коногубуз болуп
+    кетүүгө чын жүрөктөн
+    чакырабыз!
+</div>
+
+<div class="date">
+    25.10.2026
+</div>
+
+<div class="info">
+    саат 17:00<br>
+    Шамалды-Сай шаары<br>
+    «Айкол» рестораны
+</div>
+
+<div class="owner">
+    Кадыралы Бурулсун
+</div>
+
+</div>
+</div>
 
 
-            <div class="main-text">
 
-                Сиздерди кызыбыз<br>
-                <b>Шайырбунун</b><br>
-                кыз узатуу тоюна арналган<br>
-                салтанаттуу кечеге келип,<br>
-                ак дасторкондун үстүндө<br>
-                ак баталарыңызды берип,<br>
-                кадырлуу коногубуз болуп<br>
-                кетүүгө чын жүрөктөн<br>
-                чакырабыз!
+<!-- ===== 3 БЕТ ===== -->
 
-            </div>
+<div class="page page3">
+
+<img src="images%20%281%29%20%281%29.jpeg">
+
+<div class="text">
+
+<div class="title">
+    УРМАТТУУ<br>КОНОКТОР!
+</div>
+
+<div class="subtitle">
+    Сиздерди кызыбыз
+</div>
+
+<div class="name">
+    Шайырбунун
+</div>
+
+<div class="description">
+    кыз узатуу тоюна арналган
+    салтанаттуу кечеге келип,
+    ак дасторкондун үстүндө
+    ак баталарыңызды берип,
+    кадырлуу коногубуз болуп
+    кетүүгө чын жүрөктөн
+    чакырабыз!
+</div>
+
+<div class="date">
+    25.10.2026
+</div>
+
+<div class="info">
+    🕔 саат 17:00<br>
+    📍 Шамалды-Сай шаары<br>
+    «Айкол» рестораны
+</div>
+
+<div class="closing">
+    Сиздерди урматтоо менен,
+</div>
+
+<div class="owner">
+    Кадыралы Бурулсун
+</div>
+
+</div>
+</div>
 
 
-            <div class="date">
-                25.10.2026
-            </div>
 
+<!-- ===== 4 БЕТ ===== -->
 
-            <div class="time">
-                саат 17:00
-            </div>
+<div class="page page4">
 
+<img src="ChatGPT%20Image%2016%20%D1%81%D0%B5%D0%BD%D1%82.%202026%20%D0%B3.%2C%2020_44_04.png">
 
-            <div class="place">
-                Шамалды-Сай шаары<br>
-                «Айкол» рестораны
-            </div>
+<div class="text">
 
+<div class="title">
+    Кыз узатуу
+</div>
 
-            <div class="closing">
+<div class="subtitle">
+    Урматтуу коноктор!
+</div>
 
-                Ак жол тилеп,<br>
-                ак баталарыңыздарды берип,<br>
-                кубанычыбызга ортоктош<br>
-                болуп кетиңиздер!
+<div class="description">
 
-            </div>
+Сиздерди кызыбыз<br>
+<span class="name">Шайырбунун</span><br>
 
-
-        </div>
-
-    </div>
+кыз узатуу тоюна арналган
+салтанаттуу кечеге келип,
+ак дасторкондун үстүндө
+ак баталарыңызды берип,
+кадырлуу коногубуз болуп
+кетүүгө чын жүрөктөн
+чакырабыз!
 
 </div>
 
+<div class="date">
+    25.10.2026
+</div>
+
+<div class="info">
+    саат 17:00<br>
+    Шамалды-Сай шаары<br>
+    «Айкол» рестораны
+</div>
+
+<div class="closing">
+    Ак жол тилеп,<br>
+    ак баталарыңыздарды берип,<br>
+    кубанычыбызга ортоктош<br>
+    болуп кетиңиздер!
+</div>
+
+<div class="owner">
+    Кадыралы Бурулсун
+</div>
+
+</div>
+</div>
+
+
+
+<!-- ===== 5 БЕТ ===== -->
+
+<div class="page page5">
+
+<img src="5ee7730803e19739bd5eb61a4e78a235%281%29.jpg">
+
+<div class="text">
+
+<div class="title">
+    Кыз узатуу
+</div>
+
+<div class="subtitle">
+    ЧАКЫРУУ
+</div>
+
+<div class="description">
+
+Сиздерди кызыбыз
+
+<div class="name">
+    Шайырбунун
+</div>
+
+кыз узатуу тоюна арналган
+салтанаттуу кечеге келип,
+ак дасторкондун үстүндө
+ак баталарыңызды берип,
+кадырлуу коногубуз болуп
+кетүүгө чын жүрөктөн
+чакырабыз!
+
+</div>
+
+<div class="date">
+    25.10.2026
+</div>
+
+<div class="info">
+    саат 17:00<br>
+    Шамалды-Сай шаары<br>
+    «Айкол» рестораны
+</div>
+
+<div class="closing">
+    Сиздерди урматтоо менен,
+</div>
+
+<div class="owner">
+    Кадыралы Бурулсун
+</div>
+
+</div>
+</div>
+
+
+<!-- БАСУУ КНОПКАЛАРЫ -->
+
+<div class="controls">
+
+<button onclick="previousPage()">‹</button>
+
+<div class="page-number" id="pageNumber">
+    1 / 5
+</div>
+
+<button onclick="nextPage()">›</button>
+
+</div>
+
+</div>
+</div>
 
 
 <!-- =========================
@@ -504,88 +745,90 @@ body {
 ========================= -->
 
 <audio id="music" loop preload="auto">
-
-    <source
-        src="https://sadyralykadyralyuulu20182028-cell.github.io/-/a_176625.mp3"
-        type="audio/mpeg"
-    >
-
+    <source src="a_176625.mp3" type="audio/mpeg">
 </audio>
 
-
-<button
-    id="musicButton"
-    style="display:none;"
->
+<button class="music" id="musicButton">
     🔊
 </button>
 
 
-
 <script>
 
-const envelope =
-    document.getElementById("envelope");
+let currentPage = 1;
+const totalPages = 5;
 
-const cover =
-    document.getElementById("cover");
-
-const invitation =
-    document.getElementById("invitation");
-
-const music =
-    document.getElementById("music");
-
-const musicButton =
-    document.getElementById("musicButton");
+const cover = document.getElementById("cover");
+const envelope = document.getElementById("envelope");
+const site = document.getElementById("site");
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
+const pageNumber = document.getElementById("pageNumber");
 
 
-let playing = false;
+/* КОНВЕРТ */
 
-
-
-/* КОНВЕРТТИ АЧУУ */
-
-envelope.onclick = function() {
+envelope.onclick = function(){
 
     envelope.classList.add("open");
 
-
-    setTimeout(function() {
+    setTimeout(function(){
 
         cover.classList.add("hide");
 
-        invitation.classList.add("show");
+        site.classList.add("show");
 
-        musicButton.style.display = "block";
+        music.play().catch(()=>{});
 
-
-        music.play()
-        .then(function() {
-
-            playing = true;
-
-            musicButton.innerHTML = "🔊";
-
-        })
-        .catch(function() {
-
-            musicButton.innerHTML = "🔇";
-
-        });
-
-
-    }, 800);
+    },800);
 
 };
 
 
+/* БЕТТИ КӨРСӨТҮҮ */
+
+function showPage(number){
+
+    if(number < 1){
+        number = 5;
+    }
+
+    if(number > 5){
+        number = 1;
+    }
+
+    currentPage = number;
+
+    document.querySelectorAll(".page").forEach(function(page){
+        page.classList.remove("active");
+    });
+
+    document.querySelector(".page" + currentPage)
+        .classList.add("active");
+
+    pageNumber.innerHTML =
+        currentPage + " / " + totalPages;
+
+}
+
+
+function nextPage(){
+    showPage(currentPage + 1);
+}
+
+
+function previousPage(){
+    showPage(currentPage - 1);
+}
+
 
 /* МУЗЫКА */
 
-musicButton.onclick = function() {
+let playing = true;
 
-    if (playing) {
+musicButton.onclick = function(){
+
+    if(playing){
 
         music.pause();
 
@@ -593,7 +836,7 @@ musicButton.onclick = function() {
 
         musicButton.innerHTML = "🔇";
 
-    } else {
+    }else{
 
         music.play();
 
@@ -604,6 +847,31 @@ musicButton.onclick = function() {
     }
 
 };
+
+
+/* ТЕЛЕФОНДО СОЛГО/ОҢГО СҮРҮҮ */
+
+let startX = 0;
+
+document.addEventListener("touchstart",function(e){
+
+    startX = e.touches[0].clientX;
+
+});
+
+document.addEventListener("touchend",function(e){
+
+    let endX = e.changedTouches[0].clientX;
+
+    if(startX - endX > 60){
+        nextPage();
+    }
+
+    if(endX - startX > 60){
+        previousPage();
+    }
+
+});
 
 </script>
 

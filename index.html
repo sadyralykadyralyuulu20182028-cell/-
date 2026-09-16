@@ -3,18 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Кыз узатуу чакыруусу</title>
+
+<title>Шайырбунун кыз узатуусу</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* ==============================
+   НЕГИЗГИ
+============================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html,
@@ -25,24 +31,33 @@ body {
     background: #050505;
 }
 
-/* =========================
-   INTRO / КОНВЕРТ
-========================= */
+
+/* ==============================
+   КОНВЕРТ
+============================== */
 
 #intro {
     position: fixed;
     inset: 0;
-    background:
-        radial-gradient(circle at center,
-        #fffdf9 0%,
-        #f3eee7 45%,
-        #e5ddd2 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #fffdf9 0%,
+            #f6efe7 50%,
+            #e8ddd0 100%
+        );
+
     cursor: pointer;
-    transition: opacity 1s ease, visibility 1s ease;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
 }
 
 #intro.hide {
@@ -51,353 +66,518 @@ body {
 }
 
 .envelope {
-    width: min(82vw, 420px);
-    height: 280px;
     position: relative;
-    background: #f7f1e9;
-    border: 1px solid rgba(112, 76, 45, 0.35);
+
+    width: min(84vw, 430px);
+    height: 280px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf9,
+            #eee4d8
+        );
+
+    border: 1px solid rgba(117, 78, 47, 0.30);
+
     box-shadow:
-        0 25px 60px rgba(65, 42, 25, 0.18),
-        inset 0 0 35px rgba(255,255,255,0.8);
+        0 30px 80px rgba(70, 45, 27, 0.18),
+        inset 0 0 40px rgba(255,255,255,0.9);
+
     overflow: hidden;
 }
 
-.envelope:before {
+.envelope::before {
     content: "";
+
     position: absolute;
     inset: 0;
+
     background:
-        linear-gradient(135deg,
-        transparent 49.5%,
-        rgba(125, 88, 57, 0.16) 50%,
-        transparent 50.5%),
-        linear-gradient(225deg,
-        transparent 49.5%,
-        rgba(125, 88, 57, 0.16) 50%,
-        transparent 50.5%);
+        linear-gradient(
+            135deg,
+            transparent 49.7%,
+            rgba(126, 88, 55, 0.13) 50%,
+            transparent 50.3%
+        ),
+        linear-gradient(
+            225deg,
+            transparent 49.7%,
+            rgba(126, 88, 55, 0.13) 50%,
+            transparent 50.3%
+        );
 }
 
 .envelope-center {
     position: absolute;
-    left: 50%;
+
     top: 50%;
+    left: 50%;
+
     transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 2;
+
     width: 90%;
+
+    text-align: center;
+
+    z-index: 2;
 }
 
 .envelope-ornament {
-    color: #8b6545;
-    font-size: 30px;
-    margin-bottom: 12px;
+    font-family: "Cormorant Garamond", serif;
+
+    color: #866143;
+
+    font-size: 34px;
+
+    margin-bottom: 10px;
 }
 
 .envelope-title {
     font-family: "Cormorant Garamond", serif;
-    font-size: 28px;
-    color: #5c3b26;
-    letter-spacing: 2px;
+
+    font-size: 31px;
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: #5b3a25;
 }
 
 .envelope-subtitle {
-    margin-top: 8px;
+    margin-top: 7px;
+
     font-family: Montserrat, sans-serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #806348;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: #896c50;
 }
 
-/* =========================
+
+/* ==============================
    SLIDER
-========================= */
+============================== */
 
 #slider {
     width: 100%;
     height: 100%;
+
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
     background: #050505;
 }
 
 .slide {
     position: absolute;
+
     width: min(100vw, 720px);
     height: min(100vh, 1280px);
+
     aspect-ratio: 9 / 16;
+
     overflow: hidden;
+
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.9s ease;
+
+    transition:
+        opacity 1s ease;
 }
 
 .slide.active {
     opacity: 1;
     visibility: visible;
+
     z-index: 2;
 }
 
 .slide video {
     position: absolute;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
 
-/* =========================
-   ЖЕҢИЛ КРЕМ OVERLAY
-   ЖАЗУУНУ ОКУМДУУ КЫЛАТ
-========================= */
+
+/* ==============================
+   ЖЕҢИЛ ЖАРЫК
+============================== */
 
 .slide::after {
     content: "";
+
     position: absolute;
+
     inset: 0;
+
     z-index: 1;
+
     pointer-events: none;
 
     background:
         linear-gradient(
             to bottom,
-            rgba(255, 250, 242, 0.02) 0%,
-            rgba(255, 250, 242, 0.02) 45%,
-            rgba(255, 248, 238, 0.16) 58%,
-            rgba(255, 248, 238, 0.22) 72%,
-            rgba(255, 248, 238, 0.08) 100%
+            rgba(255,255,255,0.01),
+            rgba(255,248,235,0.02) 35%,
+            rgba(255,247,232,0.14) 55%,
+            rgba(255,247,232,0.22) 72%,
+            rgba(255,247,232,0.05)
         );
 }
 
-/* =========================
+
+/* ==============================
    РАМКА
-========================= */
+============================== */
 
 .frame {
     position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(119, 83, 52, 0.45);
+
+    inset: 11px;
+
+    border: 1px solid rgba(116, 79, 48, 0.48);
+
     z-index: 5;
+
     pointer-events: none;
 }
 
-.frame:before,
-.frame:after {
+.frame::before {
     content: "";
+
     position: absolute;
-    width: 24px;
-    height: 24px;
-    border-color: rgba(119, 83, 52, 0.7);
+
+    left: 9px;
+    top: 9px;
+
+    width: 25px;
+    height: 25px;
+
+    border-left: 1px solid rgba(116,79,48,0.65);
+    border-top: 1px solid rgba(116,79,48,0.65);
 }
 
-.frame:before {
-    left: 10px;
-    top: 10px;
-    border-left: 1px solid;
-    border-top: 1px solid;
+.frame::after {
+    content: "";
+
+    position: absolute;
+
+    right: 9px;
+    bottom: 9px;
+
+    width: 25px;
+    height: 25px;
+
+    border-right: 1px solid rgba(116,79,48,0.65);
+    border-bottom: 1px solid rgba(116,79,48,0.65);
 }
 
-.frame:after {
-    right: 10px;
-    bottom: 10px;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-}
 
-/* =========================
-   TEXT
-========================= */
+/* ==============================
+   ЖАЗУУЛАРДЫН НЕГИЗИ
+============================== */
 
 .text {
     position: absolute;
+
     left: 7%;
+
     width: 86%;
+
     text-align: center;
+
     z-index: 4;
 
-    color: #56351f;
+    color: #573722;
 
     /*
-      ЖЕҢИЛ КРЕМ ЖАРЫК
-      - тексттин артына жумшак жарык берет
-      - бирок ак болуп көрүнбөйт
+       жумшак крем жарык
     */
+
     text-shadow:
-        0 1px 0 rgba(255, 250, 240, 0.95),
-        0 0 5px rgba(255, 248, 235, 0.95),
-        0 0 12px rgba(255, 248, 235, 0.65);
+        0 1px 0 rgba(255,252,245,0.95),
+        0 0 4px rgba(255,250,240,0.95),
+        0 0 10px rgba(255,247,232,0.75);
 }
 
-/* 1-СЛАЙД */
+
+/* ==============================
+   1-СЛАЙД
+============================== */
 
 .slide1 .text {
-    top: 68%;
+    top: 66%;
 }
+
+
+/* кичинекей үстүңкү жазуу */
 
 .kicker {
     font-family: Montserrat, sans-serif;
+
     font-size: clamp(8px, 1.7vw, 12px);
+
     font-weight: 500;
+
     letter-spacing: 4px;
-    color: #795536;
-    margin-bottom: 16px;
+
+    color: #795333;
+
+    margin-bottom: 12px;
+
+    text-transform: uppercase;
 }
+
+
+/* "Сиздерди кызыбыз" */
 
 .small-title {
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(17px, 4vw, 28px);
-    color: #69462c;
-    margin-bottom: 2px;
+
+    font-size: clamp(17px, 3.8vw, 27px);
+
+    font-weight: 400;
+
+    color: #68452d;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 1px;
 }
+
+
+/* ШАЙЫРБУНУН */
 
 .name {
     font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(43px, 9vw, 70px);
+
     font-style: italic;
+
     font-weight: 600;
-    font-size: clamp(39px, 8vw, 65px);
+
     line-height: 0.95;
-    color: #51301c;
-    margin-bottom: 20px;
+
+    letter-spacing: 1px;
+
+    color: #4f2e1b;
+
+    margin-bottom: 18px;
+
+    /*
+       атка өзгөчө жарык
+    */
+
+    text-shadow:
+        0 1px 0 #fffaf0,
+        0 0 5px rgba(255,248,233,0.95),
+        0 0 15px rgba(255,244,224,0.75);
 }
 
+
+/* негизги текст */
+
 .description {
-    max-width: 620px;
+    max-width: 610px;
+
     margin: 0 auto;
 
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(15px, 3.2vw, 23px);
-    line-height: 1.3;
+
+    font-size: clamp(14px, 3.1vw, 22px);
+
+    line-height: 1.25;
+
     font-weight: 500;
 
-    color: #593821;
+    color: #5c3823;
+
+    letter-spacing: 0.15px;
 }
 
-/* =========================
+
+/* ==============================
    2-СЛАЙД
-========================= */
+============================== */
 
 .slide2 .text {
-    top: 48%;
+    top: 47%;
 }
 
 .slide2 .kicker {
-    margin-bottom: 14px;
+    margin-bottom: 13px;
 }
 
 .date {
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(43px, 9vw, 72px);
-    font-weight: 600;
-    letter-spacing: 4px;
-    color: #50301c;
-    line-height: 1;
-}
 
-.time {
-    margin-top: 14px;
-    font-family: Montserrat, sans-serif;
-    font-size: clamp(15px, 3vw, 22px);
-    letter-spacing: 5px;
-    color: #68452c;
+    font-size: clamp(46px, 9.5vw, 76px);
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    line-height: 1;
+
+    color: #4f2f1c;
+
+    text-shadow:
+        0 1px 0 #fffaf0,
+        0 0 7px rgba(255,248,235,0.9);
 }
 
 .line {
-    width: 90px;
+    width: 110px;
     height: 1px;
-    margin: 18px auto;
+
+    margin: 17px auto;
 
     background:
         linear-gradient(
             to right,
             transparent,
-            #8a6546,
+            #866143,
             transparent
         );
 }
 
-/* =========================
+.time {
+    font-family: Montserrat, sans-serif;
+
+    font-size: clamp(14px, 3vw, 21px);
+
+    font-weight: 400;
+
+    letter-spacing: 6px;
+
+    color: #68452d;
+}
+
+
+/* ==============================
    3-СЛАЙД
-========================= */
+============================== */
 
 .slide3 .text {
-    top: 65%;
+    top: 64%;
 }
 
 .place {
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(26px, 5vw, 40px);
+
+    font-size: clamp(29px, 6vw, 45px);
+
     font-weight: 600;
-    color: #52311e;
-    line-height: 1.05;
+
+    line-height: 1;
+
+    color: #50301d;
 }
 
 .place-sub {
     margin-top: 10px;
+
     font-family: Montserrat, sans-serif;
-    font-size: clamp(11px, 2.2vw, 15px);
-    letter-spacing: 2px;
-    color: #68472f;
+
+    font-size: clamp(9px, 2vw, 14px);
+
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: #765137;
 }
 
-/* =========================
+.slide3 .line {
+    margin-top: 16px;
+    margin-bottom: 13px;
+}
+
+
+/* ==============================
    4-СЛАЙД
-========================= */
+============================== */
 
 .slide4 .text {
-    top: 60%;
+    top: 59%;
 }
 
 .closing {
-    max-width: 620px;
+    max-width: 610px;
+
     margin: auto;
 
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(18px, 3.8vw, 27px);
-    line-height: 1.35;
+
+    font-size: clamp(18px, 4vw, 28px);
+
+    line-height: 1.3;
+
     font-weight: 500;
 
-    color: #563620;
+    color: #563520;
 }
 
 .signature {
-    margin-top: 25px;
+    margin-top: 24px;
 
     font-family: "Cormorant Garamond", serif;
-    font-style: italic;
+
     font-size: clamp(17px, 3.5vw, 24px);
 
-    color: #704d32;
+    font-style: italic;
+
+    line-height: 1.2;
+
+    color: #714e34;
 }
 
 .ornament {
-    margin-top: 12px;
+    margin-top: 13px;
 
     font-family: "Cormorant Garamond", serif;
-    font-size: 24px;
+
+    font-size: 23px;
+
     letter-spacing: 9px;
 
-    color: #8a6545;
+    color: #8a6445;
 }
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+
+/* ==============================
+   MUSIC
+============================== */
 
 .music-btn {
     position: fixed;
+
     right: 20px;
     top: 20px;
 
-    width: 38px;
-    height: 38px;
+    width: 39px;
+    height: 39px;
 
     border-radius: 50%;
-    border: 1px solid rgba(220, 200, 170, 0.65);
 
-    background: rgba(30, 22, 16, 0.35);
-    backdrop-filter: blur(5px);
+    border: 1px solid rgba(210,190,160,0.7);
 
-    color: #f1dfc6;
+    background: rgba(35,25,18,0.32);
+
+    backdrop-filter: blur(6px);
+
+    color: #f1dfc8;
+
     font-size: 17px;
 
     display: flex;
@@ -405,28 +585,35 @@ body {
     justify-content: center;
 
     cursor: pointer;
+
     z-index: 20;
 }
 
-/* =========================
-   ARROWS
-========================= */
+
+/* ==============================
+   ARROW
+============================== */
 
 .arrow {
     position: fixed;
+
     top: 50%;
+
     transform: translateY(-50%);
 
     width: 38px;
     height: 38px;
 
     border-radius: 50%;
-    border: 1px solid rgba(220, 200, 170, 0.6);
 
-    background: rgba(20, 15, 10, 0.3);
+    border: 1px solid rgba(210,190,160,0.6);
+
+    background: rgba(25,18,13,0.28);
+
     backdrop-filter: blur(5px);
 
-    color: #f3e4d1;
+    color: #f0dfca;
+
     font-size: 22px;
 
     display: flex;
@@ -434,6 +621,7 @@ body {
     justify-content: center;
 
     cursor: pointer;
+
     z-index: 20;
 }
 
@@ -445,18 +633,24 @@ body {
     right: 5px;
 }
 
-/* =========================
+
+/* ==============================
    DOTS
-========================= */
+============================== */
 
 .dots {
     position: fixed;
-    bottom: 12px;
+
     left: 50%;
+    bottom: 12px;
+
     transform: translateX(-50%);
 
     display: flex;
-    gap: 7px;
+
+    align-items: center;
+
+    gap: 6px;
 
     z-index: 20;
 }
@@ -464,21 +658,26 @@ body {
 .dot {
     width: 5px;
     height: 5px;
+
     border-radius: 50%;
 
-    background: rgba(112, 78, 49, 0.35);
+    background: rgba(105,75,49,0.35);
+
     transition: all 0.3s ease;
 }
 
 .dot.active {
     width: 18px;
+
     border-radius: 5px;
-    background: #765239;
+
+    background: #765136;
 }
 
-/* =========================
-   MOBILE
-========================= */
+
+/* ==============================
+   ТЕЛЕФОН
+============================== */
 
 @media (max-width: 600px) {
 
@@ -487,8 +686,9 @@ body {
     }
 
     .music-btn {
-        right: 12px;
         top: 12px;
+        right: 12px;
+
         width: 34px;
         height: 34px;
     }
@@ -496,41 +696,37 @@ body {
     .arrow {
         width: 32px;
         height: 32px;
+
         font-size: 18px;
     }
 
-    .arrow-left {
-        left: 5px;
-    }
-
-    .arrow-right {
-        right: 5px;
-    }
-
     .slide1 .text {
-        top: 67%;
+        top: 65%;
     }
 
     .slide2 .text {
-        top: 47%;
+        top: 46%;
     }
 
     .slide3 .text {
-        top: 64%;
+        top: 63%;
     }
 
     .slide4 .text {
-        top: 59%;
+        top: 58%;
     }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
-     INTRO
-========================= -->
+
+<!-- ==================================
+     КОНВЕРТ
+================================== -->
 
 <div id="intro">
 
@@ -557,13 +753,17 @@ body {
 </div>
 
 
-<!-- =========================
-     SLIDER
-========================= -->
+
+<!-- ==================================
+     СЛАЙДЕР
+================================== -->
 
 <div id="slider">
 
-    <!-- 1-СЛАЙД -->
+
+    <!-- ==============================
+         1-СЛАЙД
+    =============================== -->
 
     <div class="slide slide1 active">
 
@@ -579,7 +779,7 @@ body {
         <div class="text">
 
             <div class="kicker">
-                УРМАТТУУ КОНОКТОР!
+                УРМАТТУУ КОНОКТОР
             </div>
 
             <div class="small-title">
@@ -602,7 +802,10 @@ body {
     </div>
 
 
-    <!-- 2-СЛАЙД -->
+
+    <!-- ==============================
+         2-СЛАЙД
+    =============================== -->
 
     <div class="slide slide2">
 
@@ -628,7 +831,7 @@ body {
             <div class="line"></div>
 
             <div class="time">
-                17:00
+                17 : 00
             </div>
 
         </div>
@@ -636,7 +839,10 @@ body {
     </div>
 
 
-    <!-- 3-СЛАЙД -->
+
+    <!-- ==============================
+         3-СЛАЙД
+    =============================== -->
 
     <div class="slide slide3">
 
@@ -666,7 +872,7 @@ body {
             <div class="line"></div>
 
             <div class="small-title">
-                Сиздерди күтөбүз!
+                Сиздерди күтөбүз
             </div>
 
         </div>
@@ -674,7 +880,10 @@ body {
     </div>
 
 
-    <!-- 4-СЛАЙД -->
+
+    <!-- ==============================
+         4-СЛАЙД
+    =============================== -->
 
     <div class="slide slide4">
 
@@ -707,25 +916,29 @@ body {
 
     </div>
 
+
 </div>
 
 
-<!-- =========================
-     MUSIC
-========================= -->
+
+<!-- ==================================
+     МУЗЫКА
+================================== -->
 
 <audio id="music" loop>
     <source src="a_176625.mp3" type="audio/mpeg">
 </audio>
+
 
 <button class="music-btn" id="musicBtn">
     ♫
 </button>
 
 
-<!-- =========================
-     ARROWS
-========================= -->
+
+<!-- ==================================
+     СТРЕЛКАЛАР
+================================== -->
 
 <button class="arrow arrow-left" id="prev">
     ‹
@@ -736,9 +949,10 @@ body {
 </button>
 
 
-<!-- =========================
+
+<!-- ==================================
      DOTS
-========================= -->
+================================== -->
 
 <div class="dots">
 
@@ -750,7 +964,12 @@ body {
 </div>
 
 
+
 <script>
+
+/* ==================================
+   СЛАЙДЕР
+================================== */
 
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
@@ -764,9 +983,9 @@ let current = 0;
 let timer;
 
 
-/* =========================
-   SHOW SLIDE
-========================= */
+/* ==================================
+   СЛАЙД КӨРСӨТҮҮ
+================================== */
 
 function showSlide(index) {
 
@@ -778,11 +997,17 @@ function showSlide(index) {
         index = 0;
     }
 
+
     slides.forEach((slide, i) => {
 
-        slide.classList.toggle("active", i === index);
+        slide.classList.toggle(
+            "active",
+            i === index
+        );
 
-        const video = slide.querySelector("video");
+        const video =
+            slide.querySelector("video");
+
 
         if (i === index) {
 
@@ -798,9 +1023,16 @@ function showSlide(index) {
 
     });
 
+
     dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
+
+        dot.classList.toggle(
+            "active",
+            i === index
+        );
+
     });
+
 
     current = index;
 
@@ -808,9 +1040,9 @@ function showSlide(index) {
 }
 
 
-/* =========================
-   AUTO SLIDE
-========================= */
+/* ==================================
+   АВТО ӨТҮҮ
+================================== */
 
 function resetTimer() {
 
@@ -825,26 +1057,35 @@ function resetTimer() {
 }
 
 
-/* =========================
-   NEXT / PREVIOUS
-========================= */
+/* ==================================
+   NEXT
+================================== */
 
-document.getElementById("next").addEventListener("click", () => {
+document
+.getElementById("next")
+.addEventListener("click", () => {
 
     showSlide(current + 1);
 
 });
 
-document.getElementById("prev").addEventListener("click", () => {
+
+/* ==================================
+   PREVIOUS
+================================== */
+
+document
+.getElementById("prev")
+.addEventListener("click", () => {
 
     showSlide(current - 1);
 
 });
 
 
-/* =========================
+/* ==================================
    DOTS
-========================= */
+================================== */
 
 dots.forEach((dot, index) => {
 
@@ -857,9 +1098,9 @@ dots.forEach((dot, index) => {
 });
 
 
-/* =========================
-   MUSIC
-========================= */
+/* ==================================
+   МУЗЫКА
+================================== */
 
 let musicPlaying = false;
 
@@ -888,52 +1129,65 @@ musicBtn.addEventListener("click", (e) => {
 });
 
 
-/* =========================
-   ENVELOPE CLICK
-========================= */
+/* ==================================
+   КОНВЕРТ
+================================== */
 
 intro.addEventListener("click", () => {
 
     intro.classList.add("hide");
 
+
     music.play().then(() => {
 
         musicPlaying = true;
+
         musicBtn.innerHTML = "🔊";
 
     }).catch(() => {});
 
-    const firstVideo = slides[0].querySelector("video");
+
+    const firstVideo =
+        slides[0].querySelector("video");
 
     firstVideo.play().catch(() => {});
+
 
     resetTimer();
 
 });
 
 
-/* =========================
+/* ==================================
    SWIPE
-========================= */
+================================== */
 
 let startX = 0;
 let endX = 0;
 
+
 document.addEventListener("touchstart", (e) => {
 
-    startX = e.touches[0].clientX;
+    startX =
+        e.touches[0].clientX;
 
 });
 
+
 document.addEventListener("touchend", (e) => {
 
-    endX = e.changedTouches[0].clientX;
+    endX =
+        e.changedTouches[0].clientX;
 
-    const distance = endX - startX;
+
+    const distance =
+        endX - startX;
+
 
     if (Math.abs(distance) < 50) {
         return;
     }
+
 
     if (distance < 0) {
 
@@ -948,26 +1202,30 @@ document.addEventListener("touchend", (e) => {
 });
 
 
-/* =========================
-   KEYBOARD
-========================= */
+/* ==================================
+   КЛАВИАТУРА
+================================== */
 
 document.addEventListener("keydown", (e) => {
 
     if (e.key === "ArrowRight") {
+
         showSlide(current + 1);
+
     }
 
     if (e.key === "ArrowLeft") {
+
         showSlide(current - 1);
+
     }
 
 });
 
 
-/* =========================
-   START
-========================= */
+/* ==================================
+   БАШТАЛГЫЧ
+================================== */
 
 showSlide(0);
 

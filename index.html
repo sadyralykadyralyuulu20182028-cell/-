@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Кыз узатуу — Шайырбунун</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
 
 body{
     margin:0;
-    background:#f7e8e8;
-    font-family:Georgia,"Times New Roman",serif;
-    color:#5b3038;
+    background:#f8eeee;
+    font-family:Georgia, "Times New Roman", serif;
+    color:#63363d;
 }
 
 /* =========================
@@ -25,11 +27,14 @@ body{
     position:fixed;
     inset:0;
     z-index:100;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#fff9f7,#efd7da);
+
+    background:linear-gradient(135deg,#fffafa,#efd9dd);
+
     transition:1s;
 }
 
@@ -40,55 +45,63 @@ body{
 }
 
 .cover-title{
-    font-size:42px;
-    color:#9a4655;
-    margin-bottom:35px;
+    font-size:40px;
+    color:#994b59;
     font-style:italic;
+    margin-bottom:35px;
 }
 
-.cover-text{
-    margin-top:28px;
-    color:#8c5961;
-    font-size:16px;
+.cover-subtitle{
+    margin-top:25px;
+    color:#8e5a62;
 }
 
 .envelope{
-    position:relative;
     width:310px;
     height:210px;
+    position:relative;
     cursor:pointer;
-    filter:drop-shadow(0 12px 20px rgba(80,30,40,.2));
+
+    filter:drop-shadow(0 10px 20px rgba(70,30,40,.2));
 }
 
 .env-body{
     position:absolute;
     inset:0;
-    background:#fff8f5;
-    border:1px solid #d4a4ad;
+
+    background:#fff8f6;
+    border:1px solid #d6a7b0;
     border-radius:8px;
+
     overflow:hidden;
 }
 
 .env-body:before{
     content:"";
+
     position:absolute;
     left:0;
     bottom:0;
+
     border-left:155px solid transparent;
     border-right:155px solid transparent;
-    border-bottom:110px solid #efd5d9;
+    border-bottom:110px solid #efd6da;
 }
 
 .flap{
     position:absolute;
     left:0;
     top:0;
+
     width:0;
     height:0;
+
     border-left:155px solid transparent;
     border-right:155px solid transparent;
     border-top:120px solid #e6bec6;
+
     z-index:5;
+
     transform-origin:top;
     transition:.8s;
 }
@@ -100,19 +113,26 @@ body{
 .heart{
     position:absolute;
     z-index:10;
+
     left:50%;
     top:50%;
+
     transform:translate(-50%,-50%);
+
     width:60px;
     height:60px;
+
     border-radius:50%;
+
     background:white;
-    border:1px solid #d2a0aa;
+    border:1px solid #d3a2ab;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:28px;
-    color:#a04e5d;
+    color:#a04d5b;
 }
 
 
@@ -123,7 +143,8 @@ body{
 #site{
     display:none;
     min-height:100vh;
-    padding:15px 8px 80px;
+
+    padding:15px 10px 90px;
 }
 
 #site.show{
@@ -136,180 +157,221 @@ body{
     margin:auto;
 }
 
+
+/* =========================
+   АР БЕТ
+========================= */
+
 .page{
     display:none;
-    position:relative;
+
     width:100%;
+    min-height:78vh;
+
+    background:#fffaf8;
+
+    border-radius:16px;
+
+    box-shadow:
+        0 10px 35px rgba(80,35,45,.18);
+
     overflow:hidden;
-    border-radius:14px;
-    box-shadow:0 10px 35px rgba(70,30,40,.25);
 }
 
 .page.active{
-    display:block;
-}
-
-.page img{
-    width:100%;
-    height:auto;
-    display:block;
+    display:flex;
 }
 
 
 /* =========================
-   ЖАЗУУЛАР
+   СҮРӨТТҮН ӨЗҮ
 ========================= */
 
-.text{
-    position:absolute;
-    top:8%;
-    left:8%;
-    width:55%;
+.image-page{
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    background:#fff;
+}
+
+.image-page img{
+    width:100%;
+    max-height:82vh;
+
+    object-fit:contain;
+
+    border-radius:10px;
+}
+
+
+/* =========================
+   ЖАЗУУ БЕТИ
+========================= */
+
+.text-page{
+    min-height:78vh;
+
+    padding:45px 28px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
     text-align:center;
-    color:#63323a;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #fff8f6,
+            #f5e4e5
+        );
 }
 
-.title{
-    font-size:30px;
+.flower{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.small-title{
+    font-size:17px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+}
+
+.big-title{
+    font-size:34px;
     font-style:italic;
-    font-weight:bold;
-    color:#a13f4f;
-    margin-bottom:18px;
-}
+    color:#9b4857;
 
-.subtitle{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:8px;
+    margin-bottom:20px;
 }
 
 .name{
-    font-size:31px;
-    color:#a03c4d;
+    font-size:32px;
     font-style:italic;
-    font-weight:bold;
-    margin:8px 0 15px;
+    color:#9b4857;
+    margin:10px 0 20px;
 }
 
-.description{
-    font-size:15px;
-    line-height:1.5;
-    font-weight:bold;
+.main-text{
+    max-width:500px;
+
+    font-size:17px;
+    line-height:1.7;
 }
 
 .date{
-    margin-top:18px;
-    font-size:23px;
+    font-size:28px;
     font-weight:bold;
-    color:#963d4b;
+
+    color:#954554;
+
+    margin-top:25px;
 }
 
 .info{
-    margin-top:7px;
-    font-size:16px;
-    line-height:1.6;
-    font-weight:bold;
+    font-size:17px;
+    line-height:1.7;
+
+    margin-top:10px;
 }
 
 .closing{
-    margin-top:18px;
-    font-size:15px;
-    line-height:1.5;
+    margin-top:25px;
+
+    font-size:16px;
+    line-height:1.6;
     font-style:italic;
+}
+
+.owner-title{
+    margin-top:20px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    color:#8e4652;
 }
 
 .owner{
-    margin-top:10px;
-    font-size:18px;
-    color:#a03d4e;
+    margin-top:5px;
+
+    font-size:23px;
     font-style:italic;
     font-weight:bold;
+
+    color:#9b4554;
 }
 
 
 /* =========================
-   БЕТ 3
-========================= */
-
-.page3 .text{
-    top:7%;
-    left:43%;
-    width:52%;
-}
-
-
-/* =========================
-   БЕТ 4
-========================= */
-
-.page4 .text{
-    top:9%;
-    left:5%;
-    width:90%;
-}
-
-.page4 .description{
-    font-size:17px;
-}
-
-
-/* =========================
-   БЕТ 5
-========================= */
-
-.page5 .text{
-    top:8%;
-    left:42%;
-    width:54%;
-}
-
-.page5 .title{
-    font-size:34px;
-}
-
-
-/* =========================
-   БАСЫП ӨТҮҮ
+   КНОПКАЛАР
 ========================= */
 
 .controls{
     display:flex;
+
     justify-content:center;
     align-items:center;
-    gap:20px;
+
+    gap:25px;
+
     margin-top:18px;
 }
 
 .controls button{
     width:50px;
     height:50px;
-    border:1px solid #c98f9b;
+
     border-radius:50%;
+
+    border:1px solid #ce9aa4;
+
     background:white;
-    color:#913d4d;
-    font-size:25px;
+
+    color:#913e4c;
+
+    font-size:27px;
+
     cursor:pointer;
-    box-shadow:0 4px 12px rgba(80,30,40,.15);
+
+    box-shadow:0 4px 12px rgba(70,30,40,.15);
 }
 
 .page-number{
-    color:#8c4c58;
-    font-size:16px;
+    font-size:15px;
+    color:#87515a;
 }
+
+
+/* =========================
+   МУЗЫКА
+========================= */
 
 .music{
     position:fixed;
+
     right:18px;
     bottom:18px;
+
     width:55px;
     height:55px;
+
     border:none;
     border-radius:50%;
+
     background:white;
-    color:#963d4d;
+
+    color:#913e4c;
+
     font-size:22px;
+
     cursor:pointer;
-    box-shadow:0 5px 15px rgba(70,30,40,.25);
+
+    box-shadow:0 5px 15px rgba(70,30,40,.2);
+
     z-index:200;
 }
 
@@ -339,73 +401,41 @@ body{
         border-right-width:140px;
     }
 
-    .text{
-        top:7%;
-        left:7%;
-        width:57%;
+    .page{
+        min-height:75vh;
     }
 
-    .title{
-        font-size:20px;
-        margin-bottom:8px;
+    .text-page{
+        padding:35px 20px;
     }
 
-    .subtitle{
-        font-size:13px;
+    .big-title{
+        font-size:28px;
     }
 
     .name{
-        font-size:22px;
-        margin:5px 0 8px;
+        font-size:28px;
     }
 
-    .description{
-        font-size:9px;
-        line-height:1.35;
+    .main-text{
+        font-size:15px;
+        line-height:1.6;
     }
 
     .date{
-        font-size:16px;
-        margin-top:10px;
+        font-size:24px;
     }
 
     .info{
-        font-size:10px;
-        line-height:1.4;
-    }
-
-    .closing{
-        font-size:9px;
-        margin-top:8px;
+        font-size:15px;
     }
 
     .owner{
-        font-size:12px;
+        font-size:20px;
     }
 
-    .page3 .text{
-        left:42%;
-        width:53%;
-    }
-
-    .page4 .text{
-        left:6%;
-        width:88%;
-    }
-
-    .page4 .description{
-        font-size:11px;
-    }
-
-    .page5 .text{
-        left:40%;
-        width:56%;
-    }
-
-    .page5 .title{
-        font-size:22px;
-    }
 }
+
 </style>
 </head>
 
@@ -429,11 +459,13 @@ body{
 
         <div class="flap"></div>
 
-        <div class="heart">♡</div>
+        <div class="heart">
+            ♡
+        </div>
 
     </div>
 
-    <div class="cover-text">
+    <div class="cover-subtitle">
         Конвертти ачуу үчүн басыңыз
     </div>
 
@@ -442,7 +474,7 @@ body{
 
 
 <!-- =========================
-     5 БЕТ
+     САЙТ
 ========================= -->
 
 <div id="site">
@@ -450,320 +482,254 @@ body{
 <div class="slider">
 
 
-<!-- ===== 1 БЕТ ===== -->
+<!-- =========================
+     1-БЕТ — СҮРӨТ
+========================= -->
 
-<div class="page page1 active">
+<div class="page image-page active">
 
-<img src="images%20%283%29%20%281%29.jpeg">
-
-<div class="text">
-
-<div class="title">
-    Кыз узатуу
-</div>
-
-<div class="subtitle">
-    УРМАТТУУ КОНОКТОР!
-</div>
-
-<div>
-    Сиздерди кызыбыз
-</div>
-
-<div class="name">
-    Шайырбунун
-</div>
-
-<div class="description">
-    кыз узатуу тоюна арналган
-    салтанаттуу кечеге келип,
-    ак дасторкондун үстүндө
-    ак баталарыңызды берип,
-    кадырлуу коногубуз болуп
-    кетүүгө чын жүрөктөн
-    чакырабыз!
-</div>
-
-<div class="date">
-    25.10.2026
-</div>
-
-<div class="info">
-    🕔 саат 17:00<br>
-    📍 Шамалды-Сай шаары<br>
-    «Айкол» рестораны
-</div>
-
-<div class="closing">
-    Сиздерди урматтоо менен,
-</div>
-
-<div class="owner">
-    Кадыралы Бурулсун
-</div>
+    <img
+        src="invitation.jpg"
+        alt="Кыз узатуу"
+    >
 
 </div>
-</div>
 
 
+<!-- =========================
+     2-БЕТ — ЖАЗУУ
+========================= -->
 
-<!-- ===== 2 БЕТ ===== -->
+<div class="page text-page">
 
-<div class="page page2">
+    <div class="flower">
+        ❀
+    </div>
 
-<img src="images%20%282%29%20%282%29.jpeg">
+    <div class="small-title">
+        УРМАТТУУ КОНОКТОР!
+    </div>
 
-<div class="text">
+    <div class="big-title">
+        Кыз узатуу
+    </div>
 
-<div class="title">
-    УРМАТТУУ<br>КОНОКТОР!
-</div>
+    <div class="main-text">
 
-<div>
-    Сиздерди кызыбыз
-</div>
+        Сиздерди кызыбыз
 
-<div class="name">
-    Шайырбунун
-</div>
+    </div>
 
-<div class="description">
-    кыз узатуу тоюна арналган
-    салтанаттуу кечеге келип,
-    ак дасторкондун үстүндө
-    ак баталарыңызды берип,
-    кадырлуу коногубуз болуп
-    кетүүгө чын жүрөктөн
-    чакырабыз!
-</div>
+    <div class="name">
+        Шайырбунун
+    </div>
 
-<div class="date">
-    25.10.2026
-</div>
+    <div class="main-text">
 
-<div class="info">
-    саат 17:00<br>
-    Шамалды-Сай шаары<br>
-    «Айкол» рестораны
-</div>
+        кыз узатуу тоюна арналган
+        салтанаттуу кечеге келип,
+        ак дасторкондун үстүндө
+        ак баталарыңызды берип,
+        кадырлуу коногубуз болуп
+        кетүүгө чын жүрөктөн
+        чакырабыз.
 
-<div class="owner">
-    Кадыралы Бурулсун
-</div>
+    </div>
 
-</div>
 </div>
 
 
 
-<!-- ===== 3 БЕТ ===== -->
+<!-- =========================
+     3-БЕТ — СҮРӨТ
+========================= -->
 
-<div class="page page3">
+<div class="page image-page">
 
-<img src="images%20%281%29%20%281%29.jpeg">
-
-<div class="text">
-
-<div class="title">
-    УРМАТТУУ<br>КОНОКТОР!
-</div>
-
-<div class="subtitle">
-    Сиздерди кызыбыз
-</div>
-
-<div class="name">
-    Шайырбунун
-</div>
-
-<div class="description">
-    кыз узатуу тоюна арналган
-    салтанаттуу кечеге келип,
-    ак дасторкондун үстүндө
-    ак баталарыңызды берип,
-    кадырлуу коногубуз болуп
-    кетүүгө чын жүрөктөн
-    чакырабыз!
-</div>
-
-<div class="date">
-    25.10.2026
-</div>
-
-<div class="info">
-    🕔 саат 17:00<br>
-    📍 Шамалды-Сай шаары<br>
-    «Айкол» рестораны
-</div>
-
-<div class="closing">
-    Сиздерди урматтоо менен,
-</div>
-
-<div class="owner">
-    Кадыралы Бурулсун
-</div>
-
-</div>
-</div>
-
-
-
-<!-- ===== 4 БЕТ ===== -->
-
-<div class="page page4">
-
-<img src="ChatGPT%20Image%2016%20%D1%81%D0%B5%D0%BD%D1%82.%202026%20%D0%B3.%2C%2020_44_04.png">
-
-<div class="text">
-
-<div class="title">
-    Кыз узатуу
-</div>
-
-<div class="subtitle">
-    Урматтуу коноктор!
-</div>
-
-<div class="description">
-
-Сиздерди кызыбыз<br>
-<span class="name">Шайырбунун</span><br>
-
-кыз узатуу тоюна арналган
-салтанаттуу кечеге келип,
-ак дасторкондун үстүндө
-ак баталарыңызды берип,
-кадырлуу коногубуз болуп
-кетүүгө чын жүрөктөн
-чакырабыз!
+    <img
+        src="invitation.jpg"
+        alt="Кыз узатуу"
+    >
 
 </div>
 
-<div class="date">
-    25.10.2026
-</div>
 
-<div class="info">
-    саат 17:00<br>
-    Шамалды-Сай шаары<br>
-    «Айкол» рестораны
-</div>
 
-<div class="closing">
-    Ак жол тилеп,<br>
-    ак баталарыңыздарды берип,<br>
-    кубанычыбызга ортоктош<br>
-    болуп кетиңиздер!
-</div>
+<!-- =========================
+     4-БЕТ — ДАТА
+========================= -->
 
-<div class="owner">
-    Кадыралы Бурулсун
-</div>
+<div class="page text-page">
 
-</div>
+    <div class="flower">
+        ✿
+    </div>
+
+    <div class="big-title">
+        Той күнү
+    </div>
+
+    <div class="date">
+        25.10.2026
+    </div>
+
+    <div class="info">
+
+        🕔 Саат 17:00
+
+        <br><br>
+
+        📍 Шамалды-Сай шаары
+
+        <br>
+
+        «Айкол» рестораны
+
+    </div>
+
+    <div class="closing">
+
+        Ак жол тилеп,<br>
+        ак баталарыңыздарды берип,<br>
+        кубанычыбызга ортоктош<br>
+        болуп кетиңиздер!
+
+    </div>
+
 </div>
 
 
 
-<!-- ===== 5 БЕТ ===== -->
+<!-- =========================
+     5-БЕТ — СҮРӨТ
+========================= -->
 
-<div class="page page5">
+<div class="page image-page">
 
-<img src="5ee7730803e19739bd5eb61a4e78a235%281%29.jpg">
-
-<div class="text">
-
-<div class="title">
-    Кыз узатуу
-</div>
-
-<div class="subtitle">
-    ЧАКЫРУУ
-</div>
-
-<div class="description">
-
-Сиздерди кызыбыз
-
-<div class="name">
-    Шайырбунун
-</div>
-
-кыз узатуу тоюна арналган
-салтанаттуу кечеге келип,
-ак дасторкондун үстүндө
-ак баталарыңызды берип,
-кадырлуу коногубуз болуп
-кетүүгө чын жүрөктөн
-чакырабыз!
+    <img
+        src="invitation.jpg"
+        alt="Кыз узатуу"
+    >
 
 </div>
 
-<div class="date">
-    25.10.2026
-</div>
-
-<div class="info">
-    саат 17:00<br>
-    Шамалды-Сай шаары<br>
-    «Айкол» рестораны
-</div>
-
-<div class="closing">
-    Сиздерди урматтоо менен,
-</div>
-
-<div class="owner">
-    Кадыралы Бурулсун
-</div>
-
-</div>
-</div>
 
 
-<!-- БАСУУ КНОПКАЛАРЫ -->
+<!-- =========================
+     6-БЕТ — ТОЙ ЭЭСИ
+========================= -->
+
+<div class="page text-page">
+
+    <div class="flower">
+        ❀
+    </div>
+
+    <div class="big-title">
+        Кош келиниздер!
+    </div>
+
+    <div class="closing">
+
+        Сиздерди урматтоо менен,
+
+    </div>
+
+    <div class="owner-title">
+        Той ээси
+    </div>
+
+    <div class="owner">
+        Кадыралы Бурулсун
+    </div>
+
+    <div class="flower">
+        ❀
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     КНОПКАЛАР
+========================= -->
 
 <div class="controls">
 
-<button onclick="previousPage()">‹</button>
+    <button onclick="previousPage()">
+        ‹
+    </button>
 
-<div class="page-number" id="pageNumber">
-    1 / 5
+    <div
+        class="page-number"
+        id="pageNumber"
+    >
+        1 / 6
+    </div>
+
+    <button onclick="nextPage()">
+        ›
+    </button>
+
 </div>
 
-<button onclick="nextPage()">›</button>
-
 </div>
 
 </div>
-</div>
+
 
 
 <!-- =========================
      МУЗЫКА
 ========================= -->
 
-<audio id="music" loop preload="auto">
-    <source src="a_176625.mp3" type="audio/mpeg">
+<audio
+    id="music"
+    loop
+    preload="auto"
+>
+
+    <source
+        src="a_176625.mp3"
+        type="audio/mpeg"
+    >
+
 </audio>
 
-<button class="music" id="musicButton">
+
+<button
+    class="music"
+    id="musicButton"
+>
     🔊
 </button>
+
 
 
 <script>
 
 let currentPage = 1;
-const totalPages = 5;
 
-const cover = document.getElementById("cover");
-const envelope = document.getElementById("envelope");
-const site = document.getElementById("site");
-const music = document.getElementById("music");
-const musicButton = document.getElementById("musicButton");
-const pageNumber = document.getElementById("pageNumber");
+const totalPages = 6;
+
+const cover =
+    document.getElementById("cover");
+
+const envelope =
+    document.getElementById("envelope");
+
+const site =
+    document.getElementById("site");
+
+const music =
+    document.getElementById("music");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+const pageNumber =
+    document.getElementById("pageNumber");
 
 
 /* КОНВЕРТ */
@@ -778,32 +744,37 @@ envelope.onclick = function(){
 
         site.classList.add("show");
 
-        music.play().catch(()=>{});
+        music.play().catch(function(){});
 
     },800);
 
 };
 
 
-/* БЕТТИ КӨРСӨТҮҮ */
+/* БЕТ АЛМАШТЫРУУ */
 
 function showPage(number){
 
     if(number < 1){
-        number = 5;
+        number = totalPages;
     }
 
-    if(number > 5){
+    if(number > totalPages){
         number = 1;
     }
 
     currentPage = number;
 
-    document.querySelectorAll(".page").forEach(function(page){
-        page.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page){
 
-    document.querySelector(".page" + currentPage)
+            page.classList.remove("active");
+
+        });
+
+    document
+        .querySelectorAll(".page")[currentPage - 1]
         .classList.add("active");
 
     pageNumber.innerHTML =
@@ -813,12 +784,16 @@ function showPage(number){
 
 
 function nextPage(){
+
     showPage(currentPage + 1);
+
 }
 
 
 function previousPage(){
+
     showPage(currentPage - 1);
+
 }
 
 
@@ -849,29 +824,42 @@ musicButton.onclick = function(){
 };
 
 
-/* ТЕЛЕФОНДО СОЛГО/ОҢГО СҮРҮҮ */
+/* ТЕЛЕФОНДО СҮРҮҮ */
 
 let startX = 0;
 
-document.addEventListener("touchstart",function(e){
+document.addEventListener(
+    "touchstart",
+    function(e){
 
-    startX = e.touches[0].clientX;
+        startX =
+            e.touches[0].clientX;
 
-});
-
-document.addEventListener("touchend",function(e){
-
-    let endX = e.changedTouches[0].clientX;
-
-    if(startX - endX > 60){
-        nextPage();
     }
+);
 
-    if(endX - startX > 60){
-        previousPage();
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        let endX =
+            e.changedTouches[0].clientX;
+
+        if(startX - endX > 60){
+
+            nextPage();
+
+        }
+
+        if(endX - startX > 60){
+
+            previousPage();
+
+        }
+
     }
-
-});
+);
 
 </script>
 

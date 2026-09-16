@@ -2,8 +2,7 @@
 <html lang="ky">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>Кыз узатуу — Шайырбунун</title>
 
@@ -18,26 +17,29 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    font-family:Georgia, "Times New Roman", serif;
     background:#000;
+    font-family:Georgia,"Times New Roman",serif;
 }
 
-/* =========================
-   БАШТАЛГЫЧ ЭКРАН
-========================= */
+/* ===== БАШТАЛГЫЧ БЕТ ===== */
 
 #intro{
     position:fixed;
     inset:0;
     z-index:100;
     display:flex;
-    align-items:center;
     justify-content:center;
-    flex-direction:column;
+    align-items:center;
+    text-align:center;
     background:
-        linear-gradient(rgba(20,12,8,.25),rgba(20,12,8,.5)),
-        url("изображения%20(1).jpeg") center/cover;
-    transition:opacity 1.2s ease, visibility 1.2s;
+        linear-gradient(
+            rgba(0,0,0,.2),
+            rgba(0,0,0,.65)
+        ),
+        url("ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_36.png")
+        center/cover no-repeat;
+
+    transition:1.2s ease;
 }
 
 #intro.hide{
@@ -45,123 +47,88 @@ html,body{
     visibility:hidden;
 }
 
-.intro-overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        to bottom,
-        rgba(0,0,0,.15),
-        rgba(0,0,0,.55)
-    );
-}
-
 .intro-content{
-    position:relative;
-    z-index:2;
-    text-align:center;
     color:white;
     padding:25px;
+    text-shadow:0 3px 15px rgba(0,0,0,.8);
 }
 
 .intro-small{
-    font-size:15px;
+    font-size:13px;
     letter-spacing:4px;
-    margin-bottom:15px;
-    opacity:.9;
+    margin-bottom:18px;
 }
 
 .intro-title{
     font-size:42px;
     letter-spacing:5px;
-    text-shadow:0 3px 15px rgba(0,0,0,.5);
 }
 
 .intro-name{
-    margin-top:15px;
     font-size:22px;
-    letter-spacing:2px;
+    margin-top:15px;
+    font-style:italic;
 }
 
-.envelope{
-    margin-top:35px;
+.open{
+    margin:35px auto 0;
     width:85px;
     height:65px;
     position:relative;
     cursor:pointer;
-    animation:float 2.5s infinite ease-in-out;
+    animation:float 2s infinite;
 }
 
-.envelope-body{
+.envelope{
     position:absolute;
     inset:0;
-    background:#f7eee3;
-    border-radius:4px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    background:#f5e8d8;
+    border-radius:5px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
-.envelope-body:before,
-.envelope-body:after{
-    content:"";
+.flap{
     position:absolute;
-    bottom:0;
-    width:0;
-    height:0;
-    border-style:solid;
-}
-
-.envelope-body:before{
     left:0;
-    border-width:0 42px 40px 0;
-    border-color:transparent #dfc9af transparent transparent;
-}
-
-.envelope-body:after{
-    right:0;
-    border-width:40px 42px 0 0;
-    border-color:#dfc9af transparent transparent transparent;
-}
-
-.envelope-flap{
-    position:absolute;
-    z-index:2;
     top:0;
-    left:0;
     width:0;
     height:0;
     border-left:42px solid transparent;
     border-right:42px solid transparent;
-    border-top:35px solid #fff8ef;
+    border-top:38px solid #fff8ee;
 }
 
 .heart{
     position:absolute;
-    z-index:5;
+    z-index:3;
     left:34px;
     top:22px;
-    font-size:18px;
-    color:#a5794c;
+    color:#a67c52;
+    font-size:20px;
 }
 
-.click-text{
+.open-text{
     margin-top:20px;
-    font-size:13px;
+    font-size:12px;
     letter-spacing:2px;
-    opacity:.85;
 }
 
 @keyframes float{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-8px)}
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
 }
 
-/* =========================
-   СЛАЙДЕР
-========================= */
 
-#app{
+/* ===== СЛАЙДЕР ===== */
+
+#slider{
+    position:relative;
     width:100%;
     height:100%;
-    position:relative;
     background:#000;
 }
 
@@ -171,7 +138,6 @@ html,body{
     opacity:0;
     visibility:hidden;
     transition:opacity 1.2s ease;
-    overflow:hidden;
 }
 
 .slide.active{
@@ -179,57 +145,65 @@ html,body{
     visibility:visible;
 }
 
-/* Сүрөт */
+
+/* ===== СҮРӨТ ===== */
 
 .photo{
     position:absolute;
-    inset:-5%;
     width:110%;
     height:110%;
+    left:-5%;
+    top:-5%;
     object-fit:cover;
-    animation:none;
+
     filter:brightness(.78);
+
+    transform:scale(1);
 }
 
 .slide.active .photo{
-    animation:cinematicZoom 9s ease forwards;
+    animation:zoom 9s ease forwards;
 }
 
-@keyframes cinematicZoom{
+@keyframes zoom{
     from{
         transform:scale(1);
     }
+
     to{
         transform:scale(1.10);
     }
 }
 
-/* Ар бир сүрөттөгү жарык */
 
-.slide:after{
+/* ===== ТӨМӨНКҮ КАРАҢГЫ КАТМАР ===== */
+
+.slide::after{
     content:"";
     position:absolute;
     inset:0;
+    z-index:2;
+
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,.05) 20%,
-            rgba(0,0,0,.12) 45%,
-            rgba(0,0,0,.72) 100%
+            rgba(0,0,0,.03) 25%,
+            rgba(0,0,0,.10) 45%,
+            rgba(0,0,0,.78) 100%
         );
-    z-index:2;
 }
 
-/* =========================
-   ЖАЗУУ
-========================= */
+
+/* ===== ЖАЗУУ ===== */
 
 .text{
     position:absolute;
     z-index:5;
+
     left:8%;
     right:8%;
-    bottom:12%;
+    bottom:11%;
+
     text-align:center;
     color:white;
 
@@ -237,15 +211,15 @@ html,body{
     transform:translateY(35px);
 
     text-shadow:
-        0 2px 15px rgba(0,0,0,.8),
-        0 1px 3px rgba(0,0,0,.8);
+        0 3px 15px rgba(0,0,0,.9),
+        0 1px 4px rgba(0,0,0,.8);
 }
 
 .slide.active .text{
-    animation:textAppear 1.5s .5s ease forwards;
+    animation:textIn 1.5s .5s ease forwards;
 }
 
-@keyframes textAppear{
+@keyframes textIn{
     to{
         opacity:1;
         transform:translateY(0);
@@ -253,19 +227,19 @@ html,body{
 }
 
 .small{
-    font-size:14px;
+    font-size:13px;
     letter-spacing:4px;
     margin-bottom:15px;
 }
 
 .title{
     font-size:42px;
-    letter-spacing:3px;
+    letter-spacing:4px;
     margin-bottom:12px;
 }
 
 .name{
-    font-size:27px;
+    font-size:28px;
     font-style:italic;
     margin-bottom:12px;
 }
@@ -273,14 +247,14 @@ html,body{
 .description{
     font-size:17px;
     line-height:1.65;
-    max-width:600px;
+    max-width:620px;
     margin:auto;
 }
 
 .date{
-    font-size:32px;
+    font-size:31px;
     letter-spacing:4px;
-    margin:10px 0;
+    margin-bottom:12px;
 }
 
 .info{
@@ -288,115 +262,147 @@ html,body{
     line-height:1.8;
 }
 
-/* =========================
-   ОЮМ
-========================= */
+
+/* ===== КЫРГЫЗ ОЮМДАРЫ ===== */
 
 .ornament{
     position:absolute;
-    z-index:6;
-    top:20px;
-    bottom:20px;
-    width:45px;
-    opacity:.8;
+    z-index:7;
+
+    top:18px;
+    bottom:18px;
+
+    width:42px;
+
     display:flex;
     flex-direction:column;
     justify-content:space-between;
     align-items:center;
-    color:#ead5b8;
-    font-size:27px;
-    text-shadow:0 1px 5px #000;
+
+    color:#ead2ae;
+
+    font-size:25px;
+
+    opacity:.9;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.7);
 }
 
-.ornament.left{
-    left:15px;
+.left{
+    left:14px;
 }
 
-.ornament.right{
-    right:15px;
+.right{
+    right:14px;
 }
 
-.ornament-line{
+.line{
     width:1px;
-    height:70%;
-    background:linear-gradient(
-        transparent,
-        rgba(234,213,184,.8),
-        transparent
-    );
+    height:72%;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(234,210,174,.9),
+            transparent
+        );
 }
 
-/* =========================
-   НАВИГАЦИЯ
-========================= */
 
-.arrow{
-    position:absolute;
-    z-index:20;
-    top:50%;
-    transform:translateY(-50%);
-    width:42px;
-    height:42px;
-    border:1px solid rgba(255,255,255,.5);
-    border-radius:50%;
-    background:rgba(0,0,0,.2);
-    color:white;
-    font-size:24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    backdrop-filter:blur(4px);
-}
-
-.arrow.left{
-    left:15px;
-}
-
-.arrow.right{
-    right:15px;
-}
-
-/* =========================
-   КАДР САНЫ
-========================= */
+/* ===== АРАЛЫК КӨРСӨТКҮЧ ===== */
 
 .counter{
     position:absolute;
     z-index:20;
+
     top:20px;
     left:50%;
+
     transform:translateX(-50%);
+
     color:white;
-    font-size:12px;
-    letter-spacing:3px;
-    opacity:.8;
+
+    font-size:11px;
+    letter-spacing:4px;
+
+    opacity:.85;
 }
 
-/* =========================
-   МУЗЫКА
-========================= */
+
+/* ===== МУЗЫКА ===== */
 
 .music{
     position:absolute;
     z-index:30;
-    top:20px;
-    right:20px;
-    width:38px;
-    height:38px;
+
+    right:18px;
+    top:18px;
+
+    width:40px;
+    height:40px;
+
     border-radius:50%;
-    background:rgba(0,0,0,.3);
+
     border:1px solid rgba(255,255,255,.5);
+
+    background:rgba(0,0,0,.25);
+
     color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:18px;
+
+    backdrop-filter:blur(5px);
+
+    cursor:pointer;
+}
+
+
+/* ===== ЖЕБЕЛЕР ===== */
+
+.arrow{
+    position:absolute;
+    z-index:20;
+
+    top:50%;
+    transform:translateY(-50%);
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.45);
+
+    background:rgba(0,0,0,.18);
+
+    color:white;
+
+    font-size:28px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:17px;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(4px);
 }
 
-/* =========================
-   МОБИЛЬНЫЙ
-========================= */
+.arrow-left{
+    left:14px;
+}
+
+.arrow-right{
+    right:14px;
+}
+
+
+/* ===== ТЕЛЕФОН ===== */
 
 @media(max-width:600px){
 
@@ -427,31 +433,30 @@ html,body{
 
     .info{
         font-size:16px;
-        line-height:1.7;
-    }
-
-    .small{
-        font-size:11px;
-        letter-spacing:3px;
     }
 
     .ornament{
         width:30px;
         font-size:20px;
     }
+
+    .arrow{
+        width:35px;
+        height:35px;
+    }
 }
 </style>
 </head>
 
+
 <body>
 
+
 <!-- =========================
-     БАШТАЛГЫЧ ЭКРАН
+     БАШТАЛГЫЧ БЕТ
 ========================= -->
 
 <div id="intro">
-
-    <div class="intro-overlay"></div>
 
     <div class="intro-content">
 
@@ -467,17 +472,17 @@ html,body{
             Шайырбунун кыз узатуу тою
         </div>
 
-        <div class="envelope" onclick="openInvitation()">
+        <div class="open" onclick="openInvitation()">
 
-            <div class="envelope-body"></div>
+            <div class="envelope"></div>
 
-            <div class="envelope-flap"></div>
+            <div class="flap"></div>
 
             <div class="heart">♡</div>
 
         </div>
 
-        <div class="click-text">
+        <div class="open-text">
             ЧАКЫРУУНУ АЧУУ ҮЧҮН БАСЫҢЫЗ
         </div>
 
@@ -486,32 +491,43 @@ html,body{
 </div>
 
 
+
 <!-- =========================
-     САЙТ
+     СЛАЙДЕР
 ========================= -->
 
-<div id="app">
+<div id="slider">
 
-    <!-- 1-КАДР -->
 
-    <section class="slide active">
+    <!-- ===== 1 ===== -->
+
+    <div class="slide active">
 
         <img
             class="photo"
-            src="изображения%20(1).jpeg"
-            alt="Кыз узатуу">
+            src="ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_36.png"
+        >
 
         <div class="ornament left">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
 
         <div class="ornament right">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
+
 
         <div class="text">
 
@@ -534,29 +550,39 @@ html,body{
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- 2-КАДР -->
 
-    <section class="slide">
+    <!-- ===== 2 ===== -->
+
+    <div class="slide">
 
         <img
             class="photo"
-            src="изображения%20(2).jpeg"
-            alt="Кыз узатуу">
+            src="ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_45.png"
+        >
 
         <div class="ornament left">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
 
         <div class="ornament right">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
+
 
         <div class="text">
 
@@ -581,29 +607,39 @@ html,body{
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- 3-КАДР -->
 
-    <section class="slide">
+    <!-- ===== 3 ===== -->
+
+    <div class="slide">
 
         <img
             class="photo"
-            src="изображения%20(3).jpeg"
-            alt="Кыз узатуу">
+            src="изображения%20(2).jpeg"
+        >
 
         <div class="ornament left">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
 
         <div class="ornament right">
+
             <div>❧</div>
-            <div class="ornament-line"></div>
+
+            <div class="line"></div>
+
             <div>❦</div>
+
         </div>
+
 
         <div class="text">
 
@@ -612,13 +648,21 @@ html,body{
             </div>
 
             <div class="info">
+
                 ⏰ 17:00
+
                 <br>
+
                 📍 Шамалды-Сай шаары,
                 «Айкол» рестораны
+
             </div>
 
-            <div class="description" style="margin-top:18px;">
+
+            <div
+                class="description"
+                style="margin-top:18px;"
+            >
 
                 Ак жол тилеп,
                 ак баталарыңыздарды берип,
@@ -628,82 +672,118 @@ html,body{
                 <br><br>
 
                 <b>
-                Сиздерди урматтоо менен,
-                <br>
-                Той ээси Кадыралы Бурулсун
+
+                    Сиздерди урматтоо менен,
+
+                    <br>
+
+                    Той ээси
+                    Кадыралы Бурулсун
+
                 </b>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- БАСЫЛУУЧУ БАСМА -->
 
-    <div class="arrow left" onclick="prevSlide()">
+    <!-- ЖЕБЕЛЕР -->
+
+    <div
+        class="arrow arrow-left"
+        onclick="prevSlide()"
+    >
         ‹
     </div>
 
-    <div class="arrow right" onclick="nextSlide()">
+
+    <div
+        class="arrow arrow-right"
+        onclick="nextSlide()"
+    >
         ›
     </div>
 
 
-    <!-- КАДР САНЫ -->
+    <!-- КАДР -->
 
-    <div class="counter" id="counter">
+    <div
+        class="counter"
+        id="counter"
+    >
         01 / 03
     </div>
 
 
     <!-- МУЗЫКА -->
 
-    <div class="music">
+    <div
+        class="music"
+        onclick="toggleMusic()"
+        id="musicButton"
+    >
         ♪
     </div>
 
 </div>
 
 
-<audio id="music" loop preload="auto">
-    <source src="a_176625.mp3" type="audio/mpeg">
+
+<!-- =========================
+     МУЗЫКА
+========================= -->
+
+<audio
+    id="music"
+    loop
+    preload="auto"
+>
+
+    <source
+        src="a_176625.mp3"
+        type="audio/mpeg"
+    >
+
 </audio>
+
 
 
 <script>
 
 let current = 0;
 
-const slides = document.querySelectorAll(".slide");
-const counter = document.getElementById("counter");
-const intro = document.getElementById("intro");
-const music = document.getElementById("music");
+const slides =
+    document.querySelectorAll(".slide");
 
-let autoTimer;
+const intro =
+    document.getElementById("intro");
+
+const music =
+    document.getElementById("music");
+
+const counter =
+    document.getElementById("counter");
+
+let timer;
 
 
-/* =========================
-   ЧАКЫРУУНУ АЧУУ
-========================= */
+/* ===== АЧУУ ===== */
 
 function openInvitation(){
 
     intro.classList.add("hide");
 
-    music.play().catch(function(){
-        console.log("Музыканы браузер бөгөттөдү");
-    });
+    music.play().catch(()=>{});
 
     startAuto();
 
 }
 
 
-/* =========================
-   КАДР КӨРСӨТҮҮ
-========================= */
+/* ===== СЛАЙД ===== */
 
 function showSlide(index){
 
@@ -729,9 +809,7 @@ function showSlide(index){
 }
 
 
-/* =========================
-   КИЙИНКИ
-========================= */
+/* ===== КИЙИНКИ ===== */
 
 function nextSlide(){
 
@@ -742,9 +820,7 @@ function nextSlide(){
 }
 
 
-/* =========================
-   МУРУНКУ
-========================= */
+/* ===== МУРУНКУ ===== */
 
 function prevSlide(){
 
@@ -755,22 +831,22 @@ function prevSlide(){
 }
 
 
-/* =========================
-   АВТОМАТТЫК ВИДЕО СЫЯКТУУ
-========================= */
+/* ===== АВТО ===== */
 
 function startAuto(){
 
-    clearInterval(autoTimer);
+    clearInterval(timer);
 
-    autoTimer = setInterval(function(){
+    timer = setInterval(()=>{
 
         showSlide(current + 1);
 
-    }, 9000);
+    },9000);
 
 }
 
+
+/* ===== КАЙРА ===== */
 
 function restartAuto(){
 
@@ -779,60 +855,9 @@ function restartAuto(){
 }
 
 
-/* =========================
-   СҮЙРӨП ӨТҮҮ — ТЕЛЕФОН ҮЧҮН
-========================= */
+/* ===== МУЗЫКА ===== */
 
-let startX = 0;
-let endX = 0;
-
-document.addEventListener("touchstart", function(e){
-
-    startX = e.touches[0].clientX;
-
-});
-
-document.addEventListener("touchend", function(e){
-
-    endX = e.changedTouches[0].clientX;
-
-    let difference = startX - endX;
-
-    if(Math.abs(difference) > 60){
-
-        if(difference > 0){
-            nextSlide();
-        }else{
-            prevSlide();
-        }
-
-    }
-
-});
-
-
-/* =========================
-   КЛАВИАТУРА
-========================= */
-
-document.addEventListener("keydown", function(e){
-
-    if(e.key === "ArrowRight"){
-        nextSlide();
-    }
-
-    if(e.key === "ArrowLeft"){
-        prevSlide();
-    }
-
-});
-
-
-/* =========================
-   МУЗЫКАНЫ КАЙРА БАШТОО
-========================= */
-
-document.querySelector(".music").addEventListener("click", function(){
+function toggleMusic(){
 
     if(music.paused){
 
@@ -844,7 +869,68 @@ document.querySelector(".music").addEventListener("click", function(){
 
     }
 
-});
+}
+
+
+/* ===== ТЕЛЕФОНДО СҮЙРӨӨ ===== */
+
+let startX = 0;
+
+document.addEventListener(
+    "touchstart",
+    function(e){
+
+        startX =
+            e.touches[0].clientX;
+
+    }
+);
+
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        let endX =
+            e.changedTouches[0].clientX;
+
+        let distance =
+            startX - endX;
+
+        if(Math.abs(distance) > 60){
+
+            if(distance > 0){
+
+                nextSlide();
+
+            }else{
+
+                prevSlide();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* ===== КЛАВИАТУРА ===== */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "ArrowRight"){
+            nextSlide();
+        }
+
+        if(e.key === "ArrowLeft"){
+            prevSlide();
+        }
+
+    }
+);
 
 </script>
 

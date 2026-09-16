@@ -2,488 +2,485 @@
 <html lang="ky">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Кыз узатуу — Шайырбунун</title>
+<title>Кыз узатуу — Шайырбу</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-    font-family:Georgia,"Times New Roman",serif;
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #111;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-/* ===== БАШТАЛГЫЧ БЕТ ===== */
+/* ===== КОНВЕРТ ===== */
 
-#intro{
-    position:fixed;
-    inset:0;
-    z-index:100;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:
-        linear-gradient(
-            rgba(0,0,0,.2),
-            rgba(0,0,0,.65)
-        ),
-        url("ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_36.png")
-        center/cover no-repeat;
-
-    transition:1.2s ease;
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #fffaf3, #ead5b7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: 1.2s;
 }
 
-#intro.hide{
-    opacity:0;
-    visibility:hidden;
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
 }
 
-.intro-content{
-    color:white;
-    padding:25px;
-    text-shadow:0 3px 15px rgba(0,0,0,.8);
+.envelope-box {
+    width: 90%;
+    max-width: 400px;
 }
 
-.intro-small{
-    font-size:13px;
-    letter-spacing:4px;
-    margin-bottom:18px;
+.envelope {
+    width: 280px;
+    height: 185px;
+    margin: auto;
+    position: relative;
+    cursor: pointer;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,.25));
 }
 
-.intro-title{
-    font-size:42px;
-    letter-spacing:5px;
+.env-back {
+    position: absolute;
+    inset: 0;
+    background: #e8cda7;
+    border: 2px solid #a77b46;
+    border-radius: 8px;
 }
 
-.intro-name{
-    font-size:22px;
-    margin-top:15px;
-    font-style:italic;
+.env-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 92px solid transparent;
+    border-left: 140px solid #f0daba;
+    z-index: 3;
 }
 
-.open{
-    margin:35px auto 0;
-    width:85px;
-    height:65px;
-    position:relative;
-    cursor:pointer;
-    animation:float 2s infinite;
+.env-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 92px solid transparent;
+    border-right: 140px solid #f0daba;
+    z-index: 3;
 }
 
-.envelope{
-    position:absolute;
-    inset:0;
-    background:#f5e8d8;
-    border-radius:5px;
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
+.env-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 105px solid #d9b88b;
+    z-index: 4;
 }
 
-.flap{
-    position:absolute;
-    left:0;
-    top:0;
-    width:0;
-    height:0;
-    border-left:42px solid transparent;
-    border-right:42px solid transparent;
-    border-top:38px solid #fff8ee;
+.env-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #cba573;
+    transform-origin: top;
+    transition: 1s;
+    z-index: 7;
 }
 
-.heart{
-    position:absolute;
-    z-index:3;
-    left:34px;
-    top:22px;
-    color:#a67c52;
-    font-size:20px;
+.envelope.open .env-flap {
+    transform: rotateX(180deg);
 }
 
-.open-text{
-    margin-top:20px;
-    font-size:12px;
-    letter-spacing:2px;
+.seal {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 82px;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #966b3d;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
 }
 
-@keyframes float{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-8px);
-    }
+.intro-title {
+    margin-top: 35px;
+    color: #76502d;
+    font-size: 25px;
+    letter-spacing: 3px;
 }
 
-
-/* ===== СЛАЙДЕР ===== */
-
-#slider{
-    position:relative;
-    width:100%;
-    height:100%;
-    background:#000;
+.intro-text {
+    margin-top: 12px;
+    color: #856f55;
+    font-size: 16px;
 }
 
-.slide{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    visibility:hidden;
-    transition:opacity 1.2s ease;
+.click {
+    margin-top: 20px;
+    color: #966b3d;
+    font-size: 14px;
+    animation: pulse 1.5s infinite;
 }
 
-.slide.active{
-    opacity:1;
-    visibility:visible;
-}
-
-
-/* ===== СҮРӨТ ===== */
-
-.photo{
-    position:absolute;
-    width:110%;
-    height:110%;
-    left:-5%;
-    top:-5%;
-    object-fit:cover;
-
-    filter:brightness(.78);
-
-    transform:scale(1);
-}
-
-.slide.active .photo{
-    animation:zoom 9s ease forwards;
-}
-
-@keyframes zoom{
-    from{
-        transform:scale(1);
-    }
-
-    to{
-        transform:scale(1.10);
+@keyframes pulse {
+    50% {
+        opacity: .35;
     }
 }
 
 
-/* ===== ТӨМӨНКҮ КАРАҢГЫ КАТМАР ===== */
+/* ===== СЛАЙДШОУ ===== */
 
-.slide::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:2;
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #111;
+}
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.03) 25%,
-            rgba(0,0,0,.10) 45%,
-            rgba(0,0,0,.78) 100%
-        );
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s ease;
+    overflow: hidden;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+}
+
+.slide.active img {
+    animation: zoom 9s ease forwards;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(1.04);
+    }
+
+    to {
+        transform: scale(1.14);
+    }
 }
 
 
-/* ===== ЖАЗУУ ===== */
+/* сүрөттү бир аз караңгылатат */
 
-.text{
-    position:absolute;
-    z-index:5;
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.08),
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.68)
+    );
+    z-index: 2;
+}
 
-    left:8%;
-    right:8%;
-    bottom:11%;
 
-    text-align:center;
-    color:white;
+/* ===== ТЕКСТ ===== */
 
-    opacity:0;
-    transform:translateY(35px);
+.text {
+    position: absolute;
+    z-index: 5;
+    left: 8%;
+    right: 8%;
+    bottom: 9%;
+    text-align: center;
+    color: white;
+
+    opacity: 0;
+    transform: translateY(35px);
+
+    transition:
+        opacity 1.2s ease .3s,
+        transform 1.2s ease .3s;
 
     text-shadow:
-        0 3px 15px rgba(0,0,0,.9),
-        0 1px 4px rgba(0,0,0,.8);
+        0 2px 8px rgba(0,0,0,.9),
+        0 3px 18px rgba(0,0,0,.7);
 }
 
-.slide.active .text{
-    animation:textIn 1.5s .5s ease forwards;
+.slide.active .text {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes textIn{
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.text h1 {
+    font-size: clamp(28px, 7vw, 52px);
+    margin-bottom: 15px;
 }
 
-.small{
-    font-size:13px;
-    letter-spacing:4px;
-    margin-bottom:15px;
+.text h2 {
+    font-size: clamp(25px, 6vw, 43px);
+    margin-bottom: 15px;
 }
 
-.title{
-    font-size:42px;
-    letter-spacing:4px;
-    margin-bottom:12px;
+.text p {
+    font-size: clamp(16px, 4vw, 23px);
+    line-height: 1.55;
 }
 
-.name{
-    font-size:28px;
-    font-style:italic;
-    margin-bottom:12px;
-}
-
-.description{
-    font-size:17px;
-    line-height:1.65;
-    max-width:620px;
-    margin:auto;
-}
-
-.date{
-    font-size:31px;
-    letter-spacing:4px;
-    margin-bottom:12px;
-}
-
-.info{
-    font-size:18px;
-    line-height:1.8;
+.line {
+    width: 70px;
+    height: 2px;
+    background: white;
+    margin: 15px auto;
 }
 
 
-/* ===== КЫРГЫЗ ОЮМДАРЫ ===== */
+/* ===== РАМКА ===== */
 
-.ornament{
-    position:absolute;
-    z-index:7;
-
-    top:18px;
-    bottom:18px;
-
-    width:42px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:center;
-
-    color:#ead2ae;
-
-    font-size:25px;
-
-    opacity:.9;
-
-    text-shadow:
-        0 2px 5px rgba(0,0,0,.7);
+.frame {
+    position: absolute;
+    z-index: 8;
+    inset: 15px;
+    border: 1px solid rgba(255,255,255,.55);
+    pointer-events: none;
 }
 
-.left{
-    left:14px;
+.frame::before,
+.frame::after {
+    content: "❖";
+    position: absolute;
+    color: white;
+    font-size: 20px;
 }
 
-.right{
-    right:14px;
+.frame::before {
+    top: 7px;
+    left: 10px;
 }
 
-.line{
-    width:1px;
-    height:72%;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(234,210,174,.9),
-            transparent
-        );
+.frame::after {
+    right: 10px;
+    bottom: 7px;
 }
 
 
-/* ===== АРАЛЫК КӨРСӨТКҮЧ ===== */
+/* ===== ЖОГОРКУ ЖАЗУУ ===== */
 
-.counter{
-    position:absolute;
-    z-index:20;
-
-    top:20px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    color:white;
-
-    font-size:11px;
-    letter-spacing:4px;
-
-    opacity:.85;
+.top {
+    position: absolute;
+    z-index: 10;
+    top: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 8px black;
 }
 
 
 /* ===== МУЗЫКА ===== */
 
-.music{
-    position:absolute;
-    z-index:30;
+.music {
+    position: fixed;
+    z-index: 30;
+    top: 20px;
+    right: 20px;
 
-    right:18px;
-    top:18px;
+    width: 45px;
+    height: 45px;
 
-    width:40px;
-    height:40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.6);
 
-    border-radius:50%;
+    background: rgba(0,0,0,.35);
+    color: white;
 
-    border:1px solid rgba(255,255,255,.5);
-
-    background:rgba(0,0,0,.25);
-
-    color:white;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:18px;
-
-    backdrop-filter:blur(5px);
-
-    cursor:pointer;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 
 /* ===== ЖЕБЕЛЕР ===== */
 
-.arrow{
-    position:absolute;
-    z-index:20;
+.arrow {
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    transform: translateY(-50%);
 
-    top:50%;
-    transform:translateY(-50%);
+    width: 42px;
+    height: 42px;
 
-    width:40px;
-    height:40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.5);
 
-    border-radius:50%;
+    background: rgba(0,0,0,.25);
+    color: white;
 
-    border:1px solid rgba(255,255,255,.45);
-
-    background:rgba(0,0,0,.18);
-
-    color:white;
-
-    font-size:28px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    backdrop-filter:blur(4px);
+    font-size: 27px;
+    cursor: pointer;
 }
 
-.arrow-left{
-    left:14px;
+.prev {
+    left: 15px;
 }
 
-.arrow-right{
-    right:14px;
+.next {
+    right: 15px;
+}
+
+
+/* ===== DOTS ===== */
+
+.dots {
+    position: fixed;
+    z-index: 20;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.4);
+}
+
+.dot.active {
+    background: white;
 }
 
 
 /* ===== ТЕЛЕФОН ===== */
 
-@media(max-width:600px){
+@media(max-width:600px) {
 
-    .intro-title{
-        font-size:34px;
+    .envelope {
+        width: 250px;
+        height: 165px;
     }
 
-    .intro-name{
-        font-size:19px;
+    .env-left {
+        border-left-width: 125px;
+        border-top-width: 82px;
     }
 
-    .title{
-        font-size:34px;
+    .env-right {
+        border-right-width: 125px;
+        border-top-width: 82px;
     }
 
-    .name{
-        font-size:24px;
+    .env-bottom {
+        border-left-width: 125px;
+        border-right-width: 125px;
+        border-bottom-width: 95px;
     }
 
-    .description{
-        font-size:15px;
-        line-height:1.55;
+    .env-flap {
+        border-left-width: 125px;
+        border-right-width: 125px;
+        border-top-width: 90px;
     }
 
-    .date{
-        font-size:27px;
+    .seal {
+        top: 72px;
+        width: 45px;
+        height: 45px;
     }
 
-    .info{
-        font-size:16px;
+    .intro-title {
+        font-size: 21px;
     }
 
-    .ornament{
-        width:30px;
-        font-size:20px;
+    .arrow {
+        display: none;
     }
 
-    .arrow{
-        width:35px;
-        height:35px;
+    .text {
+        left: 10%;
+        right: 10%;
+        bottom: 10%;
+    }
+
+    .frame {
+        inset: 12px;
     }
 }
 </style>
 </head>
 
-
 <body>
 
 
-<!-- =========================
-     БАШТАЛГЫЧ БЕТ
-========================= -->
+<!-- КОНВЕРТ -->
 
 <div id="intro">
 
-    <div class="intro-content">
+    <div class="envelope-box">
 
-        <div class="intro-small">
-            САЛТАНАТТУУ ЧАКЫРУУ
+        <div class="envelope" id="envelope">
+
+            <div class="env-back"></div>
+            <div class="env-left"></div>
+            <div class="env-right"></div>
+            <div class="env-bottom"></div>
+            <div class="env-flap"></div>
+
+            <div class="seal">♡</div>
+
         </div>
 
         <div class="intro-title">
             КЫЗ УЗАТУУ
         </div>
 
-        <div class="intro-name">
-            Шайырбунун кыз узатуу тою
+        <div class="intro-text">
+            Шайырбунун кыз узатуу тоюна
         </div>
 
-        <div class="open" onclick="openInvitation()">
-
-            <div class="envelope"></div>
-
-            <div class="flap"></div>
-
-            <div class="heart">♡</div>
-
-        </div>
-
-        <div class="open-text">
-            ЧАКЫРУУНУ АЧУУ ҮЧҮН БАСЫҢЫЗ
+        <div class="click">
+            Чакырууну ачуу үчүн басыңыз
         </div>
 
     </div>
@@ -491,446 +488,327 @@ html,body{
 </div>
 
 
+<!-- МУЗЫКА -->
 
-<!-- =========================
-     СЛАЙДЕР
-========================= -->
-
-<div id="slider">
+<audio id="music" loop>
+    <source src="./a_176625.mp3" type="audio/mpeg">
+</audio>
 
 
-    <!-- ===== 1 ===== -->
+<!-- СЛАЙДШОУ -->
+
+<div id="app">
+
+    <div class="top">
+        КЫЗ УЗАТУУ • 25.10.2026
+    </div>
+
+
+    <!-- 1-СҮРӨТ -->
 
     <div class="slide active">
 
-        <img
-            class="photo"
-            src="ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_36.png"
-        >
+        <img src="./photo1.jpg">
 
-        <div class="ornament left">
-
-            <div>❧</div>
-
-            <div class="line"></div>
-
-            <div>❦</div>
-
-        </div>
-
-        <div class="ornament right">
-
-            <div>❧</div>
-
-            <div class="line"></div>
-
-            <div>❦</div>
-
-        </div>
-
+        <div class="frame"></div>
 
         <div class="text">
 
-            <div class="small">
-                САЛТАНАТТУУ КЕЧЕ
-            </div>
-
-            <div class="title">
-                КЫЗ УЗАТУУ
-            </div>
-
-            <div class="name">
-                Шайырбунун
-            </div>
-
-            <div class="description">
-                кыз узатуу тоюна арналган
-                салтанаттуу кечеге чакырабыз!
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ===== 2 ===== -->
-
-    <div class="slide">
-
-        <img
-            class="photo"
-            src="ChatGPT%20Изображение%2016%20сент.%202026%20г.%2C%2023_41_45.png"
-        >
-
-        <div class="ornament left">
-
-            <div>❧</div>
+            <h1>УРМАТТУУ КОНОКТОР!</h1>
 
             <div class="line"></div>
 
-            <div>❦</div>
-
-        </div>
-
-        <div class="ornament right">
-
-            <div>❧</div>
-
-            <div class="line"></div>
-
-            <div>❦</div>
-
-        </div>
-
-
-        <div class="text">
-
-            <div class="small">
-                УРМАТТУУ КОНОКТОР!
-            </div>
-
-            <div class="description">
-
-                Сиздерди кызыбыз
-                <b>Шайырбунун</b>
+            <p>
+                Сиздерди кызыбыз Шайырбунун
                 кыз узатуу тоюна арналган
-                салтанаттуу кечеге келип,
-
-                ак дасторкондун үстүндө
-                ак баталарыңызды берип,
-                кадырлуу коногубуз болуп кетүүгө
-
+                салтанаттуу кечеге
                 чын жүрөктөн чакырабыз!
-
-            </div>
+            </p>
 
         </div>
 
     </div>
 
 
-
-    <!-- ===== 3 ===== -->
+    <!-- 2-СҮРӨТ -->
 
     <div class="slide">
 
-        <img
-            class="photo"
-            src="изображения%20(2).jpeg"
-        >
+        <img src="./photo2.jpg">
 
-        <div class="ornament left">
-
-            <div>❧</div>
-
-            <div class="line"></div>
-
-            <div>❦</div>
-
-        </div>
-
-        <div class="ornament right">
-
-            <div>❧</div>
-
-            <div class="line"></div>
-
-            <div>❦</div>
-
-        </div>
-
+        <div class="frame"></div>
 
         <div class="text">
 
-            <div class="date">
-                25.10.2026
-            </div>
+            <h2>САЛТАНАТТУУ КЕЧЕ</h2>
 
-            <div class="info">
+            <div class="line"></div>
 
-                ⏰ 17:00
-
-                <br>
-
-                📍 Шамалды-Сай шаары,
-                «Айкол» рестораны
-
-            </div>
-
-
-            <div
-                class="description"
-                style="margin-top:18px;"
-            >
-
-                Ак жол тилеп,
-                ак баталарыңыздарды берип,
-                кубанычыбызга ортоктош болуп
-                кетиңиздер!
-
-                <br><br>
-
-                <b>
-
-                    Сиздерди урматтоо менен,
-
-                    <br>
-
-                    Той ээси
-                    Кадыралы Бурулсун
-
-                </b>
-
-            </div>
+            <p>
+                Ак дасторкондун үстүндө
+                ак баталарыңызды берип,
+                кадырлуу коногубуз болуп
+                кетүүгө чакырабыз.
+            </p>
 
         </div>
 
     </div>
 
+
+    <!-- 3-СҮРӨТ -->
+
+    <div class="slide">
+
+        <img src="./photo3.jpg">
+
+        <div class="frame"></div>
+
+        <div class="text">
+
+            <h2>25.10.2026</h2>
+
+            <div class="line"></div>
+
+            <p>
+                Саат 17:00
+                <br><br>
+                Шамалды-Сай шаары
+                <br>
+                «Айкол» рестораны
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- 4-БӨЛҮК -->
+
+    <div class="slide">
+
+        <img src="./photo1.jpg">
+
+        <div class="frame"></div>
+
+        <div class="text">
+
+            <h2>КҮТӨБҮЗ!</h2>
+
+            <div class="line"></div>
+
+            <p>
+                Ак жол тилеп, ак баталарыңыздарды
+                берип, кубанычыбызга ортоктош
+                болуп кетиңиздер!
+            </p>
+
+            <br>
+
+            <p>
+                Сиздерди урматтоо менен,
+                <br>
+                <b>Той ээси Кадыралы Бурулсун</b>
+            </p>
+
+        </div>
+
+    </div>
 
 
     <!-- ЖЕБЕЛЕР -->
 
-    <div
-        class="arrow arrow-left"
-        onclick="prevSlide()"
-    >
-        ‹
-    </div>
+    <button class="arrow prev" id="prev">‹</button>
+    <button class="arrow next" id="next">›</button>
 
 
-    <div
-        class="arrow arrow-right"
-        onclick="nextSlide()"
-    >
-        ›
-    </div>
+    <!-- МУЗЫКА БАСҚЫЧЫ -->
+
+    <button class="music" id="musicBtn">
+        ♫
+    </button>
 
 
-    <!-- КАДР -->
+    <!-- DOTS -->
 
-    <div
-        class="counter"
-        id="counter"
-    >
-        01 / 03
-    </div>
-
-
-    <!-- МУЗЫКА -->
-
-    <div
-        class="music"
-        onclick="toggleMusic()"
-        id="musicButton"
-    >
-        ♪
-    </div>
+    <div class="dots" id="dots"></div>
 
 </div>
 
 
-
-<!-- =========================
-     МУЗЫКА
-========================= -->
-
-<audio
-    id="music"
-    loop
-    preload="auto"
->
-
-    <source
-        src="a_176625.mp3"
-        type="audio/mpeg"
-    >
-
-</audio>
-
-
-
 <script>
 
+const slides = document.querySelectorAll(".slide");
+const dotsBox = document.getElementById("dots");
+
 let current = 0;
-
-const slides =
-    document.querySelectorAll(".slide");
-
-const intro =
-    document.getElementById("intro");
-
-const music =
-    document.getElementById("music");
-
-const counter =
-    document.getElementById("counter");
-
-let timer;
+let timer = null;
 
 
-/* ===== АЧУУ ===== */
+/* DOTS */
 
-function openInvitation(){
+slides.forEach((slide, index) => {
 
-    intro.classList.add("hide");
+    const dot = document.createElement("span");
 
-    music.play().catch(()=>{});
+    dot.className = "dot";
 
-    startAuto();
+    if (index === 0) {
+        dot.classList.add("active");
+    }
 
-}
+    dot.onclick = () => {
+        showSlide(index);
+    };
+
+    dotsBox.appendChild(dot);
+
+});
+
+const dots = document.querySelectorAll(".dot");
 
 
-/* ===== СЛАЙД ===== */
+/* СЛАЙД АЛМАШТЫРУУ */
 
-function showSlide(index){
+function showSlide(index) {
 
     slides[current].classList.remove("active");
+    dots[current].classList.remove("active");
 
-    current = index;
-
-    if(current >= slides.length){
-        current = 0;
-    }
-
-    if(current < 0){
-        current = slides.length - 1;
-    }
+    current = (index + slides.length) % slides.length;
 
     slides[current].classList.add("active");
+    dots[current].classList.add("active");
 
-    counter.innerHTML =
-        String(current + 1).padStart(2,"0")
-        + " / "
-        + String(slides.length).padStart(2,"0");
-
+    restartTimer();
 }
 
 
-/* ===== КИЙИНКИ ===== */
+/* КИЙИНКИ */
 
-function nextSlide(){
-
+function nextSlide() {
     showSlide(current + 1);
-
-    restartAuto();
-
 }
 
 
-/* ===== МУРУНКУ ===== */
+/* МУРУНКУ */
 
-function prevSlide(){
-
+function prevSlide() {
     showSlide(current - 1);
-
-    restartAuto();
-
 }
 
 
-/* ===== АВТО ===== */
+document.getElementById("next").onclick = nextSlide;
+document.getElementById("prev").onclick = prevSlide;
 
-function startAuto(){
+
+/* 9 СЕКУНД */
+
+function restartTimer() {
 
     clearInterval(timer);
 
-    timer = setInterval(()=>{
+    timer = setInterval(() => {
 
-        showSlide(current + 1);
+        nextSlide();
 
-    },9000);
+    }, 9000);
+}
+
+
+/* МУЗЫКА */
+
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+
+let playing = false;
+
+
+function playMusic() {
+
+    music.play().then(() => {
+
+        playing = true;
+        musicBtn.textContent = "♫";
+
+    }).catch(() => {});
 
 }
 
 
-/* ===== КАЙРА ===== */
+musicBtn.onclick = () => {
 
-function restartAuto(){
-
-    startAuto();
-
-}
-
-
-/* ===== МУЗЫКА ===== */
-
-function toggleMusic(){
-
-    if(music.paused){
-
-        music.play();
-
-    }else{
+    if (playing) {
 
         music.pause();
 
+        playing = false;
+
+        musicBtn.textContent = "🔇";
+
+    } else {
+
+        playMusic();
+
     }
 
-}
+};
 
 
-/* ===== ТЕЛЕФОНДО СҮЙРӨӨ ===== */
+/* КОНВЕРТ */
+
+const intro = document.getElementById("intro");
+const envelope = document.getElementById("envelope");
+
+
+envelope.onclick = () => {
+
+    envelope.classList.add("open");
+
+    playMusic();
+
+    setTimeout(() => {
+
+        intro.classList.add("hide");
+
+    }, 900);
+
+    restartTimer();
+
+};
+
+
+/* ТЕЛЕФОНДО СҮРҮП ӨТКӨРҮҮ */
 
 let startX = 0;
 
-document.addEventListener(
-    "touchstart",
-    function(e){
+document.addEventListener("touchstart", (e) => {
 
-        startX =
-            e.touches[0].clientX;
+    startX = e.changedTouches[0].screenX;
 
-    }
-);
+});
 
 
-document.addEventListener(
-    "touchend",
-    function(e){
+document.addEventListener("touchend", (e) => {
 
-        let endX =
-            e.changedTouches[0].clientX;
+    const endX = e.changedTouches[0].screenX;
 
-        let distance =
-            startX - endX;
+    const difference = endX - startX;
 
-        if(Math.abs(distance) > 60){
+    if (Math.abs(difference) > 50) {
 
-            if(distance > 0){
-
-                nextSlide();
-
-            }else{
-
-                prevSlide();
-
-            }
-
-        }
-
-    }
-);
-
-
-/* ===== КЛАВИАТУРА ===== */
-
-document.addEventListener(
-    "keydown",
-    function(e){
-
-        if(e.key === "ArrowRight"){
+        if (difference < 0) {
             nextSlide();
-        }
-
-        if(e.key === "ArrowLeft"){
+        } else {
             prevSlide();
         }
 
     }
-);
+
+});
+
+
+restartTimer();
 
 </script>
 

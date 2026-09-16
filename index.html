@@ -1270,5 +1270,125 @@ function startTimer(){
 
     clearTimeout(timer);
 
-    timer = setTime
+    timer = setTimeout(()=>{
+
+        nextSlide();
+
+    },8000);
+
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+function toggleMusic(event){
+
+    if(event){
+
+        event.stopPropagation();
+
+    }
+
+
+    if(musicPlaying){
+
+        music.pause();
+
+        musicPlaying = false;
+
+    }else{
+
+        music.play()
+            .then(()=>{
+
+                musicPlaying = true;
+
+            })
+            .catch(()=>{});
+
+    }
+
+}
+
+
+/* =========================
+   SWIPE
+========================= */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+document.addEventListener(
+    "touchstart",
+    function(e){
+
+        touchStartX =
+            e.changedTouches[0].screenX;
+
+    },
+    {passive:true}
+);
+
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        touchEndX =
+            e.changedTouches[0].screenX;
+
+        const difference =
+            touchStartX - touchEndX;
+
+
+        if(Math.abs(difference) > 50){
+
+            if(difference > 0){
+
+                nextSlide();
+
+            }else{
+
+                previousSlide();
+
+            }
+
+        }
+
+    },
+    {passive:true}
+);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "ArrowRight"){
+
+            nextSlide();
+
+        }
+
+        if(e.key === "ArrowLeft"){
+
+            previousSlide();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
 ```

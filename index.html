@@ -3,48 +3,595 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Кыз узатуу</title>
+<title>Кыз узатуу — Шайырбуу</title>
 
 <style>
-body {
+* {
     margin: 0;
-    padding: 20px;
-    background: #222;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+/* ===== БАШТАЛГЫЧ КОНВЕРТ ===== */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #fffaf5, #ead7c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.envelope {
+    width: 280px;
+    height: 190px;
+    position: relative;
+    background: #f7eee5;
+    border: 2px solid #b99b7b;
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
+}
+
+.envelope:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 138px solid transparent;
+    border-right: 138px solid transparent;
+    border-top: 105px solid #dfc5ac;
+    z-index: 3;
+}
+
+.envelope:after {
+    content: "❦";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -10%);
+    font-size: 42px;
+    color: #9b7655;
+    z-index: 5;
+}
+
+.open-text {
+    margin-top: 35px;
+    color: #80634b;
+    font-size: 17px;
+    letter-spacing: 2px;
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .45;
+    }
+}
+
+/* ===== СЛАЙДШОУ ===== */
+
+#slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: none;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease;
+    overflow: hidden;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* СҮРӨТ */
+
+.slide img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1);
+}
+
+.slide.active img {
+    animation: zoom 9s ease forwards;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.10);
+    }
+}
+
+/* Караңгылатуу */
+
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.05),
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.55)
+    );
+}
+
+/* ===== ТЕКСТ ===== */
+
+.text {
+    position: absolute;
+    z-index: 5;
+    left: 8%;
+    right: 8%;
+    bottom: 12%;
+    text-align: center;
     color: white;
-    font-family: Arial, sans-serif;
+    text-shadow: 0 2px 12px rgba(0,0,0,.8);
+    opacity: 0;
+    transform: translateY(35px);
+}
+
+.slide.active .text {
+    animation: textIn 1.5s ease .5s forwards;
+}
+
+@keyframes textIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text h1 {
+    font-size: clamp(28px, 8vw, 55px);
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+}
+
+.text p {
+    font-size: clamp(16px, 4.5vw, 24px);
+    line-height: 1.55;
+}
+
+.date {
+    font-size: clamp(24px, 7vw, 40px) !important;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* ===== КЫРГЫЗ ОЮМУ ===== */
+
+.ornament {
+    position: absolute;
+    z-index: 10;
+    left: 15px;
+    right: 15px;
+    height: 35px;
+    border-top: 2px solid rgba(255,255,255,.75);
+    border-bottom: 2px solid rgba(255,255,255,.75);
+}
+
+.ornament.top {
+    top: 18px;
+}
+
+.ornament.bottom {
+    bottom: 18px;
+}
+
+.ornament::before {
+    content: "❧  ❦  ❧  ❦  ❧  ❦  ❧";
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 3px;
+    font-size: 22px;
+    color: rgba(255,255,255,.9);
+}
+
+/* ===== БАШКАРУУ ===== */
+
+.music-btn {
+    position: fixed;
+    z-index: 30;
+    top: 65px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.7);
+    background: rgba(0,0,0,.3);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.arrow {
+    position: fixed;
+    z-index: 30;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.5);
+    background: rgba(0,0,0,.25);
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 15px;
+}
+
+.next {
+    right: 15px;
+}
+
+/* ===== DOTS ===== */
+
+.dots {
+    position: fixed;
+    z-index: 30;
+    bottom: 55px;
+    left: 0;
+    right: 0;
     text-align: center;
 }
 
-img {
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
-    display: block;
-    border-radius: 12px;
+.dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.5);
 }
 
-h1 {
-    margin-bottom: 30px;
+.dot.active {
+    background: white;
+    transform: scale(1.4);
+}
+
+/* ===== ТЕЛЕФОН ===== */
+
+@media (max-width: 600px) {
+
+    .envelope {
+        width: 250px;
+        height: 170px;
+    }
+
+    .envelope:before {
+        border-left-width: 123px;
+        border-right-width: 123px;
+        border-top-width: 95px;
+    }
+
+    .text {
+        bottom: 13%;
+    }
+
+    .text p {
+        line-height: 1.45;
+    }
+
+    .arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<h1>КЫЗ УЗАТУУ</h1>
+<!-- ===== КОНВЕРТ ===== -->
 
-<p>1-сүрөт</p>
-<img src="./photo1.jpg">
+<div id="intro" onclick="openInvitation()">
 
-<p>2-сүрөт</p>
-<img src="./photo2.jpg">
+    <div class="envelope"></div>
 
-<p>3-сүрөт</p>
-<img src="./photo3.jpg">
+    <div class="open-text">
+        ЧАКЫРУУНУ АЧУУ ҮЧҮН БАСЫҢЫЗ
+    </div>
 
-<p>4-сүрөт</p>
-<img src="./photo4.jpg">
+</div>
+
+
+<!-- ===== СЛАЙДШОУ ===== -->
+
+<div id="slider">
+
+    <!-- 1-СҮРӨТ -->
+    <div class="slide active">
+        <img src="./photo1.jpg">
+
+        <div class="ornament top"></div>
+        <div class="ornament bottom"></div>
+
+        <div class="text">
+            <h1>КЫЗ УЗАТУУ</h1>
+            <p>
+                Урматтуу коноктор!
+            </p>
+        </div>
+    </div>
+
+
+    <!-- 2-СҮРӨТ -->
+    <div class="slide">
+        <img src="./photo2.jpg">
+
+        <div class="ornament top"></div>
+        <div class="ornament bottom"></div>
+
+        <div class="text">
+            <p>
+                Сиздерди кызыбыз<br>
+                <b>Шайырбунун</b><br>
+                кыз узатуу тоюна арналган
+                салтанаттуу кечеге
+                чын жүрөктөн чакырабыз!
+            </p>
+        </div>
+    </div>
+
+
+    <!-- 3-СҮРӨТ -->
+    <div class="slide">
+        <img src="./photo3.jpg">
+
+        <div class="ornament top"></div>
+        <div class="ornament bottom"></div>
+
+        <div class="text">
+            <p class="date">
+                25.10.2026
+            </p>
+
+            <p>
+                Саат 17:00
+            </p>
+
+            <p>
+                Шамалды-Сай шаары<br>
+                «Айкол» рестораны
+            </p>
+        </div>
+    </div>
+
+
+    <!-- 4-СҮРӨТ -->
+    <div class="slide">
+        <img src="./photo4.jpg">
+
+        <div class="ornament top"></div>
+        <div class="ornament bottom"></div>
+
+        <div class="text">
+
+            <p>
+                Ак жол тилеп,<br>
+                ак баталарыңыздарды берип,<br>
+                кубанычыбызга ортоктош болуп<br>
+                кетиңиздер!
+            </p>
+
+            <br>
+
+            <p>
+                Сиздерди урматтоо менен,<br>
+                <b>Той ээси<br>
+                Кадыралы Бурулсун</b>
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- МУЗЫКА -->
+    <audio id="music" loop>
+        <source src="./a_176625.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- МУЗЫКА БАСҚЫЧЫ -->
+    <button class="music-btn" onclick="toggleMusic(event)">
+        ♪
+    </button>
+
+
+    <!-- АЛДЫГА / АРТКА -->
+    <button class="arrow prev" onclick="prevSlide(event)">
+        ‹
+    </button>
+
+    <button class="arrow next" onclick="nextSlide(event)">
+        ›
+    </button>
+
+
+    <!-- DOTS -->
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+</div>
+
+
+<script>
+
+let current = 0;
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+const music = document.getElementById("music");
+
+let timer;
+
+
+/* ===== АЧУУ ===== */
+
+function openInvitation() {
+
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("slider").style.display = "block";
+
+    music.play().catch(() => {});
+
+    startTimer();
+}
+
+
+/* ===== СЛАЙД ===== */
+
+function showSlide(index) {
+
+    if (index >= slides.length) {
+        index = 0;
+    }
+
+    if (index < 0) {
+        index = slides.length - 1;
+    }
+
+    current = index;
+
+    slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+
+        if (i === current) {
+            slide.classList.add("active");
+        }
+    });
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === current);
+    });
+}
+
+
+/* ===== КИЙИНКИ ===== */
+
+function nextSlide(event) {
+
+    if (event) event.stopPropagation();
+
+    showSlide(current + 1);
+
+    restartTimer();
+}
+
+
+/* ===== АЛДЫҢКЫ ===== */
+
+function prevSlide(event) {
+
+    if (event) event.stopPropagation();
+
+    showSlide(current - 1);
+
+    restartTimer();
+}
+
+
+/* ===== АВТО ӨТҮҮ ===== */
+
+function startTimer() {
+
+    timer = setInterval(() => {
+        showSlide(current + 1);
+    }, 9000);
+
+}
+
+
+function restartTimer() {
+
+    clearInterval(timer);
+
+    startTimer();
+
+}
+
+
+/* ===== МУЗЫКА ===== */
+
+function toggleMusic(event) {
+
+    event.stopPropagation();
+
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+
+}
+
+
+/* ===== SWIPE ===== */
+
+let startX = 0;
+
+document.addEventListener("touchstart", function(e) {
+
+    startX = e.touches[0].clientX;
+
+});
+
+
+document.addEventListener("touchend", function(e) {
+
+    let endX = e.changedTouches[0].clientX;
+
+    let difference = startX - endX;
+
+    if (Math.abs(difference) > 50) {
+
+        if (difference > 0) {
+            nextSlide();
+        } else {
+            prevSlide();
+        }
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>

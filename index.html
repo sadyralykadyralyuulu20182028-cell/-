@@ -2,1333 +2,793 @@
 <html lang="ky">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Кыз узатуу — Шайырбуу</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Шайырбуу — Кыз узатуу</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-/* =====================================================
-   НЕГИЗГИ
-===================================================== */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html,body{
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ background:#000;
+ font-family:Georgia,"Times New Roman",serif;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+/* ===== COVER ===== */
+#cover{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ background:linear-gradient(135deg,#fffaf6,#ead7c6);
+ transition:1s;
 }
 
-body {
-    font-family: Georgia, "Times New Roman", serif;
+#cover.hide{
+ opacity:0;
+ visibility:hidden;
 }
 
-
-/* =====================================================
-   КОНВЕРТ
-===================================================== */
-
-#intro {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    background:
-        radial-gradient(circle at center,
-        #fffdf9 0%,
-        #f7eee4 45%,
-        #dfc7ae 100%);
-
-    transition: opacity 1.2s ease,
-                visibility 1.2s ease;
+.cover-title{
+ color:#795c43;
+ font-size:32px;
+ letter-spacing:4px;
+ margin-bottom:35px;
 }
 
-#intro.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+.cover-sub{
+ margin-top:28px;
+ color:#8d6d50;
+ font-size:14px;
+ letter-spacing:2px;
+ animation:pulse 2s infinite;
 }
 
-
-/* Жылдызча */
-
-.intro-star {
-    position: absolute;
-    color: rgba(130, 96, 65, .35);
-    font-size: 20px;
+@keyframes pulse{
+ 50%{opacity:.4}
 }
 
-.star1 {
-    top: 13%;
-    left: 17%;
+/* envelope */
+.envelope{
+ width:290px;
+ height:190px;
+ position:relative;
+ cursor:pointer;
+ filter:drop-shadow(0 15px 25px rgba(70,40,20,.25));
 }
 
-.star2 {
-    top: 22%;
-    right: 15%;
+.env-body{
+ position:absolute;
+ inset:0;
+ background:#f8eee4;
+ border:1px solid #bda084;
+ border-radius:4px;
+ overflow:hidden;
 }
 
-.star3 {
-    bottom: 18%;
-    left: 20%;
+.env-body:before{
+ content:"";
+ position:absolute;
+ left:0;
+ bottom:0;
+ border-left:145px solid transparent;
+ border-right:145px solid transparent;
+ border-bottom:100px solid #ead5c0;
 }
 
-.star4 {
-    bottom: 25%;
-    right: 18%;
+.env-body:after{
+ content:"";
+ position:absolute;
+ left:0;
+ bottom:0;
+ border-top:95px solid transparent;
+ border-bottom:95px solid transparent;
+ border-left:145px solid #f1dfce;
 }
 
-
-/* Конверт */
-
-.envelope-wrap {
-    position: relative;
-    width: 300px;
-    height: 210px;
-
-    animation: envelopeFloat 3s ease-in-out infinite;
+.flap{
+ position:absolute;
+ top:0;
+ left:0;
+ z-index:3;
+ border-left:145px solid transparent;
+ border-right:145px solid transparent;
+ border-top:105px solid #dfc3a9;
+ transform-origin:top;
+ transition:.8s;
 }
 
-@keyframes envelopeFloat {
-
-    0%,100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
+.envelope.open .flap{
+ transform:rotateX(180deg);
 }
 
-.envelope {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-
-    width: 300px;
-    height: 190px;
-
-    background: linear-gradient(
-        145deg,
-        #f9eee2,
-        #e7d0b9
-    );
-
-    border: 1px solid rgba(130,95,65,.5);
-
-    box-shadow:
-        0 20px 50px rgba(70,45,25,.25),
-        inset 0 0 25px rgba(255,255,255,.6);
-
-    border-radius: 3px;
+.seal{
+ position:absolute;
+ z-index:5;
+ left:50%;
+ top:53%;
+ transform:translate(-50%,-50%);
+ width:58px;
+ height:58px;
+ border-radius:50%;
+ background:#a98260;
+ border:3px solid #f7eee4;
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:27px;
 }
 
+/* ===== SLIDER ===== */
 
-/* Конверттин үч бурчу */
-
-.envelope-left {
-    position: absolute;
-    inset: 0;
-
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-bottom: 95px solid rgba(210,184,157,.8);
-
-    z-index: 2;
+#slider{
+ position:fixed;
+ inset:0;
+ display:none;
+ background:#000;
+ overflow:hidden;
 }
 
-.envelope-right {
-    position: absolute;
-    inset: 0;
-
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 105px solid rgba(239,220,202,.95);
-
-    z-index: 3;
+.slide{
+ position:absolute;
+ inset:0;
+ opacity:0;
+ visibility:hidden;
+ transition:opacity 1.2s ease;
 }
 
-
-/* Мөөр */
-
-.seal {
-    position: absolute;
-    z-index: 5;
-
-    left: 50%;
-    top: 53%;
-
-    transform: translate(-50%,-50%);
-
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: radial-gradient(
-        circle,
-        #c3a17e,
-        #987553
-    );
-
-    color: #fffaf4;
-
-    font-size: 31px;
-
-    border: 3px solid rgba(255,255,255,.65);
-
-    box-shadow:
-        0 6px 20px rgba(80,50,30,.3);
+.slide.active{
+ opacity:1;
+ visibility:visible;
 }
 
-
-.intro-title {
-    margin-top: 45px;
-
-    color: #765b43;
-
-    font-size: 17px;
-    letter-spacing: 4px;
-    text-align: center;
-
-    text-transform: uppercase;
+.slide img{
+ position:absolute;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ transform:scale(1);
 }
 
-.intro-subtitle {
-    margin-top: 10px;
-
-    color: #9b7b5c;
-
-    font-size: 13px;
-    letter-spacing: 2px;
-
-    animation: blink 2s infinite;
+.slide.active img{
+ animation:zoom 9s ease forwards;
 }
 
-@keyframes blink {
-
-    0%,100% {
-        opacity: .45;
-    }
-
-    50% {
-        opacity: 1;
-    }
+@keyframes zoom{
+ from{transform:scale(1)}
+ to{transform:scale(1.1)}
 }
 
-
-/* =====================================================
-   SLIDER
-===================================================== */
-
-#slider {
-    position: fixed;
-    inset: 0;
-
-    display: none;
-
-    background: #000;
-
-    overflow: hidden;
+/* dark overlay */
+.overlay{
+ position:absolute;
+ inset:0;
+ z-index:2;
+ background:linear-gradient(
+  to bottom,
+  rgba(0,0,0,.05),
+  rgba(0,0,0,.05) 40%,
+  rgba(0,0,0,.68)
+ );
 }
 
+/* ===== FRAME ===== */
 
-/* Ар бир слайд */
-
-.slide {
-    position: absolute;
-
-    inset: 0;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition:
-        opacity 1.3s ease,
-        visibility 1.3s ease;
-
-    overflow: hidden;
+.frame{
+ position:absolute;
+ z-index:5;
+ inset:15px;
+ border:1px solid rgba(255,255,255,.7);
 }
 
-.slide.active {
-    opacity: 1;
-    visibility: visible;
+.frame:before{
+ content:"❦  ❧  ❦  ❧  ❦";
+ position:absolute;
+ top:-14px;
+ left:50%;
+ transform:translateX(-50%);
+ background:rgba(0,0,0,.15);
+ padding:0 12px;
+ color:white;
+ font-size:18px;
+ white-space:nowrap;
 }
 
-
-/* Сүрөт */
-
-.slide-image {
-    position: absolute;
-
-    inset: -4%;
-
-    width: 108%;
-    height: 108%;
-
-    object-fit: cover;
-
-    transform: scale(1);
-
-    transition: transform 9s cubic-bezier(.2,.7,.2,1);
+.frame:after{
+ content:"❦  ❧  ❦  ❧  ❦";
+ position:absolute;
+ bottom:-14px;
+ left:50%;
+ transform:translateX(-50%);
+ background:rgba(0,0,0,.15);
+ padding:0 12px;
+ color:white;
+ font-size:18px;
+ white-space:nowrap;
 }
 
-.slide.active .slide-image {
-    transform: scale(1.10);
+/* corners */
+.c{
+ position:absolute;
+ width:42px;
+ height:42px;
+ border-color:white;
+ border-style:solid;
+ opacity:.8;
 }
 
+.tl{top:9px;left:9px;border-width:2px 0 0 2px}
+.tr{top:9px;right:9px;border-width:2px 2px 0 0}
+.bl{bottom:9px;left:9px;border-width:0 0 2px 2px}
+.br{bottom:9px;right:9px;border-width:0 2px 2px 0}
 
-/* Сүрөттүн үстүндөгү жумшак катмар */
+/* ===== TEXT ===== */
 
-.slide-overlay {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 2;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.08) 0%,
-            rgba(0,0,0,.03) 35%,
-            rgba(0,0,0,.15) 55%,
-            rgba(0,0,0,.72) 100%
-        );
+.text{
+ position:absolute;
+ z-index:10;
+ left:8%;
+ right:8%;
+ bottom:12%;
+ text-align:center;
+ color:white;
+ text-shadow:0 2px 12px rgba(0,0,0,.9);
+ opacity:0;
+ transform:translateY(30px);
+ transition:1.2s .4s;
 }
 
-
-/* =====================================================
-   КЫРГЫЗ ОЮМУ / РАМКА
-===================================================== */
-
-.frame {
-    position: absolute;
-
-    z-index: 5;
-
-    inset: 17px;
-
-    border: 1px solid rgba(255,255,255,.65);
-
-    pointer-events: none;
+.slide.active .text{
+ opacity:1;
+ transform:translateY(0);
 }
 
-.frame::before,
-.frame::after {
-    position: absolute;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    color: rgba(255,255,255,.9);
-
-    font-size: 19px;
-
-    letter-spacing: 7px;
-
-    background: rgba(0,0,0,.08);
-
-    padding: 0 12px;
+.small{
+ font-size:13px;
+ letter-spacing:4px;
+ margin-bottom:15px;
 }
 
-.frame::before {
-    content: "❧  ❦  ❧  ❦  ❧";
-    top: -13px;
+h1{
+ font-size:clamp(30px,9vw,58px);
+ font-weight:normal;
+ letter-spacing:4px;
 }
 
-.frame::after {
-    content: "❧  ❦  ❧  ❦  ❧";
-    bottom: -13px;
+.name{
+ font-size:clamp(28px,8vw,50px);
+ font-style:italic;
+ margin:12px 0;
 }
 
-
-/* Бурчтар */
-
-.corner {
-    position: absolute;
-
-    width: 45px;
-    height: 45px;
-
-    border-color: rgba(255,255,255,.8);
-
-    border-style: solid;
+.line{
+ width:65px;
+ height:1px;
+ background:white;
+ margin:15px auto;
 }
 
-.corner.tl {
-    top: 10px;
-    left: 10px;
-
-    border-width: 2px 0 0 2px;
+.desc{
+ font-size:clamp(15px,4.3vw,23px);
+ line-height:1.55;
 }
 
-.corner.tr {
-    top: 10px;
-    right: 10px;
-
-    border-width: 2px 2px 0 0;
+.date{
+ font-size:clamp(27px,8vw,46px);
+ letter-spacing:3px;
+ margin:10px 0;
 }
 
-.corner.bl {
-    bottom: 10px;
-    left: 10px;
-
-    border-width: 0 0 2px 2px;
+.place{
+ font-size:clamp(15px,4vw,22px);
+ line-height:1.6;
 }
 
-.corner.br {
-    bottom: 10px;
-    right: 10px;
+/* ===== BUTTONS ===== */
 
-    border-width: 0 2px 2px 0;
+.music{
+ position:fixed;
+ z-index:30;
+ top:25px;
+ right:22px;
+ width:43px;
+ height:43px;
+ border-radius:50%;
+ border:1px solid rgba(255,255,255,.7);
+ background:rgba(0,0,0,.3);
+ color:white;
+ font-size:19px;
 }
 
-
-/* =====================================================
-   ТЕКСТ
-===================================================== */
-
-.slide-content {
-    position: absolute;
-
-    z-index: 10;
-
-    left: 8%;
-    right: 8%;
-    bottom: 12%;
-
-    text-align: center;
-
-    color: #fff;
-
-    opacity: 0;
-
-    transform: translateY(35px);
-
-    transition:
-        opacity 1.2s ease .5s,
-        transform 1.2s ease .5s;
-
-    text-shadow:
-        0 2px 12px rgba(0,0,0,.8),
-        0 1px 3px rgba(0,0,0,.9);
+.arrow{
+ position:fixed;
+ z-index:30;
+ top:50%;
+ transform:translateY(-50%);
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ border:1px solid rgba(255,255,255,.5);
+ background:rgba(0,0,0,.25);
+ color:white;
+ font-size:25px;
 }
 
-.slide.active .slide-content {
-    opacity: 1;
-    transform: translateY(0);
+.prev{left:10px}
+.next{right:10px}
+
+/* dots */
+.dots{
+ position:fixed;
+ z-index:30;
+ bottom:28px;
+ left:0;
+ right:0;
+ text-align:center;
 }
 
-
-/* Жука сызык */
-
-.line {
-    width: 70px;
-    height: 1px;
-
-    background: rgba(255,255,255,.8);
-
-    margin: 15px auto;
+.dot{
+ display:inline-block;
+ width:7px;
+ height:7px;
+ border-radius:10px;
+ background:rgba(255,255,255,.4);
+ margin:0 4px;
+ transition:.3s;
 }
 
-
-/* Башкы текст */
-
-.kyrgyz-small {
-    font-size: 13px;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 14px;
-
-    text-transform: uppercase;
+.dot.active{
+ width:22px;
+ background:white;
 }
 
-.main-title {
-    font-size: clamp(31px, 9vw, 62px);
-
-    letter-spacing: 5px;
-
-    font-weight: normal;
-
-    line-height: 1.15;
+/* mobile */
+@media(max-width:600px){
+ .cover-title{font-size:27px}
+ .envelope{width:270px;height:180px}
+ .flap{border-left-width:135px;border-right-width:135px}
+ .env-body:before{
+  border-left-width:135px;
+  border-right-width:135px;
+ }
+ .env-body:after{
+  border-left-width:135px;
+ }
+ .text{
+  left:10%;
+  right:10%;
+  bottom:12%;
+ }
 }
-
-.name {
-    font-size: clamp(28px, 8vw, 52px);
-
-    font-style: italic;
-
-    margin: 12px 0;
-}
-
-.description {
-    font-size: clamp(15px, 4.2vw, 23px);
-
-    line-height: 1.55;
-
-    font-weight: normal;
-}
-
-.date {
-    font-size: clamp(27px, 8vw, 48px);
-
-    letter-spacing: 3px;
-
-    margin: 10px 0;
-
-    font-weight: normal;
-}
-
-.location {
-    font-size: clamp(15px, 4vw, 22px);
-
-    line-height: 1.6;
-}
-
-
-/* =====================================================
-   БАШКАРУУ
-===================================================== */
-
-.controls {
-    position: fixed;
-
-    z-index: 50;
-
-    inset: 0;
-
-    pointer-events: none;
-}
-
-
-/* Музыка */
-
-.music-button {
-    position: absolute;
-
-    top: 38px;
-    right: 35px;
-
-    width: 46px;
-    height: 46px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255,255,255,.7);
-
-    background: rgba(0,0,0,.25);
-
-    color: white;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    pointer-events: auto;
-
-    backdrop-filter: blur(8px);
-}
-
-
-/* Артка/алдыга */
-
-.arrow {
-    position: absolute;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 44px;
-    height: 44px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255,255,255,.5);
-
-    background: rgba(0,0,0,.2);
-
-    color: white;
-
-    font-size: 29px;
-
-    cursor: pointer;
-
-    pointer-events: auto;
-
-    backdrop-filter: blur(8px);
-
-    transition: .3s;
-}
-
-.arrow:hover {
-    background: rgba(255,255,255,.2);
-}
-
-.prev {
-    left: 18px;
-}
-
-.next {
-    right: 18px;
-}
-
-
-/* =====================================================
-   DOTS
-===================================================== */
-
-.dots {
-    position: absolute;
-
-    z-index: 50;
-
-    bottom: 38px;
-
-    left: 0;
-    right: 0;
-
-    text-align: center;
-
-    pointer-events: none;
-}
-
-.dot {
-    display: inline-block;
-
-    width: 7px;
-    height: 7px;
-
-    margin: 0 5px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.4);
-
-    transition: .4s;
-}
-
-.dot.active {
-    width: 22px;
-
-    border-radius: 10px;
-
-    background: white;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .envelope-wrap {
-        transform: scale(.85);
-    }
-
-    .intro-title {
-        margin-top: 30px;
-        font-size: 14px;
-    }
-
-    .intro-subtitle {
-        font-size: 11px;
-    }
-
-    .frame {
-        inset: 12px;
-    }
-
-    .slide-content {
-        left: 9%;
-        right: 9%;
-        bottom: 13%;
-    }
-
-    .description {
-        line-height: 1.5;
-    }
-
-    .arrow {
-        width: 36px;
-        height: 36px;
-
-        font-size: 22px;
-    }
-
-    .prev {
-        left: 10px;
-    }
-
-    .next {
-        right: 10px;
-    }
-
-    .music-button {
-        top: 25px;
-        right: 23px;
-
-        width: 40px;
-        height: 40px;
-    }
-
-    .dots {
-        bottom: 25px;
-    }
-}
-
 </style>
 </head>
 
-
 <body>
 
+<!-- COVER -->
+<div id="cover">
 
-<!-- =====================================================
-     БАШТАЛГЫЧ БЕТ
-===================================================== -->
+ <div class="cover-title">
+  КЫЗ УЗАТУУ
+ </div>
 
-<div id="intro" onclick="openInvitation()">
+ <div class="envelope" id="envelope">
 
-    <div class="intro-star star1">✦</div>
-    <div class="intro-star star2">✧</div>
-    <div class="intro-star star3">✧</div>
-    <div class="intro-star star4">✦</div>
+  <div class="env-body"></div>
+  <div class="flap"></div>
 
+  <div class="seal">
+   ❦
+  </div>
 
-    <div class="envelope-wrap">
+ </div>
 
-        <div class="envelope">
-
-            <div class="envelope-left"></div>
-
-            <div class="envelope-right"></div>
-
-            <div class="seal">
-                ❦
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="intro-title">
-        Кыз узатуу
-    </div>
-
-    <div class="intro-subtitle">
-        чакырууну ачуу үчүн басыңыз
-    </div>
+ <div class="cover-sub">
+  ЧАКЫРУУНУ АЧУУ ҮЧҮН БАСЫҢЫЗ
+ </div>
 
 </div>
 
 
-
-<!-- =====================================================
-     СЛАЙДЕР
-===================================================== -->
-
+<!-- SLIDER -->
 <div id="slider">
 
+ <!-- 1 -->
+ <div class="slide active">
 
-    <!-- ================= 1 ================= -->
+  <img src="./photo1.jpg" alt="photo1">
 
-    <section class="slide active">
+  <div class="overlay"></div>
 
-        <img
-            class="slide-image"
-            src="./photo1.jpg"
-            alt="Кыз узатуу">
+  <div class="frame">
+   <div class="c tl"></div>
+   <div class="c tr"></div>
+   <div class="c bl"></div>
+   <div class="c br"></div>
+  </div>
 
-        <div class="slide-overlay"></div>
+  <div class="text">
 
-        <div class="frame">
+   <div class="small">
+    УРМАТТУУ КОНОКТОР!
+   </div>
 
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
+   <div class="line"></div>
 
-        </div>
+   <h1>
+    КЫЗ УЗАТУУ
+   </h1>
 
+   <div class="name">
+    Шайырбуу
+   </div>
 
-        <div class="slide-content">
+  </div>
 
-            <div class="kyrgyz-small">
-                Урматтуу коноктор!
-            </div>
+ </div>
 
-            <div class="line"></div>
 
-            <h1 class="main-title">
-                КЫЗ УЗАТУУ
-            </h1>
+ <!-- 2 -->
+ <div class="slide">
 
-            <div class="name">
-                Шайырбуу
-            </div>
+  <img src="./photo2.jpg" alt="photo2">
 
-        </div>
+  <div class="overlay"></div>
 
-    </section>
+  <div class="frame">
+   <div class="c tl"></div>
+   <div class="c tr"></div>
+   <div class="c bl"></div>
+   <div class="c br"></div>
+  </div>
 
+  <div class="text">
 
+   <div class="small">
+    ЧЫН ЖҮРӨКТӨН ЧАКЫРАБЫЗ
+   </div>
 
-    <!-- ================= 2 ================= -->
+   <div class="line"></div>
 
-    <section class="slide">
+   <div class="desc">
 
-        <img
-            class="slide-image"
-            src="./photo2.jpg"
-            alt="Шайырбуу">
+    Сиздерди кызыбыз
+    <br>
 
-        <div class="slide-overlay"></div>
+    <span class="name">
+     Шайырбунун
+    </span>
 
-        <div class="frame">
+    <br>
 
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
+    кыз узатуу тоюна арналган
+    салтанаттуу кечеге келип,
+    ак дасторкондун үстүндө
+    ак баталарыңызды берип,
+    кадырлуу коногубуз болуп
+    кетүүгө чын жүрөктөн чакырабыз!
 
-        </div>
+   </div>
 
+  </div>
 
-        <div class="slide-content">
+ </div>
 
-            <div class="kyrgyz-small">
-                Чын жүрөктөн чакырабыз
-            </div>
 
-            <div class="line"></div>
+ <!-- 3 -->
+ <div class="slide">
 
-            <div class="description">
+  <img src="./photo3.jpg" alt="photo3">
 
-                Сиздерди кызыбыз
-                <br>
+  <div class="overlay"></div>
 
-                <span class="name">
-                    Шайырбунун
-                </span>
+  <div class="frame">
+   <div class="c tl"></div>
+   <div class="c tr"></div>
+   <div class="c bl"></div>
+   <div class="c br"></div>
+  </div>
 
-                <br>
+  <div class="text">
 
-                кыз узатуу тоюна арналган
-                салтанаттуу кечеге келип,
-                ак дасторкондун үстүндө
-                ак баталарыңызды берип,
-                кадырлуу коногубуз болуп
-                кетүүгө чын жүрөктөн чакырабыз!
+   <div class="small">
+    ТОЙ КҮНҮ
+   </div>
 
-            </div>
+   <div class="line"></div>
 
-        </div>
+   <div class="date">
+    25.10.2026
+   </div>
 
-    </section>
+   <div class="desc">
+    Саат 17:00
+   </div>
 
+   <br>
 
+   <div class="place">
+    Шамалды-Сай шаары
+    <br>
+    «Айкол» рестораны
+   </div>
 
-    <!-- ================= 3 ================= -->
+  </div>
 
-    <section class="slide">
+ </div>
 
-        <img
-            class="slide-image"
-            src="./photo3.jpg"
-            alt="Кыз узатуу тою">
 
-        <div class="slide-overlay"></div>
+ <!-- 4 -->
+ <div class="slide">
 
-        <div class="frame">
+  <img src="./photo4.jpg" alt="photo4">
 
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
+  <div class="overlay"></div>
 
-        </div>
+  <div class="frame">
+   <div class="c tl"></div>
+   <div class="c tr"></div>
+   <div class="c bl"></div>
+   <div class="c br"></div>
+  </div>
 
+  <div class="text">
 
-        <div class="slide-content">
+   <div class="small">
+    АК ЖОЛ ТИЛЕП
+   </div>
 
-            <div class="kyrgyz-small">
-                Той күнү
-            </div>
+   <div class="line"></div>
 
-            <div class="line"></div>
+   <div class="desc">
 
-            <div class="date">
-                25.10.2026
-            </div>
+    Ак жол тилеп,
+    <br>
+    ак баталарыңыздарды берип,
+    <br>
+    кубанычыбызга ортоктош болуп
+    <br>
+    кетиңиздер!
 
-            <div class="description">
-                Саат 17:00
-            </div>
+   </div>
 
-            <br>
+   <br>
 
-            <div class="location">
+   <div class="place">
 
-                📍 Шамалды-Сай шаары
-                <br>
+    Сиздерди урматтоо менен,
 
-                «Айкол» рестораны
+    <br><br>
 
-            </div>
+    <b>
+     Той ээси
+     <br>
+     Кадыралы Бурулсун
+    </b>
 
-        </div>
+   </div>
 
-    </section>
+  </div>
 
+ </div>
 
 
-    <!-- ================= 4 ================= -->
+<!-- MUSIC -->
+<audio id="music" loop>
+ <source src="./a_176625.mp3" type="audio/mpeg">
+</audio>
 
-    <section class="slide">
 
-        <img
-            class="slide-image"
-            src="./photo4.jpg"
-            alt="Кыз узатуу">
+<button class="music" id="musicBtn">
+ ♪
+</button>
 
-        <div class="slide-overlay"></div>
+<button class="arrow prev" id="prev">
+ ‹
+</button>
 
-        <div class="frame">
+<button class="arrow next" id="next">
+ ›
+</button>
 
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
-
-        </div>
-
-
-        <div class="slide-content">
-
-            <div class="kyrgyz-small">
-                Ак жол каалайбыз
-            </div>
-
-            <div class="line"></div>
-
-            <div class="description">
-
-                Ак жол тилеп,
-                <br>
-
-                ак баталарыңыздарды берип,
-                <br>
-
-                кубанычыбызга ортоктош болуп
-                <br>
-
-                кетиңиздер!
-
-            </div>
-
-            <br>
-
-            <div class="location">
-
-                Сиздерди урматтоо менен,
-
-                <br><br>
-
-                <strong>
-                    Той ээси<br>
-                    Кадыралы Бурулсун
-                </strong>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         МУЗЫКА
-    ================================================= -->
-
-    <audio id="music" loop preload="auto">
-
-        <source
-            src="./a_176625.mp3"
-            type="audio/mpeg">
-
-    </audio>
-
-
-
-    <!-- =================================================
-         БАШКАРУУ
-    ================================================= -->
-
-    <div class="controls">
-
-        <button
-            class="music-button"
-            id="musicButton"
-            onclick="toggleMusic(event)">
-
-            ♪
-
-        </button>
-
-
-        <button
-            class="arrow prev"
-            onclick="previousSlide(event)">
-
-            ‹
-
-        </button>
-
-
-        <button
-            class="arrow next"
-            onclick="nextSlide(event)">
-
-            ›
-
-        </button>
-
-
-        <div class="dots">
-
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-
-        </div>
-
-    </div>
-
+<div class="dots">
+ <span class="dot active"></span>
+ <span class="dot"></span>
+ <span class="dot"></span>
+ <span class="dot"></span>
 </div>
 
+</div>
 
 
 <script>
 
-/* =====================================================
-   ЖӨНДӨӨЛӨР
-===================================================== */
-
-const intro = document.getElementById("intro");
+const cover = document.getElementById("cover");
+const envelope = document.getElementById("envelope");
 const slider = document.getElementById("slider");
 
 const music = document.getElementById("music");
-const musicButton = document.getElementById("musicButton");
+const musicBtn = document.getElementById("musicBtn");
 
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
 
-let currentSlide = 0;
-
-let autoTimer = null;
-
-const slideTime = 8000;
+let current = 0;
+let timer;
 
 
-/* =====================================================
-   КОНВЕРТТИ АЧУУ
-===================================================== */
+/* OPEN */
 
-function openInvitation() {
+envelope.addEventListener("click", function(){
 
-    intro.classList.add("hide");
+ envelope.classList.add("open");
 
-    slider.style.display = "block";
+ setTimeout(function(){
 
-    /*
-       Браузер музыка үчүн колдонуучунун
-       басуусун күтөт.
-    */
+  cover.classList.add("hide");
+  slider.style.display = "block";
 
-    music.volume = 0.75;
+  music.volume = 0.7;
 
-    music.play()
-        .then(() => {
+  music.play().then(function(){
+   musicBtn.innerHTML = "♫";
+  }).catch(function(){
+   musicBtn.innerHTML = "♪";
+  });
 
-            musicButton.innerHTML = "♫";
+  startTimer();
 
-        })
-        .catch(() => {
+ },700);
 
-            musicButton.innerHTML = "♪";
-
-        });
+});
 
 
-    startAutoSlide();
+/* SHOW */
 
-}
+function showSlide(n){
 
+ if(n >= slides.length) n = 0;
+ if(n < 0) n = slides.length - 1;
 
+ current = n;
 
-/* =====================================================
-   СЛАЙД КӨРСӨТҮҮ
-===================================================== */
+ slides.forEach(function(slide,i){
+  slide.classList.toggle("active",i === current);
+ });
 
-function showSlide(index) {
-
-    if (index >= slides.length) {
-        index = 0;
-    }
-
-    if (index < 0) {
-        index = slides.length - 1;
-    }
-
-    currentSlide = index;
-
-
-    slides.forEach((slide, i) => {
-
-        slide.classList.remove("active");
-
-        if (i === currentSlide) {
-
-            slide.classList.add("active");
-
-            /*
-               Zoom анимациясын кайра баштоо
-            */
-
-            const image =
-                slide.querySelector(".slide-image");
-
-            image.style.animation = "none";
-
-            void image.offsetWidth;
-
-            image.style.animation = "";
-
-        }
-
-    });
-
-
-    dots.forEach((dot, i) => {
-
-        dot.classList.toggle(
-            "active",
-            i === currentSlide
-        );
-
-    });
+ dots.forEach(function(dot,i){
+  dot.classList.toggle("active",i === current);
+ });
 
 }
 
 
+/* NEXT */
 
-/* =====================================================
-   КИЙИНКИ СЛАЙД
-===================================================== */
+function next(){
 
-function nextSlide(event) {
+ showSlide(current + 1);
 
-    if (event) {
-        event.stopPropagation();
-    }
-
-    showSlide(currentSlide + 1);
-
-    restartAutoSlide();
+ restartTimer();
 
 }
 
 
+/* PREVIOUS */
 
-/* =====================================================
-   АЛДЫҢКЫ СЛАЙД
-===================================================== */
+function previous(){
 
-function previousSlide(event) {
+ showSlide(current - 1);
 
-    if (event) {
-        event.stopPropagation();
-    }
-
-    showSlide(currentSlide - 1);
-
-    restartAutoSlide();
+ restartTimer();
 
 }
 
 
+/* BUTTONS */
 
-/* =====================================================
-   АВТОМАТТЫК ӨТҮҮ
-===================================================== */
+document.getElementById("next")
+.addEventListener("click",function(e){
+ e.stopPropagation();
+ next();
+});
 
-function startAutoSlide() {
-
-    clearInterval(autoTimer);
-
-    autoTimer = setInterval(() => {
-
-        showSlide(currentSlide + 1);
-
-    }, slideTime);
-
-}
+document.getElementById("prev")
+.addEventListener("click",function(e){
+ e.stopPropagation();
+ previous();
+});
 
 
-function restartAutoSlide() {
+/* MUSIC */
 
-    startAutoSlide();
+musicBtn.addEventListener("click",function(e){
 
-}
+ e.stopPropagation();
 
+ if(music.paused){
 
+  music.play();
 
-/* =====================================================
-   МУЗЫКА
-===================================================== */
+  musicBtn.innerHTML = "♫";
 
-function toggleMusic(event) {
+ }else{
 
-    if (event) {
-        event.stopPropagation();
-    }
+  music.pause();
 
+  musicBtn.innerHTML = "♪";
 
-    if (music.paused) {
+ }
 
-        music.play();
-
-        musicButton.innerHTML = "♫";
-
-    } else {
-
-        music.pause();
-
-        musicButton.innerHTML = "♪";
-
-    }
-
-}
+});
 
 
+/* AUTO */
 
-/* =====================================================
-   SWIPE
-===================================================== */
+function startTimer(){
 
-let touchStartX = 0;
-let touchEndX = 0;
+ clearInterval(timer);
 
+ timer = setInterval(function(){
 
-slider.addEventListener(
-    "touchstart",
-    function(event) {
+  showSlide(current + 1);
 
-        touchStartX =
-            event.changedTouches[0].screenX;
-
-    },
-    { passive: true }
-);
-
-
-slider.addEventListener(
-    "touchend",
-    function(event) {
-
-        touchEndX =
-            event.changedTouches[0].screenX;
-
-        handleSwipe();
-
-    },
-    { passive: true }
-);
-
-
-function handleSwipe() {
-
-    const distance =
-        touchStartX - touchEndX;
-
-
-    /*
-       Солго свайп
-    */
-
-    if (distance > 50) {
-
-        nextSlide();
-
-    }
-
-
-    /*
-       Оңго свайп
-    */
-
-    if (distance < -50) {
-
-        previousSlide();
-
-    }
+ },8000);
 
 }
 
+function restartTimer(){
+ startTimer();
+}
 
 
-/* =====================================================
-   КЛАВИАТУРА
-===================================================== */
+/* SWIPE */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+let startX = 0;
 
-        if (event.key === "ArrowRight") {
+slider.addEventListener("touchstart",function(e){
 
-            nextSlide();
+ startX = e.touches[0].clientX;
 
-        }
+},{passive:true});
 
-        if (event.key === "ArrowLeft") {
 
-            previousSlide();
+slider.addEventListener("touchend",function(e){
 
-        }
+ let endX = e.changedTouches[0].clientX;
 
-        if (event.key === " ") {
+ let distance = startX - endX;
 
-            toggleMusic(event);
+ if(distance > 50){
+  next();
+ }
 
-        }
+ if(distance < -50){
+  previous();
+ }
 
-    }
-);
+},{passive:true});
+
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",function(e){
+
+ if(e.key === "ArrowRight"){
+  next();
+ }
+
+ if(e.key === "ArrowLeft"){
+  previous();
+ }
+
+});
 
 </script>
 

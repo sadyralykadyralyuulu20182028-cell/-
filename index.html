@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Кыз узатуу</title>
 
 <style>
@@ -12,11 +13,14 @@
 
 body {
     margin: 0;
-    background: #f8eeee;
+    background: #f7eeee;
     font-family: Georgia, "Times New Roman", serif;
 }
 
-/* БАШКЫ ЭКРАН */
+/* =========================
+   БАШКЫ БЕТ
+========================= */
+
 #cover {
     position: fixed;
     inset: 0;
@@ -27,7 +31,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    background: linear-gradient(135deg, #fffafa, #f3e0e4);
+    background: linear-gradient(135deg, #fffafa, #f2dfe3);
 
     transition: 1s;
 }
@@ -35,6 +39,7 @@ body {
 #cover.hide {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
 .title {
@@ -45,25 +50,30 @@ body {
 }
 
 /* КОНВЕРТ */
+
 .envelope {
     width: 310px;
     height: 210px;
     position: relative;
     cursor: pointer;
+
     filter: drop-shadow(0 10px 18px rgba(80,40,50,.2));
 }
 
 .envelope-body {
     position: absolute;
     inset: 0;
+
     background: #fff7f5;
     border: 1px solid #d8adb5;
     border-radius: 8px;
+
     overflow: hidden;
 }
 
 .envelope-body:before {
     content: "";
+
     position: absolute;
     bottom: 0;
     left: 0;
@@ -75,6 +85,7 @@ body {
 
 .envelope-body:after {
     content: "";
+
     position: absolute;
     bottom: 0;
     left: 0;
@@ -133,41 +144,149 @@ body {
     margin-top: 28px;
 }
 
-/* ЧАКЫРУУ */
+
+/* =========================
+   ЧАКЫРУУ
+========================= */
+
 #invitation {
-    min-height: 100vh;
     display: none;
+
+    min-height: 100vh;
 
     justify-content: center;
     align-items: flex-start;
 
-    padding: 20px 10px 60px;
+    padding: 20px 10px 50px;
 
-    background: linear-gradient(135deg, #f9eeee, #fffafa);
+    background: linear-gradient(
+        135deg,
+        #f9eeee,
+        #fffafa
+    );
 }
 
 #invitation.show {
     display: flex;
 }
 
-.card {
+
+/* ЧАКЫРУУНУН КАРТОЧКАСЫ */
+
+.invitation-card {
+    position: relative;
+
     width: 100%;
-    max-width: 700px;
+    max-width: 600px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 35px rgba(80,40,50,.20);
 }
 
-.card img {
-    width: 100%;
-    height: auto;
+
+/* ФОН СҮРӨТ */
+
+.invitation-card .background {
     display: block;
 
-    border-radius: 12px;
-
-    box-shadow: 0 10px 35px rgba(70,40,50,.2);
+    width: 100%;
+    height: auto;
 }
 
-/* МУЗЫКА */
+
+/* ЖАЗУУЛАР */
+
+.invitation-text {
+    position: absolute;
+
+    top: 25%;
+    left: 7%;
+
+    width: 56%;
+
+    text-align: center;
+
+    color: #65715f;
+
+    padding: 10px;
+}
+
+
+/* Башкы сөз */
+
+.invitation-text .hello {
+    font-size: 25px;
+    font-weight: bold;
+
+    margin-bottom: 15px;
+
+    color: #65715f;
+}
+
+
+/* Негизги текст */
+
+.invitation-text .main-text {
+    font-size: 15px;
+    line-height: 1.45;
+
+    margin: 0 auto 18px;
+}
+
+
+/* Дата */
+
+.invitation-text .date {
+    font-size: 24px;
+    font-weight: bold;
+
+    margin: 12px 0 5px;
+
+    color: #596753;
+}
+
+
+/* Убакыт */
+
+.invitation-text .time {
+    font-size: 18px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+
+/* Ресторан */
+
+.invitation-text .place {
+    font-size: 15px;
+    line-height: 1.4;
+
+    margin-bottom: 18px;
+}
+
+
+/* Ак жол */
+
+.invitation-text .closing {
+    font-size: 14px;
+    line-height: 1.45;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   МУЗЫКА
+========================= */
+
 #musicButton {
     position: fixed;
+
     right: 18px;
     bottom: 18px;
 
@@ -175,12 +294,15 @@ body {
     height: 55px;
 
     border-radius: 50%;
+
     border: 1px solid #d1a3ad;
 
     background: white;
+
     color: #9b5966;
 
     font-size: 22px;
+
     cursor: pointer;
 
     z-index: 30;
@@ -188,7 +310,12 @@ body {
     box-shadow: 0 5px 15px rgba(70,40,50,.2);
 }
 
-@media(max-width:500px) {
+
+/* =========================
+   ТЕЛЕФОН
+========================= */
+
+@media(max-width:600px) {
 
     .title {
         font-size: 31px;
@@ -214,20 +341,64 @@ body {
     }
 
     #invitation {
-        padding: 10px 5px 50px;
+        padding: 8px 5px 50px;
+    }
+
+    .invitation-text {
+        top: 23%;
+        left: 5%;
+
+        width: 59%;
+
+        padding: 5px;
+    }
+
+    .invitation-text .hello {
+        font-size: 19px;
+        margin-bottom: 8px;
+    }
+
+    .invitation-text .main-text {
+        font-size: 10px;
+        line-height: 1.35;
+        margin-bottom: 10px;
+    }
+
+    .invitation-text .date {
+        font-size: 18px;
+        margin: 8px 0 3px;
+    }
+
+    .invitation-text .time {
+        font-size: 14px;
+    }
+
+    .invitation-text .place {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    .invitation-text .closing {
+        font-size: 9px;
     }
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- БАШКЫ БЕТ -->
+
+<!-- =========================
+     БАШКЫ ЭКРАН
+========================= -->
+
 <div id="cover">
 
     <div class="title">
         Кыз узатуу
     </div>
+
 
     <div class="envelope" id="envelope">
 
@@ -241,6 +412,7 @@ body {
 
     </div>
 
+
     <div class="subtitle">
         Конвертти ачуу үчүн басыңыз
     </div>
@@ -248,46 +420,128 @@ body {
 </div>
 
 
-<!-- ЧАКЫРУУ СҮРӨТҮ -->
+
+<!-- =========================
+     ЧАКЫРУУ
+========================= -->
+
 <div id="invitation">
 
-    <div class="card">
+    <div class="invitation-card">
+
+
+        <!-- ФОН СҮРӨТҮ -->
 
         <img
-            src="./invitation.jpg"
-            alt="Кыз узатуу чакыруусу"
+            class="background"
+            src="https://sadyralykadyralyuulu20182028-cell.github.io/-/invitation.jpg"
+            alt=""
         >
+
+
+        <!-- ЖАЗУУЛАР -->
+
+        <div class="invitation-text">
+
+
+            <div class="hello">
+                УРМАТТУУ<br>
+                КОНОКТОР!
+            </div>
+
+
+            <div class="main-text">
+
+                Сиздерди кызыбыз<br>
+                <b>Шайырбунун</b><br>
+                кыз узатуу тоюна арналган<br>
+                салтанаттуу кечеге келип,<br>
+                ак дасторкондун үстүндө<br>
+                ак баталарыңызды берип,<br>
+                кадырлуу коногубуз болуп<br>
+                кетүүгө чын жүрөктөн<br>
+                чакырабыз!
+
+            </div>
+
+
+            <div class="date">
+                25.10.2026
+            </div>
+
+
+            <div class="time">
+                саат 17:00
+            </div>
+
+
+            <div class="place">
+                Шамалды-Сай шаары<br>
+                «Айкол» рестораны
+            </div>
+
+
+            <div class="closing">
+
+                Ак жол тилеп,<br>
+                ак баталарыңыздарды берип,<br>
+                кубанычыбызга ортоктош<br>
+                болуп кетиңиздер!
+
+            </div>
+
+
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- МУЗЫКА -->
+
+<!-- =========================
+     МУЗЫКА
+========================= -->
+
 <audio id="music" loop preload="auto">
 
     <source
-        src="./a_176625.mp3"
+        src="https://sadyralykadyralyuulu20182028-cell.github.io/-/a_176625.mp3"
         type="audio/mpeg"
     >
 
 </audio>
 
 
-<button id="musicButton" style="display:none;">
+<button
+    id="musicButton"
+    style="display:none;"
+>
     🔊
 </button>
 
 
+
 <script>
 
-const envelope = document.getElementById("envelope");
-const cover = document.getElementById("cover");
-const invitation = document.getElementById("invitation");
-const music = document.getElementById("music");
-const musicButton = document.getElementById("musicButton");
+const envelope =
+    document.getElementById("envelope");
+
+const cover =
+    document.getElementById("cover");
+
+const invitation =
+    document.getElementById("invitation");
+
+const music =
+    document.getElementById("music");
+
+const musicButton =
+    document.getElementById("musicButton");
+
 
 let playing = false;
+
 
 
 /* КОНВЕРТТИ АЧУУ */
@@ -295,6 +549,7 @@ let playing = false;
 envelope.onclick = function() {
 
     envelope.classList.add("open");
+
 
     setTimeout(function() {
 
@@ -304,10 +559,12 @@ envelope.onclick = function() {
 
         musicButton.style.display = "block";
 
+
         music.play()
         .then(function() {
 
             playing = true;
+
             musicButton.innerHTML = "🔊";
 
         })
@@ -317,9 +574,11 @@ envelope.onclick = function() {
 
         });
 
+
     }, 800);
 
 };
+
 
 
 /* МУЗЫКА */

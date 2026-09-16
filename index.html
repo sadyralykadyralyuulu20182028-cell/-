@@ -338,31 +338,169 @@ body{
    TEXT
 ========================= */
 
+```css
 .text{
     position:absolute;
-
     z-index:30;
 
-    left:7%;
-    right:7%;
+    left:6%;
+    right:6%;
 
     top:50%;
-
-    transform:translateY(-42%);
+    transform:translateY(-50%);
 
     text-align:center;
 
-    color:#fff8e8;
+    /* Жазуунун негизги түсү */
+    color:#6b4a32;
 
-    /*
-       Жаңы жумшак алтын-сүт жарыгы
-    */
+    /* Назик күрөң свет */
+    text-shadow:
+        0 1px 1px rgba(255,255,255,.65),
+        0 0 5px rgba(255,255,255,.45),
+        0 0 12px rgba(107,74,50,.18);
+
+    pointer-events:none;
+}
+
+
+/* Башкы кичинекей жазуу */
+
+.kicker{
+    color:#62432e;
 
     text-shadow:
-        0 1px 2px rgba(0,0,0,.70),
-        0 0 5px rgba(255,245,215,.45),
-        0 0 14px rgba(221,181,105,.22);
+        0 1px 1px rgba(255,255,255,.8),
+        0 0 8px rgba(255,255,255,.55);
 }
+
+
+/* "Сиздерди кызыбыз" */
+
+.small-title{
+    color:#704d34;
+
+    text-shadow:
+        0 1px 1px rgba(255,255,255,.8);
+}
+
+
+/* Шайырбунун */
+
+.name{
+    color:#5f402b;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9),
+        0 0 8px rgba(255,255,255,.65),
+        0 0 15px rgba(107,74,50,.18);
+}
+
+
+/* Негизги текст */
+
+.description{
+    color:#69472f;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9),
+        0 0 7px rgba(255,255,255,.65);
+}
+
+
+/* Дата */
+
+.date{
+    color:#5f402b;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9),
+        0 0 9px rgba(255,255,255,.6);
+}
+
+
+/* Саат */
+
+.time{
+    color:#6b4931;
+}
+
+
+/* Дарек */
+
+.place{
+    color:#69472f;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9);
+}
+
+
+/* Акыркы бата */
+
+.closing{
+    color:#68462f;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9),
+        0 0 8px rgba(255,255,255,.65);
+}
+
+
+/* Той ээси */
+
+.signature{
+    color:#765239;
+
+    text-shadow:
+        0 1px 2px rgba(255,255,255,.9);
+}
+
+
+/* Жогорку-төмөнкү оймо */
+
+.ornament{
+    color:#8a633f;
+
+    text-shadow:
+        0 0 7px rgba(255,255,255,.7);
+}
+
+
+/* Жука сызык */
+
+.line{
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #8a633f,
+            transparent
+        );
+
+    box-shadow:
+        0 0 7px rgba(138,99,63,.25);
+}
+
+
+/* Телефон */
+
+@media(max-width:720px){
+
+    .text{
+        color:#6b4a32;
+    }
+
+    .name{
+        color:#5f402b;
+    }
+
+    .description{
+        color:#69472f;
+    }
+
+}
+```
 
 
 /* TEXT ANIMATION */

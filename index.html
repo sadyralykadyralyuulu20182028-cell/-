@@ -4,863 +4,360 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Кыз узатуу — Шайырбунун</title>
+<title>Кыз узатуу — Шайырбунун тою</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    background:#f8eeee;
-    font-family:Georgia, "Times New Roman", serif;
-    color:#63363d;
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f7e9ed;
+  color: #642d43;
+  overflow: hidden;
 }
 
-/* =========================
-   КОНВЕРТ
-========================= */
-
-#cover{
-    position:fixed;
-    inset:0;
-    z-index:100;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background:linear-gradient(135deg,#fffafa,#efd9dd);
-
-    transition:1s;
+#cover {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f8dce5, #fff8fa);
+  text-align: center;
 }
 
-#cover.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
+#cover h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #8d3155;
 }
 
-.cover-title{
-    font-size:40px;
-    color:#994b59;
-    font-style:italic;
-    margin-bottom:35px;
+.envelope {
+  width: 250px;
+  height: 170px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
-.cover-subtitle{
-    margin-top:25px;
-    color:#8e5a62;
+.envelope:hover {
+  transform: scale(1.05);
 }
 
-.envelope{
-    width:310px;
-    height:210px;
-    position:relative;
-    cursor:pointer;
-
-    filter:drop-shadow(0 10px 20px rgba(70,30,40,.2));
+.envelope-body {
+  width: 100%;
+  height: 100%;
+  background: #c75b7d;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px #9c536655;
+  position: absolute;
 }
 
-.env-body{
-    position:absolute;
-    inset:0;
-
-    background:#fff8f6;
-    border:1px solid #d6a7b0;
-    border-radius:8px;
-
-    overflow:hidden;
+.envelope-body::before,
+.envelope-body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
 }
 
-.env-body:before{
-    content:"";
-
-    position:absolute;
-    left:0;
-    bottom:0;
-
-    border-left:155px solid transparent;
-    border-right:155px solid transparent;
-    border-bottom:110px solid #efd6da;
+.envelope-body::before {
+  left: 0;
+  border-width: 85px 125px 0 0;
+  border-color: #e994ad transparent transparent transparent;
 }
 
-.flap{
-    position:absolute;
-    left:0;
-    top:0;
-
-    width:0;
-    height:0;
-
-    border-left:155px solid transparent;
-    border-right:155px solid transparent;
-    border-top:120px solid #e6bec6;
-
-    z-index:5;
-
-    transform-origin:top;
-    transition:.8s;
+.envelope-body::after {
+  right: 0;
+  border-width: 0 125px 85px 0;
+  border-color: transparent #e994ad transparent transparent;
 }
 
-.envelope.open .flap{
-    transform:rotateX(180deg);
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 125px solid transparent;
+  border-right: 125px solid transparent;
+  border-top: 95px solid #b84d70;
+  z-index: 2;
 }
 
-.heart{
-    position:absolute;
-    z-index:10;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:60px;
-    height:60px;
-
-    border-radius:50%;
-
-    background:white;
-    border:1px solid #d3a2ab;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:28px;
-    color:#a04d5b;
+.open-text {
+  margin-top: 25px;
+  font-size: 18px;
+  color: #8d3155;
 }
 
-
-/* =========================
-   САЙТ
-========================= */
-
-#site{
-    display:none;
-    min-height:100vh;
-
-    padding:15px 10px 90px;
+#site {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
-#site.show{
-    display:block;
+.page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  animation: appear 0.7s ease;
 }
 
-.slider{
-    width:100%;
-    max-width:650px;
-    margin:auto;
+.page.active {
+  display: block;
 }
 
-
-/* =========================
-   АР БЕТ
-========================= */
-
-.page{
-    display:none;
-
-    width:100%;
-    min-height:78vh;
-
-    background:#fffaf8;
-
-    border-radius:16px;
-
-    box-shadow:
-        0 10px 35px rgba(80,35,45,.18);
-
-    overflow:hidden;
+.page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.page.active{
-    display:flex;
+.overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 88%;
+  max-width: 650px;
+  padding: 25px;
+  text-align: center;
+  color: #702b49;
+  background: rgba(255, 248, 250, 0.84);
+  border: 2px solid rgba(164, 75, 108, 0.55);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(90, 30, 50, 0.2);
 }
 
-
-/* =========================
-   СҮРӨТТҮН ӨЗҮ
-========================= */
-
-.image-page{
-    align-items:center;
-    justify-content:center;
-    padding:10px;
-    background:#fff;
+.overlay h1 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 5vw, 48px);
+  color: #a52f60;
 }
 
-.image-page img{
-    width:100%;
-    max-height:82vh;
-
-    object-fit:contain;
-
-    border-radius:10px;
+.overlay h2 {
+  margin: 8px 0;
+  font-size: clamp(22px, 4vw, 34px);
 }
 
-
-/* =========================
-   ЖАЗУУ БЕТИ
-========================= */
-
-.text-page{
-    min-height:78vh;
-
-    padding:45px 28px;
-
-    display:flex;
-    flex-direction:column;
-
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #fff8f6,
-            #f5e4e5
-        );
+.overlay p {
+  font-size: clamp(17px, 2.5vw, 23px);
+  line-height: 1.6;
+  margin: 10px 0;
 }
 
-.flower{
-    font-size:35px;
-    margin-bottom:15px;
+.date {
+  font-size: clamp(27px, 5vw, 44px);
+  font-weight: bold;
+  color: #a52f60;
+  margin: 15px 0;
 }
 
-.small-title{
-    font-size:17px;
-    letter-spacing:2px;
-    margin-bottom:12px;
+.buttons {
+  position: fixed;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  z-index: 5;
 }
 
-.big-title{
-    font-size:34px;
-    font-style:italic;
-    color:#9b4857;
-
-    margin-bottom:20px;
+button {
+  border: none;
+  padding: 12px 23px;
+  border-radius: 30px;
+  background: #a52f60;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px #00000030;
 }
 
-.name{
-    font-size:32px;
-    font-style:italic;
-    color:#9b4857;
-    margin:10px 0 20px;
+button:hover {
+  background: #7d2348;
 }
 
-.main-text{
-    max-width:500px;
-
-    font-size:17px;
-    line-height:1.7;
+.counter {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 5;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.8);
+  color: #8d3155;
+  font-size: 14px;
 }
 
-.date{
-    font-size:28px;
-    font-weight:bold;
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
 
-    color:#954554;
-
-    margin-top:25px;
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-
-.info{
-    font-size:17px;
-    line-height:1.7;
-
-    margin-top:10px;
-}
-
-.closing{
-    margin-top:25px;
-
-    font-size:16px;
-    line-height:1.6;
-    font-style:italic;
-}
-
-.owner-title{
-    margin-top:20px;
-
-    font-size:16px;
-    font-weight:bold;
-
-    color:#8e4652;
-}
-
-.owner{
-    margin-top:5px;
-
-    font-size:23px;
-    font-style:italic;
-    font-weight:bold;
-
-    color:#9b4554;
-}
-
-
-/* =========================
-   КНОПКАЛАР
-========================= */
-
-.controls{
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    gap:25px;
-
-    margin-top:18px;
-}
-
-.controls button{
-    width:50px;
-    height:50px;
-
-    border-radius:50%;
-
-    border:1px solid #ce9aa4;
-
-    background:white;
-
-    color:#913e4c;
-
-    font-size:27px;
-
-    cursor:pointer;
-
-    box-shadow:0 4px 12px rgba(70,30,40,.15);
-}
-
-.page-number{
-    font-size:15px;
-    color:#87515a;
-}
-
-
-/* =========================
-   МУЗЫКА
-========================= */
-
-.music{
-    position:fixed;
-
-    right:18px;
-    bottom:18px;
-
-    width:55px;
-    height:55px;
-
-    border:none;
-    border-radius:50%;
-
-    background:white;
-
-    color:#913e4c;
-
-    font-size:22px;
-
-    cursor:pointer;
-
-    box-shadow:0 5px 15px rgba(70,30,40,.2);
-
-    z-index:200;
-}
-
-
-/* =========================
-   ТЕЛЕФОН
-========================= */
-
-@media(max-width:600px){
-
-    .cover-title{
-        font-size:34px;
-    }
-
-    .envelope{
-        width:280px;
-        height:190px;
-    }
-
-    .flap{
-        border-left-width:140px;
-        border-right-width:140px;
-    }
-
-    .env-body:before{
-        border-left-width:140px;
-        border-right-width:140px;
-    }
-
-    .page{
-        min-height:75vh;
-    }
-
-    .text-page{
-        padding:35px 20px;
-    }
-
-    .big-title{
-        font-size:28px;
-    }
-
-    .name{
-        font-size:28px;
-    }
-
-    .main-text{
-        font-size:15px;
-        line-height:1.6;
-    }
-
-    .date{
-        font-size:24px;
-    }
-
-    .info{
-        font-size:15px;
-    }
-
-    .owner{
-        font-size:20px;
-    }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     КОНВЕРТ
-========================= -->
-
 <div id="cover">
+  <h1>КЫЗ УЗАТУУ</h1>
 
-    <div class="cover-title">
-        Кыз узатуу
-    </div>
+  <div class="envelope" onclick="openInvitation()">
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+  </div>
 
-    <div class="envelope" id="envelope">
-
-        <div class="env-body"></div>
-
-        <div class="flap"></div>
-
-        <div class="heart">
-            ♡
-        </div>
-
-    </div>
-
-    <div class="cover-subtitle">
-        Конвертти ачуу үчүн басыңыз
-    </div>
-
+  <div class="open-text">
+    Чакыруу катын ачуу үчүн конвертти басыңыз
+  </div>
 </div>
 
-
-
-<!-- =========================
-     САЙТ
-========================= -->
+<audio id="music" loop>
+  <source src="a_176625.mp3" type="audio/mpeg">
+</audio>
 
 <div id="site">
 
-<div class="slider">
+  <div class="page active">
+    <img src="изображения%20(1).jpeg" alt="Кыз узатуу сүрөтү">
 
-
-<!-- =========================
-     1-БЕТ — СҮРӨТ
-========================= -->
-
-<div class="page image-page active">
-
-    <img
-        src="invitation.jpg"
-        alt="Кыз узатуу"
-    >
-
-</div>
-
-
-<!-- =========================
-     2-БЕТ — ЖАЗУУ
-========================= -->
-
-<div class="page text-page">
-
-    <div class="flower">
-        ❀
+    <div class="overlay">
+      <h1>КЫЗ УЗАТУУ</h1>
+      <h2>Шайырбунун кыз узатуу тою</h2>
+      <p>Сиздерди салтанаттуу кечебизге чакырабыз!</p>
     </div>
+  </div>
 
-    <div class="small-title">
-        УРМАТТУУ КОНОКТОР!
+  <div class="page">
+    <img src="изображения%20(2).jpeg" alt="Кыз узатуу сүрөтү">
+
+    <div class="overlay">
+      <h1>УРМАТТУУ КОНОКТОР!</h1>
+
+      <p>
+        Сиздерди кызыбыз Шайырбунун кыз узатуу тоюна арналган
+        салтанаттуу кечеге келип, ак дасторкондун үстүндө
+        ак баталарыңызды берип, кадырлуу коногубуз болуп
+        кетүүгө чын жүрөктөн чакырабыз!
+      </p>
     </div>
+  </div>
 
-    <div class="big-title">
-        Кыз узатуу
-    </div>
+  <div class="page">
+    <img src="изображения%20(3).jpeg" alt="Кыз узатуу сүрөтү">
 
-    <div class="main-text">
+    <div class="overlay">
+      <h1>ТОЙГО КҮТӨБҮЗ!</h1>
 
-        Сиздерди кызыбыз
+      <div class="date">25.10.2026</div>
 
-    </div>
+      <p><b>Саат 17:00</b></p>
 
-    <div class="name">
-        Шайырбунун
-    </div>
-
-    <div class="main-text">
-
-        кыз узатуу тоюна арналган
-        салтанаттуу кечеге келип,
-        ак дасторкондун үстүндө
-        ак баталарыңызды берип,
-        кадырлуу коногубуз болуп
-        кетүүгө чын жүрөктөн
-        чакырабыз.
-
-    </div>
-
-</div>
-
-
-
-<!-- =========================
-     3-БЕТ — СҮРӨТ
-========================= -->
-
-<div class="page image-page">
-
-    <img
-        src="invitation.jpg"
-        alt="Кыз узатуу"
-    >
-
-</div>
-
-
-
-<!-- =========================
-     4-БЕТ — ДАТА
-========================= -->
-
-<div class="page text-page">
-
-    <div class="flower">
-        ✿
-    </div>
-
-    <div class="big-title">
-        Той күнү
-    </div>
-
-    <div class="date">
-        25.10.2026
-    </div>
-
-    <div class="info">
-
-        🕔 Саат 17:00
-
-        <br><br>
-
-        📍 Шамалды-Сай шаары
-
-        <br>
-
+      <p>
+        Шамалды-Сай шаары,<br>
         «Айкол» рестораны
+      </p>
 
+      <p>
+        Ак жол тилеп, ак баталарыңыздарды берип,
+        кубанычыбызга ортоктош болуп кетиңиздер!
+      </p>
+
+      <p>
+        Сиздерди урматтоо менен,<br>
+        <b>Той ээси Кадыралы Бурулсун</b>
+      </p>
     </div>
+  </div>
 
-    <div class="closing">
+  <div class="counter" id="counter">1 / 3</div>
 
-        Ак жол тилеп,<br>
-        ак баталарыңыздарды берип,<br>
-        кубанычыбызга ортоктош<br>
-        болуп кетиңиздер!
-
-    </div>
+  <div class="buttons">
+    <button onclick="previousPage()">← Артка</button>
+    <button onclick="nextPage()">Кийинки →</button>
+  </div>
 
 </div>
-
-
-
-<!-- =========================
-     5-БЕТ — СҮРӨТ
-========================= -->
-
-<div class="page image-page">
-
-    <img
-        src="invitation.jpg"
-        alt="Кыз узатуу"
-    >
-
-</div>
-
-
-
-<!-- =========================
-     6-БЕТ — ТОЙ ЭЭСИ
-========================= -->
-
-<div class="page text-page">
-
-    <div class="flower">
-        ❀
-    </div>
-
-    <div class="big-title">
-        Кош келиниздер!
-    </div>
-
-    <div class="closing">
-
-        Сиздерди урматтоо менен,
-
-    </div>
-
-    <div class="owner-title">
-        Той ээси
-    </div>
-
-    <div class="owner">
-        Кадыралы Бурулсун
-    </div>
-
-    <div class="flower">
-        ❀
-    </div>
-
-</div>
-
-
-
-<!-- =========================
-     КНОПКАЛАР
-========================= -->
-
-<div class="controls">
-
-    <button onclick="previousPage()">
-        ‹
-    </button>
-
-    <div
-        class="page-number"
-        id="pageNumber"
-    >
-        1 / 6
-    </div>
-
-    <button onclick="nextPage()">
-        ›
-    </button>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- =========================
-     МУЗЫКА
-========================= -->
-
-<audio
-    id="music"
-    loop
-    preload="auto"
->
-
-    <source
-        src="a_176625.mp3"
-        type="audio/mpeg"
-    >
-
-</audio>
-
-
-<button
-    class="music"
-    id="musicButton"
->
-    🔊
-</button>
-
-
 
 <script>
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
+const counter = document.getElementById("counter");
+const music = document.getElementById("music");
 
-let currentPage = 1;
+function openInvitation() {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("site").style.display = "block";
 
-const totalPages = 6;
-
-const cover =
-    document.getElementById("cover");
-
-const envelope =
-    document.getElementById("envelope");
-
-const site =
-    document.getElementById("site");
-
-const music =
-    document.getElementById("music");
-
-const musicButton =
-    document.getElementById("musicButton");
-
-const pageNumber =
-    document.getElementById("pageNumber");
-
-
-/* КОНВЕРТ */
-
-envelope.onclick = function(){
-
-    envelope.classList.add("open");
-
-    setTimeout(function(){
-
-        cover.classList.add("hide");
-
-        site.classList.add("show");
-
-        music.play().catch(function(){});
-
-    },800);
-
-};
-
-
-/* БЕТ АЛМАШТЫРУУ */
-
-function showPage(number){
-
-    if(number < 1){
-        number = totalPages;
-    }
-
-    if(number > totalPages){
-        number = 1;
-    }
-
-    currentPage = number;
-
-    document
-        .querySelectorAll(".page")
-        .forEach(function(page){
-
-            page.classList.remove("active");
-
-        });
-
-    document
-        .querySelectorAll(".page")[currentPage - 1]
-        .classList.add("active");
-
-    pageNumber.innerHTML =
-        currentPage + " / " + totalPages;
-
+  music.play().catch(function() {
+    console.log("Музыканы баштоо үчүн экранды басыңыз");
+  });
 }
 
+function showPage(number) {
+  pages.forEach(function(page, index) {
+    page.classList.toggle("active", index === number);
+  });
 
-function nextPage(){
-
-    showPage(currentPage + 1);
-
+  counter.textContent = (number + 1) + " / " + pages.length;
 }
 
+function nextPage() {
+  currentPage++;
 
-function previousPage(){
+  if (currentPage >= pages.length) {
+    currentPage = 0;
+  }
 
-    showPage(currentPage - 1);
-
+  showPage(currentPage);
 }
 
+function previousPage() {
+  currentPage--;
 
-/* МУЗЫКА */
+  if (currentPage < 0) {
+    currentPage = pages.length - 1;
+  }
 
-let playing = true;
-
-musicButton.onclick = function(){
-
-    if(playing){
-
-        music.pause();
-
-        playing = false;
-
-        musicButton.innerHTML = "🔇";
-
-    }else{
-
-        music.play();
-
-        playing = true;
-
-        musicButton.innerHTML = "🔊";
-
-    }
-
-};
-
-
-/* ТЕЛЕФОНДО СҮРҮҮ */
+  showPage(currentPage);
+}
 
 let startX = 0;
 
-document.addEventListener(
-    "touchstart",
-    function(e){
+document.addEventListener("touchstart", function(event) {
+  startX = event.touches[0].clientX;
+});
 
-        startX =
-            e.touches[0].clientX;
+document.addEventListener("touchend", function(event) {
+  const endX = event.changedTouches[0].clientX;
+  const difference = startX - endX;
 
+  if (Math.abs(difference) > 50) {
+    if (difference > 0) {
+      nextPage();
+    } else {
+      previousPage();
     }
-);
-
-
-document.addEventListener(
-    "touchend",
-    function(e){
-
-        let endX =
-            e.changedTouches[0].clientX;
-
-        if(startX - endX > 60){
-
-            nextPage();
-
-        }
-
-        if(endX - startX > 60){
-
-            previousPage();
-
-        }
-
-    }
-);
-
+  }
+});
 </script>
 
 </body>
